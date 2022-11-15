@@ -1,0 +1,15 @@
+E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\bin\Debug\SerialAssistant.exe.config
+E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\bin\Debug\SerialAssistant.exe.manifest
+E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\bin\Debug\SerialAssistant.application
+E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\bin\Debug\SerialAssistant.exe
+E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\bin\Debug\SerialAssistant.pdb
+E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\obj\Debug\SerialAssistant.csproj.AssemblyReference.cache
+E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\obj\Debug\SerialAssistant.Properties.Resources.resources
+E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\obj\Debug\SerialAssistant.csproj.GenerateResource.cache
+E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\obj\Debug\SerialAssistant.csproj.CoreCompileInputs.cache
+E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\obj\Debug\SerialAssistant.exe.manifest
+E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\obj\Debug\SerialAssistant.application
+E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\obj\Debug\SerialAssistant.exe
+E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\obj\Debug\SerialAssistant.pdb
+E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\obj\Debug\SerialAssistant.Form2.resources
+E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\obj\Debug\SerialAssistant.MainForm.resources
