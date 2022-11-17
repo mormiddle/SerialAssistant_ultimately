@@ -14,7 +14,7 @@ namespace SerialAssistant
 {
     public partial class MainForm : Form
     {
-        Form2 Displayer;//创建波形窗体
+        Form2 Displayer = new Form2();//创建波形窗体
         private long receive_count = 0; //接收字节计数
         private long send_count = 0;    //发送字节计数
         private StringBuilder sb = new StringBuilder();    //为了避免在接收处理函数中反复调用，依然声明为一个全局变量
@@ -682,7 +682,6 @@ namespace SerialAssistant
 
         private void button8_Click(object sender, EventArgs e)
         {
-            Displayer = new Form2();//创建新对象
             Displayer.Show();//显示窗口
         }
     }

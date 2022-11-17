@@ -21,26 +21,87 @@ namespace SerialAssistant
 
         private void Form2_Load(object sender, EventArgs e)
         {
-            chart1.Series["standard"].Points.AddXY(0, 0);
-            chart1.Series["standard"].Points.AddXY(60, 0);
+            chart1_real.Series[0].Points.AddXY(50, 50);
+            chart2_real.Series[0].Points.AddXY(50, 50);
+            chart3_real.Series[0].Points.AddXY(50, 50);
+            chart4_real.Series[0].Points.AddXY(50, 50);
+            chart5_real.Series[0].Points.AddXY(50, 50);
+            chart6_real.Series[0].Points.AddXY(50, 50);
+            chart7_real.Series[0].Points.AddXY(50, 50);
+            chart8_real.Series[0].Points.AddXY(50, 50);
+            chart9_real.Series[0].Points.AddXY(50, 50);
+            chart10_real.Series[0].Points.AddXY(50, 50);
+            chart1_lmag.Series[0].Points.AddXY(50, 50);
+            chart2_lmag.Series[0].Points.AddXY(50, 50);
+            chart3_lmag.Series[0].Points.AddXY(50, 50);
+            chart4_lmag.Series[0].Points.AddXY(50, 50);
+            chart5_lmag.Series[0].Points.AddXY(50, 50);
+            chart6_lmag.Series[0].Points.AddXY(50, 50);
+            chart7_lmag.Series[0].Points.AddXY(50, 50);
+            chart8_lmag.Series[0].Points.AddXY(50, 50);
+            chart9_lmag.Series[0].Points.AddXY(50, 50);
+            chart10_lmag.Series[0].Points.AddXY(50, 50);
+
         }
 
         #region 波形运行
-        List<double> listData = new List<double>();
+        List<double> listData1_real = new List<double>();
+        List<double> listData2_real = new List<double>();
+        List<double> listData3_real = new List<double>();
+        List<double> listData4_real = new List<double>();
+        List<double> listData5_real = new List<double>();
+        List<double> listData6_real = new List<double>();
+        List<double> listData7_real = new List<double>();
+        List<double> listData8_real = new List<double>();
+        List<double> listData9_real = new List<double>();
+        List<double> listData10_real = new List<double>();
+
+        List<double> listData1_lmag = new List<double>();
+        List<double> listData2_lmag = new List<double>();
+        List<double> listData3_lmag = new List<double>();
+        List<double> listData4_lmag = new List<double>();
+        List<double> listData5_lmag = new List<double>();
+        List<double> listData6_lmag = new List<double>();
+        List<double> listData7_lmag = new List<double>();
+        List<double> listData8_lmag = new List<double>();
+        List<double> listData9_lmag = new List<double>();
+        List<double> listData10_lmag = new List<double>();
+
+
         double autoMove = 0, interval = 0, move = 0;
         public void Run()
         {
 
             while (true)
             {
-                Thread.Sleep(500);
+                Thread.Sleep(50);
                 Random random = new Random();
-                int temp = random.Next(10, 1000);
-                double tempD = 10 + (temp / (double)1000.0);
-                listData.Add(tempD);
+                int temp = random.Next(10, 100);
+                double tempD = 10 + (temp / (double)1.0);
+                //listData.Add(tempD);
                 try
                 {
-                    DisplayChart(listData, chart1.Series["Err"], label1, ref autoMove, move, ref interval, false);
+                    DisplayChart(listData1_real, chart1_real.Series["Err"], ref autoMove, move, ref interval, false);
+                    DisplayChart(listData2_real, chart2_real.Series["Err"], ref autoMove, move, ref interval, false);
+                    DisplayChart(listData3_real, chart3_real.Series["Err"], ref autoMove, move, ref interval, false);
+                    DisplayChart(listData4_real, chart4_real.Series["Err"], ref autoMove, move, ref interval, false);
+                    DisplayChart(listData5_real, chart5_real.Series["Err"], ref autoMove, move, ref interval, false);
+                    DisplayChart(listData6_real, chart6_real.Series["Err"], ref autoMove, move, ref interval, false);
+                    DisplayChart(listData7_real, chart7_real.Series["Err"], ref autoMove, move, ref interval, false);
+                    DisplayChart(listData8_real, chart8_real.Series["Err"], ref autoMove, move, ref interval, false);
+                    DisplayChart(listData9_real, chart9_real.Series["Err"], ref autoMove, move, ref interval, false);
+                    DisplayChart(listData10_real, chart10_real.Series["Err"], ref autoMove, move, ref interval, false);
+
+                    DisplayChart(listData1_lmag, chart1_lmag.Series["Err"], ref autoMove, move, ref interval, false);
+                    DisplayChart(listData2_lmag, chart2_lmag.Series["Err"], ref autoMove, move, ref interval, false);
+                    DisplayChart(listData3_lmag, chart3_lmag.Series["Err"], ref autoMove, move, ref interval, false);
+                    DisplayChart(listData4_lmag, chart4_lmag.Series["Err"], ref autoMove, move, ref interval, false);
+                    DisplayChart(listData5_lmag, chart5_lmag.Series["Err"], ref autoMove, move, ref interval, false);
+                    DisplayChart(listData6_lmag, chart6_lmag.Series["Err"], ref autoMove, move, ref interval, false);
+                    DisplayChart(listData7_lmag, chart7_lmag.Series["Err"], ref autoMove, move, ref interval, false);
+                    DisplayChart(listData8_lmag, chart8_lmag.Series["Err"], ref autoMove, move, ref interval, false);
+                    DisplayChart(listData9_lmag, chart9_lmag.Series["Err"], ref autoMove, move, ref interval, false);
+                    DisplayChart(listData10_lmag, chart10_lmag.Series["Err"], ref autoMove, move, ref interval, false);
                 }
                 catch (Exception ex)
                 {
@@ -60,7 +121,7 @@ namespace SerialAssistant
         /// <param name="move">移动大小</param>
         /// <param name="interval">每大格间距</param>
         /// <param name="isAuto">是否自动适应</param>
-        private void DisplayChart(List<double> listErr, Series series, Control controlInterval, ref double autoMove, double move, ref double interval, bool isAuto)
+        private void DisplayChart(List<double> listErr, Series series, ref double autoMove, double move, ref double interval, bool isAuto)
         {
             while (listErr.Count > 61)
             {
@@ -98,7 +159,6 @@ namespace SerialAssistant
                 double tempInderval = interval;
                 this.BeginInvoke((EventHandler)(delegate
                 {
-                    controlInterval.Text = "每大格值:" + tempInderval;
                     for (int i = 0; i < listErr.Count; i++)
                     {
                         tempY = (listErr[i] - tempAutoMove) * (10 / tempInderval) + move;
@@ -167,7 +227,7 @@ namespace SerialAssistant
 
         #region 波形启动开关
         Thread th;
-        private void btnStart1_Click(object sender, EventArgs e)
+        private void btnStart_Click(object sender, EventArgs e)
         {
             if (th == null || !th.IsAlive)
             {
@@ -176,25 +236,18 @@ namespace SerialAssistant
                 th.Start();
             }
         }
+
         #endregion
 
         #region 波形停止开关
-        private void btnStop1_Click(object sender, EventArgs e)
+        private void btnStop_Click(object sender, EventArgs e)
         {
             if (th != null && th.IsAlive)
             {
                 th.Abort();
             }
         }
-
         #endregion
 
-        #region 自适应开关
-        private void button1_Click(object sender, EventArgs e)
-        {
-            move = 0;
-            DisplayChart(listData, chart1.Series["Err"], label1, ref autoMove, move, ref interval, true);
-        }
-        #endregion
     }
 }
