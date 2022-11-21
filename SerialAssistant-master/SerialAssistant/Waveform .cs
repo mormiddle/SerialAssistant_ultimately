@@ -74,11 +74,33 @@ namespace SerialAssistant
 
             while (true)
             {
-                Thread.Sleep(50);
+                Thread.Sleep(100);
                 Random random = new Random();
                 int temp = random.Next(10, 100);
                 double tempD = 10 + (temp / (double)1.0);
                 //listData.Add(tempD);
+                listData1_real.Add(tempD);
+                listData2_real.Add(tempD);
+                listData3_real.Add(tempD);
+                listData4_real.Add(tempD);
+                listData5_real.Add(tempD);
+                listData6_real.Add(tempD);
+                listData7_real.Add(tempD);
+                listData8_real.Add(tempD);
+                listData9_real.Add(tempD);
+                listData10_real.Add(tempD);
+
+                listData1_lmag.Add(tempD);
+                listData2_lmag.Add(tempD);
+                listData3_lmag.Add(tempD);
+                listData4_lmag.Add(tempD);
+                listData5_lmag.Add(tempD);
+                listData6_lmag.Add(tempD);
+                listData7_lmag.Add(tempD);
+                listData8_lmag.Add(tempD);
+                listData9_lmag.Add(tempD);
+                listData10_lmag.Add(tempD);
+
                 try
                 {
                     DisplayChart(listData1_real, chart1_real.Series["Err"], ref autoMove, move, ref interval, false);

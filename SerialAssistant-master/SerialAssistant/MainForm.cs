@@ -19,7 +19,9 @@ namespace SerialAssistant
         private long send_count = 0;    //发送字节计数
         private StringBuilder sb = new StringBuilder();    //为了避免在接收处理函数中反复调用，依然声明为一个全局变量
         private DateTime current_time = new DateTime();    //为了避免在接收处理函数中反复调用，依然声明为一个全局变量
-        private bool is_need_time = true; 
+        private bool is_need_time = true;
+        private List<byte> buffer = new List<byte>(4096); //设置缓存处理CRC32串口的校验
+        private int ReceiveDataCheckNum = 44;   //数据位+校验位  40+4 个字节
 
         public MainForm()
         {
@@ -260,18 +262,113 @@ namespace SerialAssistant
 
 
             int num = serialPort1.BytesToRead;      //获取接收缓冲区中的字节数
+            if (num == 0)
+            {
+                return;
+            }
             byte[] received_buf = new byte[num];    //声明一个大小为num的字节数据用于存放读出的byte型数据
 
 
             receive_count += num;                   //接收字节计数变量增加nun
             serialPort1.Read(received_buf, 0, num);   //读取接收缓冲区中num个字节到byte数组中
 
-            sb.Clear();     //防止出错,首先清空字符串构造器
+            #region 数据校验
+            buffer.AddRange(received_buf); //缓存数据
 
+            int index = 1;
+            while (buffer.Count > 0x2C) //最短协议长度
+            {
+                if (buffer[0] == 0xAA) //协议头
+                {
+                    if (buffer[index] != 0x80) //查询协议尾
+                    {
+                        index++;
+
+                        if (index > buffer.Count) //没有接收到0x80协议尾
+                        {
+                            break; //退出继续接收
+                        }
+                    }
+                    else //接收到协议尾  得到完整一帧数据
+                    {
+                        byte[] ReceiveBytes = new byte[ReceiveDataCheckNum];
+                        buffer.CopyTo(2, ReceiveBytes, 0, ReceiveDataCheckNum);
+
+                        ShowSerialPortReceive(ReceiveBytes);
+
+                        buffer.RemoveRange(0, index);                        
+                    }
+                }
+                else
+                {
+                    buffer.RemoveAt(0);
+                }
+            }
+
+            #endregion
+
+            #region CRC32校验
+
+            #endregion
+
+
+            //使用单独的函数来显示串口数据
+            //sb.Clear();     //防止出错,首先清空字符串构造器
+
+            /* if (radioButton2.Checked)
+             {
+                 //选中HEX模式显示
+                 foreach (byte b in received_buf)
+                 {
+                     sb.Append(b.ToString("X2") + ' ');    //将byte型数据转化为2位16进制文本显示，并用空格隔开
+                 }
+             }
+             else
+             {
+                 //选中ASCII模式显示
+                 sb.Append(Encoding.ASCII.GetString(received_buf));  //将整个数组解码为ASCII数组
+             }
+             try
+             {
+                 //因为要访问UI资源，所以需要使用invoke方式同步ui
+                 Invoke((EventHandler)(delegate
+                 {
+                     if (is_need_time && checkBox3.Checked)
+                     {
+                         //需要加时间戳
+                        is_need_time = false;   //清空标志位
+                         current_time = System.DateTime.Now;     //获取当前时间
+                         textBox1.AppendText("\r\n[" + current_time.ToString("HH:mm:ss") + "]" + sb.ToString());
+                     }
+                     else
+                     {
+                         //不需要时间戳
+                         textBox1.AppendText(sb.ToString());
+                     }
+
+                     label8.Text = "接收：" + receive_count.ToString() + " Bytes";
+                 }
+                   )
+                 );
+             }
+             catch (Exception ex)
+             {
+                 //响铃并显示异常给用户
+                 System.Media.SystemSounds.Beep.Play();
+                 MessageBox.Show(ex.Message);
+
+             }*/
+        }
+        #endregion
+
+        #region 显示串口接收的数据
+        private void ShowSerialPortReceive(byte[] showbuffer)
+        {
+            sb.Clear();     //防止出错,首先清空字符串构造器 //不使用这个，就会重复显示输入的数据
             if (radioButton2.Checked)
             {
                 //选中HEX模式显示
-                foreach (byte b in received_buf)
+                foreach (byte b in showbuffer)
                 {
                     sb.Append(b.ToString("X2") + ' ');    //将byte型数据转化为2位16进制文本显示，并用空格隔开
                 }
@@ -279,7 +376,7 @@ namespace SerialAssistant
             else
             {
                 //选中ASCII模式显示
-                sb.Append(Encoding.ASCII.GetString(received_buf));  //将整个数组解码为ASCII数组
+                sb.Append(Encoding.ASCII.GetString(showbuffer));  //将整个数组解码为ASCII数组
             }
             try
             {
@@ -312,7 +409,10 @@ namespace SerialAssistant
 
             }
         }
+
         #endregion
+
+
 
         #region 清除开关
         private void button2_Click(object sender, EventArgs e) 
