@@ -296,10 +296,10 @@ namespace SerialAssistant
 
                         ShowSerialPortReceive(ReceiveBytes);
 
-                        int Crc8Check = GETCRC8(ReceiveBytes);
-                        if (Crc8Check == ReceiveBytes[ReceiveDataCheckNum - 1])
+                        int Crc8Check = GETCRC8(ReceiveBytes);//使用crc8校验函数得到校验位
+                        if (Crc8Check == ReceiveBytes[ReceiveDataCheckNum - 1]) //和传入的校验位进行校验
                         {
-                            Console.WriteLine("true");
+                            MessageBox.Show("校验无误"); //测试用，改为往波形图中传入数据
                         }
 
                         buffer.RemoveRange(0, index);                        
@@ -422,10 +422,10 @@ namespace SerialAssistant
                 crc ^= buffer[j];
                 for (int i = 0; i < 8; i++)
                 {
-                    if ((crc & 0x80) != 0)
+                    if ((crc & 0x80) != 0) //判断首位是否是1
                     {
                         crc <<= 1;
-                        crc ^= 0x07;
+                        crc ^= 0x07; //使用多项式
                     }
                     else
                     {
@@ -434,9 +434,7 @@ namespace SerialAssistant
                 }
             }
 
-            string s_crc = Convert.ToString(crc);
-            int i_crc = Convert.ToInt32(s_crc, 16);
-
+            int i_crc = Convert.ToInt32(Convert.ToString(crc), 16); //将十六进制byte转换为十进制的byte
 
             return i_crc;
         }
