@@ -21,7 +21,7 @@ namespace SerialAssistant
         private DateTime current_time = new DateTime();    //为了避免在接收处理函数中反复调用，依然声明为一个全局变量
         private bool is_need_time = true;
         private List<byte> buffer = new List<byte>(4096); //设置缓存处理CRC32串口的校验
-        private int ReceiveDataCheckNum = 44;   //数据位+校验位  40+4 个字节
+        private int ReceiveDataCheckNum = 41;   //数据位+校验位  40+4 个字节
 
         public MainForm()
         {
@@ -276,7 +276,7 @@ namespace SerialAssistant
             buffer.AddRange(received_buf); //缓存数据
 
             int index = 1;
-            while (buffer.Count > 0x2C) //最短协议长度
+            while (buffer.Count > 0x29) //最短协议长度
             {
                 if (buffer[0] == 0xAA) //协议头
                 {
@@ -286,7 +286,7 @@ namespace SerialAssistant
 
                         if (index > buffer.Count) //没有接收到0x80协议尾
                         {
-                            break; //退出继续接收
+                            break; //退出继续接收 
                         }
                     }
                     else //接收到协议尾  得到完整一帧数据
@@ -295,6 +295,12 @@ namespace SerialAssistant
                         buffer.CopyTo(2, ReceiveBytes, 0, ReceiveDataCheckNum);
 
                         ShowSerialPortReceive(ReceiveBytes);
+
+                        int Crc8Check = GETCRC8(ReceiveBytes);
+                        if (Crc8Check == ReceiveBytes[ReceiveDataCheckNum - 1])
+                        {
+                            Console.WriteLine("true");
+                        }
 
                         buffer.RemoveRange(0, index);                        
                     }
@@ -306,11 +312,6 @@ namespace SerialAssistant
             }
 
             #endregion
-
-            #region CRC32校验
-
-            #endregion
-
 
             //使用单独的函数来显示串口数据
             //sb.Clear();     //防止出错,首先清空字符串构造器
@@ -369,8 +370,8 @@ namespace SerialAssistant
             {
                 //选中HEX模式显示
                 foreach (byte b in showbuffer)
-                {
-                    sb.Append(b.ToString("X2") + ' ');    //将byte型数据转化为2位16进制文本显示，并用空格隔开
+                {                   
+                    sb.Append(b.ToString("X2") + ' ');    //将byte型数据转化为2位16进制文本显示，并用空格隔开                                    
                 }
             }
             else
@@ -408,6 +409,36 @@ namespace SerialAssistant
                 MessageBox.Show(ex.Message);
 
             }
+        }
+
+        #endregion
+
+        #region CRC8校验函数
+        private static int GETCRC8(byte[] buffer)
+        {
+            byte crc = 0;
+            for (int j = 0; j < buffer.Length - 1; j++)
+            {
+                crc ^= buffer[j];
+                for (int i = 0; i < 8; i++)
+                {
+                    if ((crc & 0x80) != 0)
+                    {
+                        crc <<= 1;
+                        crc ^= 0x07;
+                    }
+                    else
+                    {
+                        crc <<= 1;
+                    }
+                }
+            }
+
+            string s_crc = Convert.ToString(crc);
+            int i_crc = Convert.ToInt32(s_crc, 16);
+
+
+            return i_crc;
         }
 
         #endregion
