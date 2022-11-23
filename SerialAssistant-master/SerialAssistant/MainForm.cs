@@ -21,7 +21,8 @@ namespace SerialAssistant
         private DateTime current_time = new DateTime();    //为了避免在接收处理函数中反复调用，依然声明为一个全局变量
         private bool is_need_time = true;
         private List<byte> buffer = new List<byte>(4096); //设置缓存处理CRC32串口的校验
-        private int ReceiveDataCheckNum = 41;   //数据位+校验位  40+4 个字节
+        private int ReceiveDataNum = 40;   //数据位  40 个字节
+        private int ReceiveCheckIndex = 42; //检验位一个字节，帧头一字节，len一字节，数据位加校验位41个字节，所以校验位是第43位，即数组index=42
 
         public MainForm()
         {
@@ -291,13 +292,14 @@ namespace SerialAssistant
                     }
                     else //接收到协议尾  得到完整一帧数据
                     {
-                        byte[] ReceiveBytes = new byte[ReceiveDataCheckNum];
-                        buffer.CopyTo(2, ReceiveBytes, 0, ReceiveDataCheckNum);
+                        byte[] ReceiveBytes = new byte[ReceiveDataNum];//数据位
+                        buffer.CopyTo(2, ReceiveBytes, 0, ReceiveDataNum);
 
                         ShowSerialPortReceive(ReceiveBytes);
+                        Displayer.ReceiveBataDispose(ReceiveBytes);
 
-                        int Crc8Check = GETCRC8(ReceiveBytes);//使用crc8校验函数得到校验位
-                        if (Crc8Check == ReceiveBytes[ReceiveDataCheckNum - 1]) //和传入的校验位进行校验
+                        var randomCrc = CRC8(ReceiveBytes);//上位机计算的校验位
+                        if (randomCrc == buffer[ReceiveCheckIndex]) //和传入的校验位进行校验
                         {
                             MessageBox.Show("校验无误"); //测试用，改为往波形图中传入数据
                         }
@@ -362,6 +364,8 @@ namespace SerialAssistant
         }
         #endregion
 
+
+
         #region 显示串口接收的数据
         private void ShowSerialPortReceive(byte[] showbuffer)
         {
@@ -413,19 +417,21 @@ namespace SerialAssistant
 
         #endregion
 
+
+
         #region CRC8校验函数
-        private static int GETCRC8(byte[] buffer)
+        public static byte CRC8(byte[] buffer)
         {
             byte crc = 0;
-            for (int j = 0; j < buffer.Length - 1; j++)
+            for (int j = 0; j < buffer.Length; j++)
             {
                 crc ^= buffer[j];
                 for (int i = 0; i < 8; i++)
                 {
-                    if ((crc & 0x80) != 0) //判断首位是否是1
+                    if ((crc & 0x80) != 0)
                     {
                         crc <<= 1;
-                        crc ^= 0x07; //使用多项式
+                        crc ^= 0x07;
                     }
                     else
                     {
@@ -433,11 +439,11 @@ namespace SerialAssistant
                     }
                 }
             }
-
-            int i_crc = Convert.ToInt32(Convert.ToString(crc), 16); //将十六进制byte转换为十进制的byte
-
-            return i_crc;
+            return crc;
         }
+
+
+
 
         #endregion
 
@@ -557,6 +563,7 @@ namespace SerialAssistant
         }
         #endregion
 
+
         #region 下载按钮
         private void button4_Click(object sender, EventArgs e)
         {
@@ -619,6 +626,7 @@ namespace SerialAssistant
 
         }
         #endregion
+
 
         #region 上传按钮
         private void button3_Click(object sender, EventArgs e)

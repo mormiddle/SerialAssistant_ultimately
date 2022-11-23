@@ -43,14 +43,26 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SerialAssistant.exe" size="89048">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SerialAssistant.exe" size="60376">
       <assemblyIdentity name="SerialAssistant" version="2.1.1.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>HuBkBpl3Tnl7JZqrv7GrLwPxl8k3+EZlATDrfRY+0WE=</dsig:DigestValue>
+        <dsig:DigestValue>xiva4nZz2koJWvP5gYfFGHAVAeuArWAzq7ZXMnntVDo=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="STTech.CodePlus.dll" size="23040">
+      <assemblyIdentity name="STTech.CodePlus" version="1.5.5.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>be1gqdje6mM0EDEOTHwY1PESGcqavpQMQS7rMiZ35yk=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

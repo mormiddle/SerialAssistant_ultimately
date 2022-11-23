@@ -13,3 +13,6 @@ E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\
 E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\obj\Debug\SerialAssistant.pdb
 E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\obj\Debug\SerialAssistant.Form2.resources
 E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\obj\Debug\SerialAssistant.MainForm.resources
+E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\bin\Debug\STTech.CodePlus.dll
+E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\bin\Debug\STTech.CodePlus.xml
+E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\obj\Debug\SerialAssistant.csproj.CopyComplete

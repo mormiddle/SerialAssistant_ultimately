@@ -14,6 +14,29 @@ namespace SerialAssistant
 {
     public partial class Form2 : Form
     {
+        //定义十个通道的实部和虚部列表
+        List<double> Passage1_real = new List<double>();
+        List<double> Passage2_real = new List<double>();
+        List<double> Passage3_real = new List<double>();
+        List<double> Passage4_real = new List<double>();
+        List<double> Passage5_real = new List<double>();
+        List<double> Passage6_real = new List<double>();
+        List<double> Passage7_real = new List<double>();
+        List<double> Passage8_real = new List<double>();
+        List<double> Passage9_real = new List<double>();
+        List<double> Passage10_real = new List<double>();
+        List<double> Passage1_lmag = new List<double>();
+        List<double> Passage2_lmag = new List<double>();
+        List<double> Passage3_lmag = new List<double>();
+        List<double> Passage4_lmag = new List<double>();
+        List<double> Passage5_lmag = new List<double>();
+        List<double> Passage6_lmag = new List<double>();
+        List<double> Passage7_lmag = new List<double>();
+        List<double> Passage8_lmag = new List<double>();
+        List<double> Passage9_lmag = new List<double>();
+        List<double> Passage10_lmag = new List<double>();
+
+
         public Form2()
         {
             InitializeComponent();
@@ -21,109 +44,42 @@ namespace SerialAssistant
 
         private void Form2_Load(object sender, EventArgs e)
         {
-            chart1_real.Series[0].Points.AddXY(50, 50);
-            chart2_real.Series[0].Points.AddXY(50, 50);
-            chart3_real.Series[0].Points.AddXY(50, 50);
-            chart4_real.Series[0].Points.AddXY(50, 50);
-            chart5_real.Series[0].Points.AddXY(50, 50);
-            chart6_real.Series[0].Points.AddXY(50, 50);
-            chart7_real.Series[0].Points.AddXY(50, 50);
-            chart8_real.Series[0].Points.AddXY(50, 50);
-            chart9_real.Series[0].Points.AddXY(50, 50);
-            chart10_real.Series[0].Points.AddXY(50, 50);
-            chart1_lmag.Series[0].Points.AddXY(50, 50);
-            chart2_lmag.Series[0].Points.AddXY(50, 50);
-            chart3_lmag.Series[0].Points.AddXY(50, 50);
-            chart4_lmag.Series[0].Points.AddXY(50, 50);
-            chart5_lmag.Series[0].Points.AddXY(50, 50);
-            chart6_lmag.Series[0].Points.AddXY(50, 50);
-            chart7_lmag.Series[0].Points.AddXY(50, 50);
-            chart8_lmag.Series[0].Points.AddXY(50, 50);
-            chart9_lmag.Series[0].Points.AddXY(50, 50);
-            chart10_lmag.Series[0].Points.AddXY(50, 50);
+            chart_real.Series["Series1"].Points.AddXY(50, 50);
+            
+
 
         }
 
         #region 波形运行
-        List<double> listData1_real = new List<double>();
-        List<double> listData2_real = new List<double>();
-        List<double> listData3_real = new List<double>();
-        List<double> listData4_real = new List<double>();
-        List<double> listData5_real = new List<double>();
-        List<double> listData6_real = new List<double>();
-        List<double> listData7_real = new List<double>();
-        List<double> listData8_real = new List<double>();
-        List<double> listData9_real = new List<double>();
-        List<double> listData10_real = new List<double>();
-
-        List<double> listData1_lmag = new List<double>();
-        List<double> listData2_lmag = new List<double>();
-        List<double> listData3_lmag = new List<double>();
-        List<double> listData4_lmag = new List<double>();
-        List<double> listData5_lmag = new List<double>();
-        List<double> listData6_lmag = new List<double>();
-        List<double> listData7_lmag = new List<double>();
-        List<double> listData8_lmag = new List<double>();
-        List<double> listData9_lmag = new List<double>();
-        List<double> listData10_lmag = new List<double>();
-
-
+        List<double> listData_real = new List<double>();
+    
         double autoMove = 0, interval = 0, move = 0;
         public void Run()
         {
 
             while (true)
             {
-                Thread.Sleep(100);
+                Thread.Sleep(10);
                 Random random = new Random();
-                int temp = random.Next(10, 100);
+                int temp = random.Next(10, 1000);
                 double tempD = 10 + (temp / (double)1.0);
                 //listData.Add(tempD);
-                listData1_real.Add(tempD);
-                listData2_real.Add(tempD);
-                listData3_real.Add(tempD);
-                listData4_real.Add(tempD);
-                listData5_real.Add(tempD);
-                listData6_real.Add(tempD);
-                listData7_real.Add(tempD);
-                listData8_real.Add(tempD);
-                listData9_real.Add(tempD);
-                listData10_real.Add(tempD);
-
-                listData1_lmag.Add(tempD);
-                listData2_lmag.Add(tempD);
-                listData3_lmag.Add(tempD);
-                listData4_lmag.Add(tempD);
-                listData5_lmag.Add(tempD);
-                listData6_lmag.Add(tempD);
-                listData7_lmag.Add(tempD);
-                listData8_lmag.Add(tempD);
-                listData9_lmag.Add(tempD);
-                listData10_lmag.Add(tempD);
+                listData_real.Add(tempD);
 
                 try
                 {
-                    DisplayChart(listData1_real, chart1_real.Series["Err"], ref autoMove, move, ref interval, false);
-                    DisplayChart(listData2_real, chart2_real.Series["Err"], ref autoMove, move, ref interval, false);
-                    DisplayChart(listData3_real, chart3_real.Series["Err"], ref autoMove, move, ref interval, false);
-                    DisplayChart(listData4_real, chart4_real.Series["Err"], ref autoMove, move, ref interval, false);
-                    DisplayChart(listData5_real, chart5_real.Series["Err"], ref autoMove, move, ref interval, false);
-                    DisplayChart(listData6_real, chart6_real.Series["Err"], ref autoMove, move, ref interval, false);
-                    DisplayChart(listData7_real, chart7_real.Series["Err"], ref autoMove, move, ref interval, false);
-                    DisplayChart(listData8_real, chart8_real.Series["Err"], ref autoMove, move, ref interval, false);
-                    DisplayChart(listData9_real, chart9_real.Series["Err"], ref autoMove, move, ref interval, false);
-                    DisplayChart(listData10_real, chart10_real.Series["Err"], ref autoMove, move, ref interval, false);
+                    DisplayChart(Passage1_real, chart_real.Series["Series1"], ref autoMove, 0, ref interval, false);
+                    DisplayChart(Passage2_real, chart_real.Series["Series2"], ref autoMove, 100, ref interval, false);
+                    DisplayChart(Passage3_real, chart_real.Series["Series3"], ref autoMove, 200, ref interval, false);
+                    DisplayChart(Passage4_real, chart_real.Series["Series4"], ref autoMove, 300, ref interval, false);
+                    DisplayChart(Passage5_real, chart_real.Series["Series5"], ref autoMove, 400, ref interval, false);
+                    DisplayChart(Passage6_real, chart_real.Series["Series6"], ref autoMove, 500, ref interval, false);
+                    DisplayChart(Passage7_real, chart_real.Series["Series7"], ref autoMove, 600, ref interval, false);
+                    DisplayChart(Passage8_real, chart_real.Series["Series8"], ref autoMove, 700, ref interval, false);
+                    DisplayChart(Passage9_real, chart_real.Series["Series9"], ref autoMove, 800, ref interval, false);
+                    DisplayChart(Passage10_real, chart_real.Series["Series10"], ref autoMove, 900, ref interval, false);
 
-                    DisplayChart(listData1_lmag, chart1_lmag.Series["Err"], ref autoMove, move, ref interval, false);
-                    DisplayChart(listData2_lmag, chart2_lmag.Series["Err"], ref autoMove, move, ref interval, false);
-                    DisplayChart(listData3_lmag, chart3_lmag.Series["Err"], ref autoMove, move, ref interval, false);
-                    DisplayChart(listData4_lmag, chart4_lmag.Series["Err"], ref autoMove, move, ref interval, false);
-                    DisplayChart(listData5_lmag, chart5_lmag.Series["Err"], ref autoMove, move, ref interval, false);
-                    DisplayChart(listData6_lmag, chart6_lmag.Series["Err"], ref autoMove, move, ref interval, false);
-                    DisplayChart(listData7_lmag, chart7_lmag.Series["Err"], ref autoMove, move, ref interval, false);
-                    DisplayChart(listData8_lmag, chart8_lmag.Series["Err"], ref autoMove, move, ref interval, false);
-                    DisplayChart(listData9_lmag, chart9_lmag.Series["Err"], ref autoMove, move, ref interval, false);
-                    DisplayChart(listData10_lmag, chart10_lmag.Series["Err"], ref autoMove, move, ref interval, false);
+
                 }
                 catch (Exception ex)
                 {
@@ -133,17 +89,62 @@ namespace SerialAssistant
         }
         #endregion
 
+
         /// <summary>
-        /// Chart绘图
+        /// 数据位处理函数
         /// </summary>
-        /// <param name="listErr">误差集合</param>
-        /// <param name="series"></param>
-        /// <param name="controlInterval">每大格值控件</param>
-        /// <param name="autoMove">自动移动大小</param>
-        /// <param name="move">移动大小</param>
-        /// <param name="interval">每大格间距</param>
-        /// <param name="isAuto">是否自动适应</param>
-        private void DisplayChart(List<double> listErr, Series series, ref double autoMove, double move, ref double interval, bool isAuto)
+        /// <param name="showbuffer"></param>
+        public void ReceiveBataDispose(byte[] dyteList)
+        {
+
+            List<double> InputList = new List<double>(); //先将byte转为string类型
+            foreach (double temp in dyteList)
+            {
+                InputList.Add(temp);
+            }
+
+            //对数据进行划分一共40个字节，10个通道的数据，4个字节为一个通道，对应实部高位，实部低位，虚部高位，虚部低位
+
+            while (true)
+            {
+                Passage1_real.Add(InputList[0] * 256 + InputList[1]);
+                Passage1_lmag.Add(InputList[2] * 256 + InputList[3]);
+                Passage2_real.Add(InputList[4] * 256 + InputList[5]);
+                Passage2_lmag.Add(InputList[6] * 256 + InputList[7]);
+                Passage3_real.Add(InputList[8] * 256 + InputList[9]);
+                Passage3_lmag.Add(InputList[10] * 256 + InputList[11]);
+                Passage4_real.Add(InputList[12] * 256 + InputList[13]);
+                Passage4_lmag.Add(InputList[14] * 256 + InputList[15]);
+                Passage5_real.Add(InputList[16] * 256 + InputList[17]);
+                Passage5_lmag.Add(InputList[18] * 256 + InputList[19]);
+                Passage6_real.Add(InputList[20] * 256 + InputList[21]);
+                Passage6_lmag.Add(InputList[22] * 256 + InputList[23]);
+                Passage7_real.Add(InputList[24] * 256 + InputList[25]);
+                Passage7_lmag.Add(InputList[26] * 256 + InputList[27]);
+                Passage8_real.Add(InputList[28] * 256 + InputList[29]);
+                Passage8_lmag.Add(InputList[30] * 256 + InputList[31]);
+                Passage9_real.Add(InputList[32] * 256 + InputList[33]);
+                Passage9_lmag.Add(InputList[34] * 256 + InputList[35]);
+                Passage10_real.Add(InputList[36] * 256 + InputList[37]);
+                Passage10_lmag.Add(InputList[38] * 256 + InputList[39]);
+            }
+            
+        }
+
+
+
+
+            /// <summary>
+            /// Chart绘图
+            /// </summary>
+            /// <param name="listErr">误差集合</param>
+            /// <param name="series"></param>
+            /// <param name="controlInterval">每大格值控件</param>
+            /// <param name="autoMove">自动移动大小</param>
+            /// <param name="move">移动大小</param>
+            /// <param name="interval">每大格间距</param>
+            /// <param name="isAuto">是否自动适应</param>
+            private void DisplayChart(List<double> listErr, Series series, ref double autoMove, double move, ref double interval, bool isAuto)
         {
             while (listErr.Count > 61)
             {
