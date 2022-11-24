@@ -40,6 +40,7 @@ namespace SerialAssistant
             this.panel10 = new System.Windows.Forms.Panel();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.button8 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
@@ -82,7 +83,7 @@ namespace SerialAssistant
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.timer3 = new System.Windows.Forms.Timer(this.components);
-            this.button8 = new System.Windows.Forms.Button();
+            this.timer4 = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             this.panel9.SuspendLayout();
             this.panel8.SuspendLayout();
@@ -203,6 +204,17 @@ namespace SerialAssistant
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(214, 492);
             this.panel2.TabIndex = 1;
+            // 
+            // button8
+            // 
+            this.button8.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.button8.Location = new System.Drawing.Point(15, 281);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(193, 41);
+            this.button8.TabIndex = 6;
+            this.button8.Text = "显示波形";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // groupBox1
             // 
@@ -744,18 +756,11 @@ namespace SerialAssistant
             // 
             this.timer3.Tick += new System.EventHandler(this.timer3_Tick);
             // 
-            // button8
+            // timer4
             // 
-            this.button8.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button8.Location = new System.Drawing.Point(15, 281);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(193, 41);
-            this.button8.TabIndex = 6;
-            this.button8.Text = "显示波形";
-            this.button8.UseVisualStyleBackColor = true;
-            this.button8.Click += new System.EventHandler(this.button8_Click);
+            this.timer4.Tick += new System.EventHandler(this.timer4_Tick);
             // 
-            // Form1
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -766,7 +771,7 @@ namespace SerialAssistant
             this.Controls.Add(this.panel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(692, 591);
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.Text = "SerialAssistant";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panel1.ResumeLayout(false);
@@ -853,6 +858,7 @@ namespace SerialAssistant
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Timer timer3;
         private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Timer timer4;
     }
 }
 

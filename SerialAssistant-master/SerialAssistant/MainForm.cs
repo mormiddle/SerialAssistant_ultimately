@@ -23,6 +23,9 @@ namespace SerialAssistant
         private List<byte> buffer = new List<byte>(4096); //设置缓存处理CRC32串口的校验
         private int ReceiveDataNum = 40;   //数据位  40 个字节
         private int ReceiveCheckIndex = 42; //检验位一个字节，帧头一字节，len一字节，数据位加校验位41个字节，所以校验位是第43位，即数组index=42
+        public static bool intimewindowIsOpen = false; //判断波形窗口是否创建
+        public List<double> SerialPortReceiveData = new List<double>(); //用于存储串口的数据
+
 
         public MainForm()
         {
@@ -145,6 +148,7 @@ namespace SerialAssistant
         private void timer1_Tick(object sender, EventArgs e)
         {
             Update_Serial_List();
+
         }
 
         #region 右上角串口连接开关
@@ -296,7 +300,11 @@ namespace SerialAssistant
                         buffer.CopyTo(2, ReceiveBytes, 0, ReceiveDataNum);
 
                         ShowSerialPortReceive(ReceiveBytes);
-                        Displayer.ReceiveBataDispose(ReceiveBytes);
+
+                        foreach (double item in ReceiveBytes)
+                        {
+                            SerialPortReceiveData.Add(item);
+                        }
 
                         var randomCrc = CRC8(ReceiveBytes);//上位机计算的校验位
                         if (randomCrc == buffer[ReceiveCheckIndex]) //和传入的校验位进行校验
@@ -304,7 +312,7 @@ namespace SerialAssistant
                             MessageBox.Show("校验无误"); //测试用，改为往波形图中传入数据
                         }
 
-                        buffer.RemoveRange(0, index);                        
+                        buffer.RemoveRange(0, index);
                     }
                 }
                 else
@@ -374,7 +382,7 @@ namespace SerialAssistant
             {
                 //选中HEX模式显示
                 foreach (byte b in showbuffer)
-                {                   
+                {
                     sb.Append(b.ToString("X2") + ' ');    //将byte型数据转化为2位16进制文本显示，并用空格隔开                                    
                 }
             }
@@ -450,7 +458,7 @@ namespace SerialAssistant
 
 
         #region 清除开关
-        private void button2_Click(object sender, EventArgs e) 
+        private void button2_Click(object sender, EventArgs e)
         {
             textBox1.Clear();
             receive_count = 0;          //接收计数清零
@@ -741,7 +749,7 @@ namespace SerialAssistant
                 //自动发送功能选中,开始自动发送
                 numericUpDown1.Enabled = false;
                 timer2.Interval = (int)numericUpDown1.Value;
-                timer2.Start(); 
+                timer2.Start();
             }
             else
             {
@@ -820,6 +828,17 @@ namespace SerialAssistant
         private void button8_Click(object sender, EventArgs e)
         {
             Displayer.Show();//显示窗口
+            intimewindowIsOpen = true;
+            timer4.Enabled = true;
+        }
+
+        private void timer4_Tick(object sender, EventArgs e)
+        {
+            if (intimewindowIsOpen)
+            {
+                Displayer.SerialPortData = this.SerialPortReceiveData;
+            }
+           
         }
     }
 }
