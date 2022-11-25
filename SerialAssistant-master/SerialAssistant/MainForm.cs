@@ -24,7 +24,7 @@ namespace SerialAssistant
         private int ReceiveDataNum = 40;   //数据位  40 个字节
         private int ReceiveCheckIndex = 42; //检验位一个字节，帧头一字节，len一字节，数据位加校验位41个字节，所以校验位是第43位，即数组index=42
         public static bool intimewindowIsOpen = false; //判断波形窗口是否创建
-        public List<double> SerialPortReceiveData = new List<double>(); //用于存储串口的数据
+        public List<byte> SerialPortReceiveData = new List<byte>(); //用于存储串口的数据
 
 
         public MainForm()
@@ -142,6 +142,8 @@ namespace SerialAssistant
             /* 在串口未打开的情况下每隔1s刷新一次串口列表框 */
             timer1.Interval = 1000;
             timer1.Start();
+
+
         }
 
 
@@ -301,7 +303,7 @@ namespace SerialAssistant
 
                         ShowSerialPortReceive(ReceiveBytes);
 
-                        foreach (double item in ReceiveBytes)
+                        foreach (byte item in ReceiveBytes)
                         {
                             SerialPortReceiveData.Add(item);
                         }
@@ -829,7 +831,7 @@ namespace SerialAssistant
         {
             Displayer.Show();//显示窗口
             intimewindowIsOpen = true;
-            timer4.Enabled = true;
+            timer4.Start();
         }
 
         private void timer4_Tick(object sender, EventArgs e)
