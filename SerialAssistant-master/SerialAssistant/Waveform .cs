@@ -19,6 +19,8 @@ namespace SerialAssistant
         //定义十个通道的实部和虚部列表
         public List<byte> SerialPortData = new List<byte>(); //用于存储串口的数据
         Thread th;
+        private int pointIndex = 0;//x轴的点
+
 
 
 
@@ -32,59 +34,29 @@ namespace SerialAssistant
             this.chart_real.Series[0].Points.AddXY(50, 50);
             this.chart_lmag.Series[0].Points.AddXY(50, 50);
 
-
         }
 
 
-        private async void ThreadRead()
-        {
-            System.Threading.Thread.Sleep(1000);
-            Invoke(new Action(() =>
-            {
-                while (SerialPortData.Count > 41)
-                {
-                   
-                    for (int i = 0; i < SerialPortData.Count - 41; i++)
-                    {
-                        System.Threading.Thread.Sleep(1000);
-                        this.chart_real.Series[0].Points.AddXY(i, SerialPortData[i] * 256 + SerialPortData[i + 1]);
-                        this.chart_lmag.Series[0].Points.AddXY(i, SerialPortData[i + 2] * 256 + SerialPortData[i + 3]);
-                        /* this.chart_real.Series[1].Points.AddXY(i, SerialPortData[i + 4] * 256 + SerialPortData[i + 5]);
-                         this.chart_lmag.Series[1].Points.AddXY(i, SerialPortData[i + 6] * 256 + SerialPortData[i + 7]);
-                         this.chart_real.Series[2].Points.AddXY(i, SerialPortData[i + 8] * 256 + SerialPortData[i + 9]);
-                         this.chart_lmag.Series[2].Points.AddXY(i, SerialPortData[i + 10] * 256 + SerialPortData[i + 11]);
-                         this.chart_real.Series[3].Points.AddXY(i, SerialPortData[i + 8] * 256 + SerialPortData[i + 9]);
-                         this.chart_lmag.Series[3].Points.AddXY(i, SerialPortData[i + 10] * 256 + SerialPortData[i + 11]);
-                         this.chart_real.Series[4].Points.AddXY(i, SerialPortData[i + 8] * 256 + SerialPortData[i + 9]);
-                         this.chart_lmag.Series[4].Points.AddXY(i, SerialPortData[i + 10] * 256 + SerialPortData[i + 11]);
-                         this.chart_real.Series[5].Points.AddXY(i, SerialPortData[i + 8] * 256 + SerialPortData[i + 9]);
-                         this.chart_lmag.Series[5].Points.AddXY(i, SerialPortData[i + 10] * 256 + SerialPortData[i + 11]);
-                         this.chart_real.Series[6].Points.AddXY(i, SerialPortData[i + 8] * 256 + SerialPortData[i + 9]);
-                         this.chart_lmag.Series[6].Points.AddXY(i, SerialPortData[i + 10] * 256 + SerialPortData[i + 11]);
-                         this.chart_real.Series[7].Points.AddXY(i, SerialPortData[i + 8] * 256 + SerialPortData[i + 9]);
-                         this.chart_lmag.Series[7].Points.AddXY(i, SerialPortData[i + 10] * 256 + SerialPortData[i + 11]);
-                         this.chart_real.Series[8].Points.AddXY(i, SerialPortData[i + 8] * 256 + SerialPortData[i + 9]);
-                         this.chart_lmag.Series[8].Points.AddXY(i, SerialPortData[i + 10] * 256 + SerialPortData[i + 11]);
-                         this.chart_real.Series[9].Points.AddXY(i, SerialPortData[i + 8] * 256 + SerialPortData[i + 9]);
-                         this.chart_lmag.Series[9].Points.AddXY(i, SerialPortData[i + 10] * 256 + SerialPortData[i + 11]);*/
-
-                    }
-                   
-                }
-            }));
-        }
 
         List<double> listData = new List<double>();
         double autoMove = 0, interval = 0, move = 0;
         public void Run()
         {
 
-            while (true)
+            while (SerialPortData.Count > 0)
             {
                 Thread.Sleep(1000);
                 try
                 {
-                    DisplayChart(listData, chart_real.Series[0], ref autoMove, move, ref interval, false);
+                    this.BeginInvoke((EventHandler)(delegate
+                    {                     
+                        
+                            //this.chart_lmag.Series[0].Points.Add(pointIndex, SerialPortData[i] * 256 + SerialPortData[i + 1]);
+                            //pointIndex++;
+                        
+                    }));
+
+                   
                 }
                 catch (Exception ex)
                 {

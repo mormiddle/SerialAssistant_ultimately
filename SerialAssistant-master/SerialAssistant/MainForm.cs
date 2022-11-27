@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using System.IO;
+using System.Threading;
 
 namespace SerialAssistant
 {
@@ -25,6 +26,8 @@ namespace SerialAssistant
         private int ReceiveCheckIndex = 42; //检验位一个字节，帧头一字节，len一字节，数据位加校验位41个字节，所以校验位是第43位，即数组index=42
         public static bool intimewindowIsOpen = false; //判断波形窗口是否创建
         public List<byte> SerialPortReceiveData = new List<byte>(); //用于存储串口的数据
+        Thread th;
+        private int pointIndex = 0;//x轴的点
 
 
         public MainForm()
@@ -143,7 +146,8 @@ namespace SerialAssistant
             timer1.Interval = 1000;
             timer1.Start();
 
-
+            this.chart_real.Series[0].Points.AddXY(50, 50);
+            this.chart_lmag.Series[0].Points.AddXY(50, 50);
         }
 
 
@@ -173,7 +177,7 @@ namespace SerialAssistant
                     comboBox5.Enabled = true;
                     label6.Text = "串口已关闭!";
                     label6.ForeColor = Color.Red;
-                    button5.Enabled = false;        //失能发送按钮
+                    //button5.Enabled = false;        //失能发送按钮
                     checkBox4.Enabled = false;
 
 
@@ -222,7 +226,7 @@ namespace SerialAssistant
                     label6.ForeColor = Color.Green;
 
                     //使能发送按钮
-                    button5.Enabled = true;
+                    //button5.Enabled = true;
 
                 }
             }
@@ -245,7 +249,7 @@ namespace SerialAssistant
                 comboBox5.Enabled = true;
                 label6.Text = "串口已关闭!";
                 label6.ForeColor = Color.Red;
-                button5.Enabled = false;        //失能发送按钮
+                //button5.Enabled = false;        //失能发送按钮
                 checkBox4.Enabled = false;
 
                 //开启串口扫描
@@ -299,21 +303,19 @@ namespace SerialAssistant
                     else //接收到协议尾  得到完整一帧数据
                     {
                         byte[] ReceiveBytes = new byte[ReceiveDataNum];//数据位
-                        buffer.CopyTo(2, ReceiveBytes, 0, ReceiveDataNum);
-
-                        ShowSerialPortReceive(ReceiveBytes);
-
-                        foreach (byte item in ReceiveBytes)
-                        {
-                            SerialPortReceiveData.Add(item);
-                        }
+                        buffer.CopyTo(2, ReceiveBytes, 0, ReceiveDataNum);                                              
 
                         var randomCrc = CRC8(ReceiveBytes);//上位机计算的校验位
                         if (randomCrc == buffer[ReceiveCheckIndex]) //和传入的校验位进行校验
                         {
-                            MessageBox.Show("校验无误"); //测试用，改为往波形图中传入数据
+                            foreach (byte item in ReceiveBytes)
+                            {
+                                
+                                SerialPortReceiveData.Add(item);
+                            }
+                            ShowSerialPortReceive(ReceiveBytes);
                         }
-
+                        
                         buffer.RemoveRange(0, index);
                     }
                 }
@@ -325,52 +327,6 @@ namespace SerialAssistant
 
             #endregion
 
-            //使用单独的函数来显示串口数据
-            //sb.Clear();     //防止出错,首先清空字符串构造器
-
-            /* if (radioButton2.Checked)
-             {
-                 //选中HEX模式显示
-                 foreach (byte b in received_buf)
-                 {
-                     sb.Append(b.ToString("X2") + ' ');    //将byte型数据转化为2位16进制文本显示，并用空格隔开
-                 }
-             }
-             else
-             {
-                 //选中ASCII模式显示
-                 sb.Append(Encoding.ASCII.GetString(received_buf));  //将整个数组解码为ASCII数组
-             }
-             try
-             {
-                 //因为要访问UI资源，所以需要使用invoke方式同步ui
-                 Invoke((EventHandler)(delegate
-                 {
-                     if (is_need_time && checkBox3.Checked)
-                     {
-                         //需要加时间戳
-                        is_need_time = false;   //清空标志位
-                         current_time = System.DateTime.Now;     //获取当前时间
-                         textBox1.AppendText("\r\n[" + current_time.ToString("HH:mm:ss") + "]" + sb.ToString());
-                     }
-                     else
-                     {
-                         //不需要时间戳
-                         textBox1.AppendText(sb.ToString());
-                     }
-
-                     label8.Text = "接收：" + receive_count.ToString() + " Bytes";
-                 }
-                   )
-                 );
-             }
-             catch (Exception ex)
-             {
-                 //响铃并显示异常给用户
-                 System.Media.SystemSounds.Beep.Play();
-                 MessageBox.Show(ex.Message);
-
-             }*/
         }
         #endregion
 
@@ -471,10 +427,10 @@ namespace SerialAssistant
         #endregion
 
 
-        #region 串口数据发送开关
-        private void button5_Click(object sender, EventArgs e)
+       // #region 串口数据发送开关
+        /*private void button5_Click(object sender, EventArgs e)
         {
-            /* 发送发送区中的数据 */
+            *//* 发送发送区中的数据 *//*
 
             byte[] temp = new byte[1];
 
@@ -506,7 +462,7 @@ namespace SerialAssistant
                         //如果用户输入的字符是奇数，则单独处理
                         if (send_data.Length % 2 != 0)
                         {
-                            temp[0] = Convert.ToByte(send_data.Substring(textBox2.Text.Length - 1, 1), 16);
+                            //temp[0] = Convert.ToByte(send_data.Substring(textBox2.Text.Length - 1, 1), 16);
                             serialPort1.Write(temp, 0, 1);
                             num++;
                         }
@@ -524,30 +480,30 @@ namespace SerialAssistant
                         if (checkBox2.Checked)
                         {
                             //自动发送新行
-                            serialPort1.WriteLine(textBox2.Text);
-                            num = textBox2.Text.Length + 2; //回车占两个字节
+                            //serialPort1.WriteLine(textBox2.Text);
+                           // num = textBox2.Text.Length + 2; //回车占两个字节
                         }
                         else
                         {
                             //不发送新行
-                            serialPort1.Write(textBox2.Text);
-                            num = textBox2.Text.Length;
+                            //serialPort1.Write(textBox2.Text);
+                           // num = textBox2.Text.Length;
                         }
                     }
 
                     send_count += num;      //计数变量累加
                     label7.Text = "发送：" + send_count.ToString() + " Bytes";   //刷新界面
 
-                    /* 记录发送数据 */
+                    *//* 记录发送数据 *//*
                     //先检查当前是否存在该项
-                    if (comboBox7.Items.Contains(textBox2.Text) == true)
+                    *//*if (comboBox7.Items.Contains(textBox2.Text) == true)
                     {
                         return;
                     }
                     else
                     {
                         comboBox7.Items.Add(textBox2.Text);
-                    }
+                    }*//*
 
                 }
             }
@@ -571,7 +527,7 @@ namespace SerialAssistant
                 checkBox2.Enabled = false;
             }
         }
-        #endregion
+        #endregion*/
 
 
         #region 下载按钮
@@ -661,7 +617,7 @@ namespace SerialAssistant
             try
             {
                 //清空发送缓冲区
-                textBox2.Text = "";
+                //textBox2.Text = "";
 
                 // 使用 StreamReader 来读取文件
                 using (StreamReader sr = new StreamReader(file))
@@ -672,7 +628,7 @@ namespace SerialAssistant
                     while ((line = sr.ReadLine()) != null)
                     {
                         line = line + "\r\n";
-                        textBox2.AppendText(line);
+                        //textBox2.AppendText(line);
                     }
                 }
             }
@@ -686,13 +642,13 @@ namespace SerialAssistant
         private void button6_Click(object sender, EventArgs e)
         {
             //清空发送缓冲区
-            textBox2.Text = "";
+            //textBox2.Text = "";
         }
 
         private void comboBox7_SelectedIndexChanged(object sender, EventArgs e)
         {
             //清空发送缓冲区
-            textBox2.Text = comboBox7.SelectedItem.ToString();
+            //textBox2.Text = comboBox7.SelectedItem.ToString();
         }
 
         private void panel10_Click(object sender, EventArgs e)
@@ -741,7 +697,7 @@ namespace SerialAssistant
 
         private void timer2_Tick(object sender, EventArgs e)
         {
-            button5_Click(button5, new EventArgs());    //调用发送按钮回调函数
+           // button5_Click(button5, new EventArgs());    //调用发送按钮回调函数
         }
 
         private void checkBox4_CheckedChanged(object sender, EventArgs e)
@@ -842,5 +798,88 @@ namespace SerialAssistant
             }
            
         }
+
+        private void btnStart_Click(object sender, EventArgs e)
+        {
+            if (th == null || !th.IsAlive)
+            {
+                th = new Thread(Run);
+                th.IsBackground = true;
+                th.Start();
+            }
+        }
+
+        private void btnStop_Click(object sender, EventArgs e)
+        {
+            if (th != null && th.IsAlive)
+            {
+                th.Abort();
+            }
+        }
+        public void Run()
+        {
+
+            while (SerialPortReceiveData.Count > 0)
+            {
+                Thread.Sleep(1000);
+                try
+                {
+                    this.BeginInvoke((EventHandler)(delegate
+                    {
+
+                        /*for (int i = 0; i < 10; i++)
+                        {
+                            this.chart_real.Series[i].Points.Add(pointIndex, SerialPortReceiveData[pointIndex + i * 4 ] * 256 + SerialPortReceiveData[pointIndex + i * 4 +1]);
+                            this.chart_lmag.Series[i].Points.Add(pointIndex, SerialPortReceiveData[pointIndex + i * 4 +2 ] * 256 + SerialPortReceiveData[pointIndex + i * 4 +3]);
+                        } */
+                        while (SerialPortReceiveData.Count > 40)
+                        {
+                            this.chart_real.Series[0].Points.AddXY(pointIndex, SerialPortReceiveData[0] * 256 + SerialPortReceiveData[1]);
+                            this.chart_lmag.Series[0].Points.AddXY(pointIndex, SerialPortReceiveData[2] * 256 + SerialPortReceiveData[3]);
+
+                            this.chart_real.Series[1].Points.AddXY(pointIndex, SerialPortReceiveData[4] * 256 + SerialPortReceiveData[5] + 10000);
+                            this.chart_lmag.Series[1].Points.AddXY(pointIndex, SerialPortReceiveData[6] * 256 + SerialPortReceiveData[7] + 10000);
+
+                            this.chart_real.Series[2].Points.AddXY(pointIndex, SerialPortReceiveData[8] * 256 + SerialPortReceiveData[9] + 20000);
+                            this.chart_lmag.Series[2].Points.AddXY(pointIndex, SerialPortReceiveData[10] * 256 + SerialPortReceiveData[11] + 20000);
+
+                            this.chart_real.Series[3].Points.AddXY(pointIndex, SerialPortReceiveData[12] * 256 + SerialPortReceiveData[13] + 30000);
+                            this.chart_lmag.Series[3].Points.AddXY(pointIndex, SerialPortReceiveData[14] * 256 + SerialPortReceiveData[15] + 30000);
+
+                            this.chart_real.Series[4].Points.AddXY(pointIndex, SerialPortReceiveData[16] * 256 + SerialPortReceiveData[17] + 40000);
+                            this.chart_lmag.Series[4].Points.AddXY(pointIndex, SerialPortReceiveData[18] * 256 + SerialPortReceiveData[19] + 40000);
+
+                            this.chart_real.Series[5].Points.AddXY(pointIndex, SerialPortReceiveData[20] * 256 + SerialPortReceiveData[21] + 50000);
+                            this.chart_lmag.Series[5].Points.AddXY(pointIndex, SerialPortReceiveData[22] * 256 + SerialPortReceiveData[23] + 50000);
+
+                            this.chart_real.Series[6].Points.AddXY(pointIndex, SerialPortReceiveData[24] * 256 + SerialPortReceiveData[25] + 60000);
+                            this.chart_lmag.Series[6].Points.AddXY(pointIndex, SerialPortReceiveData[26] * 256 + SerialPortReceiveData[27] + 60000);
+
+                            this.chart_real.Series[7].Points.AddXY(pointIndex, SerialPortReceiveData[28] * 256 + SerialPortReceiveData[29] + 70000);
+                            this.chart_lmag.Series[7].Points.AddXY(pointIndex, SerialPortReceiveData[30] * 256 + SerialPortReceiveData[31] + 70000);
+
+                            this.chart_real.Series[8].Points.AddXY(pointIndex, SerialPortReceiveData[32] * 256 + SerialPortReceiveData[33] + 80000);
+                            this.chart_lmag.Series[8].Points.AddXY(pointIndex, SerialPortReceiveData[34] * 256 + SerialPortReceiveData[35] + 80000);
+
+                            this.chart_real.Series[9].Points.AddXY(pointIndex, SerialPortReceiveData[36] * 256 + SerialPortReceiveData[37] + 90000);
+                            this.chart_lmag.Series[9].Points.AddXY(pointIndex, SerialPortReceiveData[38] * 256 + SerialPortReceiveData[39] + 90000);
+
+                            SerialPortReceiveData.RemoveRange(0, 40);
+                        }
+                        
+                        pointIndex++;
+
+                    }));
+
+
+                }
+                catch (Exception ex)
+                {
+                    string s = ex.Message;
+                }
+            }
+        }
+
     }
 }
+
