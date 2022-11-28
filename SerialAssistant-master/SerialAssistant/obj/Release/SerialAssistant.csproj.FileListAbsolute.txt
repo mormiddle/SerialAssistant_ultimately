@@ -1,0 +1,17 @@
+E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\bin\Release\SerialAssistant.exe.config
+E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\bin\Release\SerialAssistant.exe.manifest
+E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\bin\Release\SerialAssistant.application
+E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\bin\Release\SerialAssistant.exe
+E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\bin\Release\SerialAssistant.pdb
+E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\bin\Release\STTech.CodePlus.dll
+E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\bin\Release\STTech.CodePlus.xml
+E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\obj\Release\SerialAssistant.Form1.resources
+E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\obj\Release\SerialAssistant.MainForm.resources
+E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\obj\Release\SerialAssistant.Properties.Resources.resources
+E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\obj\Release\SerialAssistant.csproj.GenerateResource.cache
+E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\obj\Release\SerialAssistant.csproj.CoreCompileInputs.cache
+E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\obj\Release\SerialAssistant.exe.manifest
+E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\obj\Release\SerialAssistant.application
+E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\obj\Release\SerialAssistant.csproj.CopyComplete
+E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\obj\Release\SerialAssistant.exe
+E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\obj\Release\SerialAssistant.pdb

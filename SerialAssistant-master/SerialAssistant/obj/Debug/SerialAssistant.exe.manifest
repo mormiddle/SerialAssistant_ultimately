@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SerialAssistant.exe" size="60888">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SerialAssistant.exe" size="60376">
       <assemblyIdentity name="SerialAssistant" version="2.1.1.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>cWw677X0Fifk1d1ny0qZeweO5dzc7LrJRTUBGsGgnMA=</dsig:DigestValue>
+        <dsig:DigestValue>DQv3Ve7oxMKvIAbITO88sBkOgj+k1uiAQVjXTt2QcVE=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -75,13 +75,13 @@
       <dsig:DigestValue>daCXz6P8Wp9D3jx0buGdqX1b3Na+sfpjq2XI7UbOndk=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="SerialAssistant.exe.config" size="187">
+  <file name="SerialAssistant.exe.config" size="182">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>xm4bo26HQ0LNVwz1vdPYtzhkpMnp2AI5i+f0b+OahTI=</dsig:DigestValue>
+      <dsig:DigestValue>PbQiHFOih9uz3RPvvsStiPKcsu3PE8/gyCn2QGUyyf4=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>

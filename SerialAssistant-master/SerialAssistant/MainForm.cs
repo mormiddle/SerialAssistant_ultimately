@@ -10,12 +10,12 @@ using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using System.IO;
 using System.Threading;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace SerialAssistant
 {
     public partial class MainForm : Form
     {
-        Form2 Displayer = new Form2();//创建波形窗体
         private long receive_count = 0; //接收字节计数
         private long send_count = 0;    //发送字节计数
         private StringBuilder sb = new StringBuilder();    //为了避免在接收处理函数中反复调用，依然声明为一个全局变量
@@ -25,9 +25,32 @@ namespace SerialAssistant
         private int ReceiveDataNum = 40;   //数据位  40 个字节
         private int ReceiveCheckIndex = 42; //检验位一个字节，帧头一字节，len一字节，数据位加校验位41个字节，所以校验位是第43位，即数组index=42
         public static bool intimewindowIsOpen = false; //判断波形窗口是否创建
-        public List<byte> SerialPortReceiveData = new List<byte>(); //用于存储串口的数据
+        private List<byte> SerialPortReceiveData = new List<byte>(); //用于存储串口的数据
         Thread th;
         private int pointIndex = 0;//x轴的点
+
+        private List<double> Chart_real1 = new List<double>();
+        private List<double> Chart_real2 = new List<double>();
+        private List<double> Chart_real3 = new List<double>();
+        private List<double> Chart_real4 = new List<double>();
+        private List<double> Chart_real5 = new List<double>();
+        private List<double> Chart_real6 = new List<double>();
+        private List<double> Chart_real7 = new List<double>();
+        private List<double> Chart_real8 = new List<double>();
+        private List<double> Chart_real9 = new List<double>();
+        private List<double> Chart_real10 = new List<double>();
+        
+        private List<double> Chart_lmag1 = new List<double>();
+        private List<double> Chart_lmag2 = new List<double>();
+        private List<double> Chart_lmag3 = new List<double>();
+        private List<double> Chart_lmag4 = new List<double>();
+        private List<double> Chart_lmag5 = new List<double>();
+        private List<double> Chart_lmag6 = new List<double>();
+        private List<double> Chart_lmag7 = new List<double>();
+        private List<double> Chart_lmag8 = new List<double>();
+        private List<double> Chart_lmag9 = new List<double>();
+        private List<double> Chart_lmag10 = new List<double>();
+
 
 
         public MainForm()
@@ -148,6 +171,7 @@ namespace SerialAssistant
 
             this.chart_real.Series[0].Points.AddXY(50, 50);
             this.chart_lmag.Series[0].Points.AddXY(50, 50);
+
         }
 
 
@@ -783,21 +807,7 @@ namespace SerialAssistant
 
         }
 
-        private void button8_Click(object sender, EventArgs e)
-        {
-            Displayer.Show();//显示窗口
-            intimewindowIsOpen = true;
-            timer4.Start();
-        }
 
-        private void timer4_Tick(object sender, EventArgs e)
-        {
-            if (intimewindowIsOpen)
-            {
-                Displayer.SerialPortData = this.SerialPortReceiveData;
-            }
-           
-        }
 
         private void btnStart_Click(object sender, EventArgs e)
         {
@@ -816,6 +826,51 @@ namespace SerialAssistant
                 th.Abort();
             }
         }
+
+        double move_real1;
+        double move_real2;
+        double move_real3;
+        double move_real4;
+        double move_real5;
+        double move_real6;
+        double move_real7;
+        double move_real8;
+        double move_real9;
+        double move_real10;
+
+        double move_lmag1;
+        double move_lmag2;
+        double move_lmag3;
+        double move_lmag4;
+        double move_lmag5;
+        double move_lmag6;
+        double move_lmag7;
+        double move_lmag8;
+        double move_lmag9;
+        double move_lmag10;
+
+        double interval_real1;
+        double interval_real2;
+        double interval_real3;
+        double interval_real4;
+        double interval_real5;
+        double interval_real6;
+        double interval_real7;
+        double interval_real8;
+        double interval_real9;
+        double interval_real10;
+
+        double interval_lmag1;
+        double interval_lmag2;
+        double interval_lmag3;
+        double interval_lmag4;
+        double interval_lmag5;
+        double interval_lmag6;
+        double interval_lmag7;
+        double interval_lmag8;
+        double interval_lmag9;
+        double interval_lmag10;
+
         public void Run()
         {
 
@@ -827,42 +882,39 @@ namespace SerialAssistant
                     this.BeginInvoke((EventHandler)(delegate
                     {
 
-                        /*for (int i = 0; i < 10; i++)
-                        {
-                            this.chart_real.Series[i].Points.Add(pointIndex, SerialPortReceiveData[pointIndex + i * 4 ] * 256 + SerialPortReceiveData[pointIndex + i * 4 +1]);
-                            this.chart_lmag.Series[i].Points.Add(pointIndex, SerialPortReceiveData[pointIndex + i * 4 +2 ] * 256 + SerialPortReceiveData[pointIndex + i * 4 +3]);
-                        } */
                         while (SerialPortReceiveData.Count > 40)
                         {
-                            this.chart_real.Series[0].Points.AddXY(pointIndex, SerialPortReceiveData[0] * 256 + SerialPortReceiveData[1]);
-                            this.chart_lmag.Series[0].Points.AddXY(pointIndex, SerialPortReceiveData[2] * 256 + SerialPortReceiveData[3]);
 
-                            this.chart_real.Series[1].Points.AddXY(pointIndex, SerialPortReceiveData[4] * 256 + SerialPortReceiveData[5] + 10000);
-                            this.chart_lmag.Series[1].Points.AddXY(pointIndex, SerialPortReceiveData[6] * 256 + SerialPortReceiveData[7] + 10000);
 
-                            this.chart_real.Series[2].Points.AddXY(pointIndex, SerialPortReceiveData[8] * 256 + SerialPortReceiveData[9] + 20000);
-                            this.chart_lmag.Series[2].Points.AddXY(pointIndex, SerialPortReceiveData[10] * 256 + SerialPortReceiveData[11] + 20000);
-
-                            this.chart_real.Series[3].Points.AddXY(pointIndex, SerialPortReceiveData[12] * 256 + SerialPortReceiveData[13] + 30000);
-                            this.chart_lmag.Series[3].Points.AddXY(pointIndex, SerialPortReceiveData[14] * 256 + SerialPortReceiveData[15] + 30000);
-
-                            this.chart_real.Series[4].Points.AddXY(pointIndex, SerialPortReceiveData[16] * 256 + SerialPortReceiveData[17] + 40000);
-                            this.chart_lmag.Series[4].Points.AddXY(pointIndex, SerialPortReceiveData[18] * 256 + SerialPortReceiveData[19] + 40000);
-
-                            this.chart_real.Series[5].Points.AddXY(pointIndex, SerialPortReceiveData[20] * 256 + SerialPortReceiveData[21] + 50000);
-                            this.chart_lmag.Series[5].Points.AddXY(pointIndex, SerialPortReceiveData[22] * 256 + SerialPortReceiveData[23] + 50000);
-
-                            this.chart_real.Series[6].Points.AddXY(pointIndex, SerialPortReceiveData[24] * 256 + SerialPortReceiveData[25] + 60000);
-                            this.chart_lmag.Series[6].Points.AddXY(pointIndex, SerialPortReceiveData[26] * 256 + SerialPortReceiveData[27] + 60000);
-
-                            this.chart_real.Series[7].Points.AddXY(pointIndex, SerialPortReceiveData[28] * 256 + SerialPortReceiveData[29] + 70000);
-                            this.chart_lmag.Series[7].Points.AddXY(pointIndex, SerialPortReceiveData[30] * 256 + SerialPortReceiveData[31] + 70000);
-
-                            this.chart_real.Series[8].Points.AddXY(pointIndex, SerialPortReceiveData[32] * 256 + SerialPortReceiveData[33] + 80000);
-                            this.chart_lmag.Series[8].Points.AddXY(pointIndex, SerialPortReceiveData[34] * 256 + SerialPortReceiveData[35] + 80000);
-
-                            this.chart_real.Series[9].Points.AddXY(pointIndex, SerialPortReceiveData[36] * 256 + SerialPortReceiveData[37] + 90000);
-                            this.chart_lmag.Series[9].Points.AddXY(pointIndex, SerialPortReceiveData[38] * 256 + SerialPortReceiveData[39] + 90000);
+                            this.chart_real.Series[0].Points.AddXY(pointIndex, (SerialPortReceiveData[0] * 256 + SerialPortReceiveData[1] - move_real1)+ 1000);
+                            this.chart_lmag.Series[0].Points.AddXY(pointIndex, (SerialPortReceiveData[2] * 256 + SerialPortReceiveData[3] - move_lmag1)+ 1000);
+                                                                                                                                                      
+                            this.chart_real.Series[1].Points.AddXY(pointIndex, (SerialPortReceiveData[4] * 256 + SerialPortReceiveData[5] - move_real2)+ 3000);
+                            this.chart_lmag.Series[1].Points.AddXY(pointIndex, (SerialPortReceiveData[6] * 256 + SerialPortReceiveData[7] - move_lmag2)+ 2000);
+                                                                               
+                            this.chart_real.Series[2].Points.AddXY(pointIndex, (SerialPortReceiveData[8] * 256 + SerialPortReceiveData[9] - move_real3) + 4000);
+                            this.chart_lmag.Series[2].Points.AddXY(pointIndex, (SerialPortReceiveData[10] * 256 + SerialPortReceiveData[11] - move_lmag3)  + 3000);
+                                                                               
+                            this.chart_real.Series[3].Points.AddXY(pointIndex, (SerialPortReceiveData[12] * 256 + SerialPortReceiveData[13] - move_real4)+ 4000);
+                            this.chart_lmag.Series[3].Points.AddXY(pointIndex, (SerialPortReceiveData[14] * 256 + SerialPortReceiveData[15] - move_lmag4)+ 4000);
+                                                                                                                                                        
+                            this.chart_real.Series[4].Points.AddXY(pointIndex, (SerialPortReceiveData[16] * 256 + SerialPortReceiveData[17] - move_real5)+ 5000);
+                            this.chart_lmag.Series[4].Points.AddXY(pointIndex, (SerialPortReceiveData[18] * 256 + SerialPortReceiveData[19] - move_lmag5)+ 5000);
+                                                                                                                                                        
+                            this.chart_real.Series[5].Points.AddXY(pointIndex, (SerialPortReceiveData[20] * 256 + SerialPortReceiveData[21] - move_real6)+ 6000);
+                            this.chart_lmag.Series[5].Points.AddXY(pointIndex, (SerialPortReceiveData[22] * 256 + SerialPortReceiveData[23] - move_lmag6)+ 6000);
+                                                                                                                                                        
+                            this.chart_real.Series[6].Points.AddXY(pointIndex, (SerialPortReceiveData[24] * 256 + SerialPortReceiveData[25] - move_real7)+ 7000);
+                            this.chart_lmag.Series[6].Points.AddXY(pointIndex, (SerialPortReceiveData[26] * 256 + SerialPortReceiveData[27] - move_lmag7)+ 7000);
+                                                                                                                                                        
+                            this.chart_real.Series[7].Points.AddXY(pointIndex, (SerialPortReceiveData[28] * 256 + SerialPortReceiveData[29] - move_real8)+ 8000);
+                            this.chart_lmag.Series[7].Points.AddXY(pointIndex, (SerialPortReceiveData[30] * 256 + SerialPortReceiveData[31] - move_lmag8)+ 8000);
+                                                                                                                                                        
+                            this.chart_real.Series[8].Points.AddXY(pointIndex, (SerialPortReceiveData[32] * 256 + SerialPortReceiveData[33] - move_real9)+ 9000);
+                            this.chart_lmag.Series[8].Points.AddXY(pointIndex, (SerialPortReceiveData[34] * 256 + SerialPortReceiveData[35] - move_lmag9)+ 9000);
+                                                                                                                                         
+                            this.chart_real.Series[9].Points.AddXY(pointIndex, (SerialPortReceiveData[36] * 256 + SerialPortReceiveData[37] - move_real10) + 10000);
+                            this.chart_lmag.Series[9].Points.AddXY(pointIndex, (SerialPortReceiveData[38] * 256 + SerialPortReceiveData[39] - move_lmag10) + 10000);
 
                             SerialPortReceiveData.RemoveRange(0, 40);
                         }
@@ -880,6 +932,154 @@ namespace SerialAssistant
             }
         }
 
+
+        private void GetautoMove()
+        {
+            while (SerialPortReceiveData.Count > 40)
+            {               
+                Chart_real1.Add(SerialPortReceiveData[0] * 256 + SerialPortReceiveData[1]);
+                Chart_real2.Add(SerialPortReceiveData[4] * 256 + SerialPortReceiveData[5]);
+                Chart_real3.Add(SerialPortReceiveData[8] * 256 + SerialPortReceiveData[9]);
+                Chart_real4.Add(SerialPortReceiveData[12] * 256 + SerialPortReceiveData[13]);
+                Chart_real5.Add(SerialPortReceiveData[16] * 256 + SerialPortReceiveData[17]);
+                Chart_real6.Add(SerialPortReceiveData[20] * 256 + SerialPortReceiveData[21]);
+                Chart_real7.Add(SerialPortReceiveData[24] * 256 + SerialPortReceiveData[25]);
+                Chart_real8.Add(SerialPortReceiveData[28] * 256 + SerialPortReceiveData[29]);
+                Chart_real9.Add(SerialPortReceiveData[32] * 256 + SerialPortReceiveData[33]);
+                Chart_real10.Add(SerialPortReceiveData[36] * 256 + SerialPortReceiveData[37]);
+
+                Chart_lmag1.Add(SerialPortReceiveData[2] * 256 + SerialPortReceiveData[3]);
+                Chart_lmag2.Add(SerialPortReceiveData[6] * 256 + SerialPortReceiveData[4]);
+                Chart_lmag3.Add(SerialPortReceiveData[10] * 256 + SerialPortReceiveData[11]);
+                Chart_lmag4.Add(SerialPortReceiveData[14] * 256 + SerialPortReceiveData[15]);
+                Chart_lmag5.Add(SerialPortReceiveData[18] * 256 + SerialPortReceiveData[19]);
+                Chart_lmag6.Add(SerialPortReceiveData[22] * 256 + SerialPortReceiveData[23]);
+                Chart_lmag7.Add(SerialPortReceiveData[26] * 256 + SerialPortReceiveData[27]);
+                Chart_lmag8.Add(SerialPortReceiveData[30] * 256 + SerialPortReceiveData[31]);
+                Chart_lmag9.Add(SerialPortReceiveData[34] * 256 + SerialPortReceiveData[35]);
+                Chart_lmag10.Add(SerialPortReceiveData[38] * 256 + SerialPortReceiveData[39]);
+                SerialPortReceiveData.RemoveRange(0, 40);
+                DisplayChart(Chart_real1,ref move_real1,ref interval_real1, false);
+                DisplayChart(Chart_real2,ref move_real2,ref interval_real2, false);
+                DisplayChart(Chart_real3,ref move_real3,ref interval_real3, false);
+                DisplayChart(Chart_real4,ref move_real4,ref interval_real4, false);
+                DisplayChart(Chart_real5,ref move_real5,ref interval_real5, false);
+                DisplayChart(Chart_real6,ref move_real6,ref interval_real6, false);
+                DisplayChart(Chart_real7,ref move_real7,ref interval_real7, false);
+                DisplayChart(Chart_real8,ref move_real8,ref interval_real8, false);
+                DisplayChart(Chart_real9,ref move_real9, ref interval_real9, false);
+                DisplayChart(Chart_real10,ref move_real10, ref interval_real10, false);
+
+                DisplayChart(Chart_lmag1, ref move_lmag1,ref interval_real1, false);
+                DisplayChart(Chart_lmag2, ref move_lmag2,ref interval_real2, false);
+                DisplayChart(Chart_lmag3, ref move_lmag3,ref interval_real3, false);
+                DisplayChart(Chart_lmag4, ref move_lmag4,ref interval_real4, false);
+                DisplayChart(Chart_lmag5, ref move_lmag5,ref interval_real5, false);
+                DisplayChart(Chart_lmag6, ref move_lmag6,ref interval_real6, false);
+                DisplayChart(Chart_lmag7, ref move_lmag7,ref interval_real7, false);
+                DisplayChart(Chart_lmag8, ref move_lmag8,ref interval_real8, false);
+                DisplayChart(Chart_lmag9, ref move_lmag9, ref interval_real9, false);
+                DisplayChart(Chart_lmag10, ref move_lmag10, ref interval_real10, false);
+
+            }
+
+
+        }
+
+        /// <summary>
+        /// Chart绘图
+        /// </summary>
+        /// <param name="listErr">误差集合</param>
+        /// <param name="series"></param>
+        /// <param name="controlInterval">每大格值控件</param>
+        /// <param name="autoMove">自动移动大小</param>
+        /// <param name="move">移动大小</param>
+        /// <param name="interval">每大格间距</param>
+        /// <param name="isAuto">是否自动适应</param>
+        private void DisplayChart(List<double> listErr, ref double autoMove, ref double interval, bool isAuto)
+        {
+            while (listErr.Count > 61)
+            {
+                listErr.RemoveAt(0);
+            }
+
+            if (listErr != null && listErr.Count > 1)
+            {
+                if (listErr.Count < 10 || isAuto)
+                {
+                    double max = int.MinValue;
+                    double min = int.MaxValue;
+                    foreach (double f in listErr)
+                    {
+                        max = max > f ? max : f;
+                        min = min < f ? min : f;
+                    }
+
+                    interval = GetInterval(Math.Abs(max - min) / 2);
+
+                    if (interval == 0)
+                    {
+                        interval = 1;
+                    }
+
+                    autoMove = ((max - min) / 2) + min;
+                }
+            }
+        }
+
+        private double GetInterval(double source)
+        {
+            double temp = source;
+            if (source < 1)
+            {
+                string s = source.ToString("f10");
+                string temps = s.Trim(new char[] { '0', '.' }).Length == 0 ? "0" : s.Trim(new char[] { '0', '.' });
+                int index = s.IndexOf(temps);
+                if (temps.Length > 1)
+                {
+                    temps = temps.Substring(0, 1);
+                    int result = int.Parse(temps);
+                    if (result < 5)
+                    {
+                        result = 5;
+                        temps = s.Substring(0, index) + (result);
+                        temp = double.Parse(temps);
+                    }
+                    else
+                    {
+                        result = 1;
+                        temps = s.Substring(0, index) + (result);
+                        temp = double.Parse(temps) * 10;
+                    }
+
+                }
+                else
+                {
+                    int result = int.Parse(temps);
+                    if (result > 5)
+                    {
+                        result = 1;
+                        temps = s.Substring(0, index) + (result);
+                        temp = double.Parse(temps) * 10;
+                    }
+                    else
+                    {
+                        result = 5;
+                        temps = s.Substring(0, index) + (result);
+                        temp = double.Parse(temps);
+                    }
+                }
+            }
+            else if (source < 10)
+            {
+                temp = Math.Ceiling(source);
+            }
+            else
+            {
+                temp = Math.Ceiling(temp / 10) * 10;
+            }
+            return temp;
+        }
     }
 }
 
