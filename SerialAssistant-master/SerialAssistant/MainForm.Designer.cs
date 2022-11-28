@@ -31,29 +31,45 @@ namespace SerialAssistant
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series11 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series12 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series13 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series14 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series15 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series16 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series17 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series18 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series19 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea20 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Series series20 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea19 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series19 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea18 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series18 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea17 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series17 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea16 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series16 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea15 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series15 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea14 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series14 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea13 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series13 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea12 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series12 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea11 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series11 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea9 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Series series9 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea10 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Series series10 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel9 = new System.Windows.Forms.Panel();
@@ -94,10 +110,22 @@ namespace SerialAssistant
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.panel19 = new System.Windows.Forms.Panel();
+            this.panel18 = new System.Windows.Forms.Panel();
+            this.panel17 = new System.Windows.Forms.Panel();
+            this.panel16 = new System.Windows.Forms.Panel();
+            this.panel15 = new System.Windows.Forms.Panel();
+            this.panel14 = new System.Windows.Forms.Panel();
+            this.panel13 = new System.Windows.Forms.Panel();
+            this.panel12 = new System.Windows.Forms.Panel();
+            this.panel11 = new System.Windows.Forms.Panel();
+            this.panel7 = new System.Windows.Forms.Panel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.panel4 = new System.Windows.Forms.Panel();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
             this.button7 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
@@ -105,10 +133,57 @@ namespace SerialAssistant
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.timer3 = new System.Windows.Forms.Timer(this.components);
-            this.chart_real = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.chart_lmag = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chart_real1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.label11 = new System.Windows.Forms.Label();
+            this.chart_real2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chart_real3 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chart_real4 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chart_real5 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chart_real6 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chart_real7 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chart_real8 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chart_real9 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chart_real10 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.panel20 = new System.Windows.Forms.Panel();
+            this.panel21 = new System.Windows.Forms.Panel();
             this.label12 = new System.Windows.Forms.Label();
+            this.chart_lmag10 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.panel22 = new System.Windows.Forms.Panel();
+            this.label24 = new System.Windows.Forms.Label();
+            this.chart_lmag9 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.panel23 = new System.Windows.Forms.Panel();
+            this.label25 = new System.Windows.Forms.Label();
+            this.chart_lmag8 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.panel24 = new System.Windows.Forms.Panel();
+            this.label26 = new System.Windows.Forms.Label();
+            this.chart_lmag7 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.panel25 = new System.Windows.Forms.Panel();
+            this.label27 = new System.Windows.Forms.Label();
+            this.chart_lmag6 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.panel26 = new System.Windows.Forms.Panel();
+            this.label28 = new System.Windows.Forms.Label();
+            this.chart_lmag5 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.panel27 = new System.Windows.Forms.Panel();
+            this.label29 = new System.Windows.Forms.Label();
+            this.chart_lmag4 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.panel28 = new System.Windows.Forms.Panel();
+            this.label30 = new System.Windows.Forms.Label();
+            this.chart_lmag3 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.panel29 = new System.Windows.Forms.Panel();
+            this.label31 = new System.Windows.Forms.Label();
+            this.chart_lmag2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.panel30 = new System.Windows.Forms.Panel();
+            this.label32 = new System.Windows.Forms.Label();
+            this.chart_lmag1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.panel1.SuspendLayout();
             this.panel9.SuspendLayout();
             this.panel8.SuspendLayout();
@@ -122,9 +197,48 @@ namespace SerialAssistant
             this.panel3.SuspendLayout();
             this.panel6.SuspendLayout();
             this.panel5.SuspendLayout();
+            this.panel19.SuspendLayout();
+            this.panel18.SuspendLayout();
+            this.panel17.SuspendLayout();
+            this.panel16.SuspendLayout();
+            this.panel15.SuspendLayout();
+            this.panel14.SuspendLayout();
+            this.panel13.SuspendLayout();
+            this.panel12.SuspendLayout();
+            this.panel11.SuspendLayout();
+            this.panel7.SuspendLayout();
             this.panel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chart_real)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chart_lmag)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart_real1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart_real2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart_real3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart_real4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart_real5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart_real6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart_real7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart_real8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart_real9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart_real10)).BeginInit();
+            this.panel20.SuspendLayout();
+            this.panel21.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart_lmag10)).BeginInit();
+            this.panel22.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart_lmag9)).BeginInit();
+            this.panel23.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart_lmag8)).BeginInit();
+            this.panel24.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart_lmag7)).BeginInit();
+            this.panel25.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart_lmag6)).BeginInit();
+            this.panel26.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart_lmag5)).BeginInit();
+            this.panel27.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart_lmag4)).BeginInit();
+            this.panel28.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart_lmag3)).BeginInit();
+            this.panel29.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart_lmag2)).BeginInit();
+            this.panel30.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart_lmag1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -585,8 +699,7 @@ namespace SerialAssistant
             // 
             // panel6
             // 
-            this.panel6.Controls.Add(this.label12);
-            this.panel6.Controls.Add(this.chart_lmag);
+            this.panel6.Controls.Add(this.panel20);
             this.panel6.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel6.Location = new System.Drawing.Point(850, 0);
             this.panel6.Name = "panel6";
@@ -595,13 +708,111 @@ namespace SerialAssistant
             // 
             // panel5
             // 
-            this.panel5.Controls.Add(this.label11);
-            this.panel5.Controls.Add(this.chart_real);
+            this.panel5.Controls.Add(this.panel19);
+            this.panel5.Controls.Add(this.panel18);
+            this.panel5.Controls.Add(this.panel17);
+            this.panel5.Controls.Add(this.panel16);
+            this.panel5.Controls.Add(this.panel15);
+            this.panel5.Controls.Add(this.panel14);
+            this.panel5.Controls.Add(this.panel13);
+            this.panel5.Controls.Add(this.panel12);
+            this.panel5.Controls.Add(this.panel11);
+            this.panel5.Controls.Add(this.panel7);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel5.Location = new System.Drawing.Point(0, 0);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(840, 972);
             this.panel5.TabIndex = 0;
+            // 
+            // panel19
+            // 
+            this.panel19.Controls.Add(this.label21);
+            this.panel19.Controls.Add(this.chart_real10);
+            this.panel19.Location = new System.Drawing.Point(3, 867);
+            this.panel19.Name = "panel19";
+            this.panel19.Size = new System.Drawing.Size(834, 90);
+            this.panel19.TabIndex = 8;
+            // 
+            // panel18
+            // 
+            this.panel18.Controls.Add(this.label20);
+            this.panel18.Controls.Add(this.chart_real9);
+            this.panel18.Location = new System.Drawing.Point(3, 771);
+            this.panel18.Name = "panel18";
+            this.panel18.Size = new System.Drawing.Size(834, 90);
+            this.panel18.TabIndex = 7;
+            // 
+            // panel17
+            // 
+            this.panel17.Controls.Add(this.label19);
+            this.panel17.Controls.Add(this.chart_real8);
+            this.panel17.Location = new System.Drawing.Point(3, 675);
+            this.panel17.Name = "panel17";
+            this.panel17.Size = new System.Drawing.Size(834, 90);
+            this.panel17.TabIndex = 6;
+            // 
+            // panel16
+            // 
+            this.panel16.Controls.Add(this.label18);
+            this.panel16.Controls.Add(this.chart_real7);
+            this.panel16.Location = new System.Drawing.Point(3, 579);
+            this.panel16.Name = "panel16";
+            this.panel16.Size = new System.Drawing.Size(834, 90);
+            this.panel16.TabIndex = 1;
+            // 
+            // panel15
+            // 
+            this.panel15.Controls.Add(this.label17);
+            this.panel15.Controls.Add(this.chart_real6);
+            this.panel15.Location = new System.Drawing.Point(3, 483);
+            this.panel15.Name = "panel15";
+            this.panel15.Size = new System.Drawing.Size(834, 90);
+            this.panel15.TabIndex = 5;
+            // 
+            // panel14
+            // 
+            this.panel14.Controls.Add(this.label16);
+            this.panel14.Controls.Add(this.chart_real5);
+            this.panel14.Location = new System.Drawing.Point(3, 387);
+            this.panel14.Name = "panel14";
+            this.panel14.Size = new System.Drawing.Size(834, 90);
+            this.panel14.TabIndex = 4;
+            // 
+            // panel13
+            // 
+            this.panel13.Controls.Add(this.label15);
+            this.panel13.Controls.Add(this.chart_real4);
+            this.panel13.Location = new System.Drawing.Point(3, 291);
+            this.panel13.Name = "panel13";
+            this.panel13.Size = new System.Drawing.Size(834, 90);
+            this.panel13.TabIndex = 3;
+            // 
+            // panel12
+            // 
+            this.panel12.Controls.Add(this.label14);
+            this.panel12.Controls.Add(this.chart_real3);
+            this.panel12.Location = new System.Drawing.Point(3, 195);
+            this.panel12.Name = "panel12";
+            this.panel12.Size = new System.Drawing.Size(834, 90);
+            this.panel12.TabIndex = 2;
+            // 
+            // panel11
+            // 
+            this.panel11.Controls.Add(this.label13);
+            this.panel11.Controls.Add(this.chart_real2);
+            this.panel11.Location = new System.Drawing.Point(3, 99);
+            this.panel11.Name = "panel11";
+            this.panel11.Size = new System.Drawing.Size(834, 90);
+            this.panel11.TabIndex = 1;
+            // 
+            // panel7
+            // 
+            this.panel7.Controls.Add(this.label11);
+            this.panel7.Controls.Add(this.chart_real1);
+            this.panel7.Location = new System.Drawing.Point(3, 3);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(834, 90);
+            this.panel7.TabIndex = 0;
             // 
             // timer1
             // 
@@ -620,6 +831,8 @@ namespace SerialAssistant
             this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel4.BackColor = System.Drawing.SystemColors.Control;
+            this.panel4.Controls.Add(this.label23);
+            this.panel4.Controls.Add(this.label22);
             this.panel4.Controls.Add(this.button7);
             this.panel4.Controls.Add(this.button1);
             this.panel4.Controls.Add(this.button6);
@@ -630,6 +843,26 @@ namespace SerialAssistant
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(1904, 45);
             this.panel4.TabIndex = 3;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label23.Location = new System.Drawing.Point(1452, 23);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(72, 16);
+            this.label23.TabIndex = 17;
+            this.label23.Text = "虚部波形";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label22.Location = new System.Drawing.Point(581, 23);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(72, 16);
+            this.label22.TabIndex = 16;
+            this.label22.Text = "实部波形";
             // 
             // button7
             // 
@@ -739,153 +972,673 @@ namespace SerialAssistant
             // 
             this.timer3.Tick += new System.EventHandler(this.timer3_Tick);
             // 
-            // chart_real
+            // chart_real1
             // 
-            this.chart_real.AntiAliasing = System.Windows.Forms.DataVisualization.Charting.AntiAliasingStyles.Text;
-            chartArea2.Name = "ChartArea1";
-            this.chart_real.ChartAreas.Add(chartArea2);
-            this.chart_real.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend2.Name = "Legend1";
-            this.chart_real.Legends.Add(legend2);
-            this.chart_real.Location = new System.Drawing.Point(0, 0);
-            this.chart_real.Name = "chart_real";
-            series11.ChartArea = "ChartArea1";
-            series11.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series11.Legend = "Legend1";
-            series11.Name = "通道1";
-            series12.ChartArea = "ChartArea1";
-            series12.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series12.Legend = "Legend1";
-            series12.Name = "通道2";
-            series13.ChartArea = "ChartArea1";
-            series13.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series13.Legend = "Legend1";
-            series13.Name = "通道3";
-            series14.ChartArea = "ChartArea1";
-            series14.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series14.Legend = "Legend1";
-            series14.Name = "通道4";
-            series15.ChartArea = "ChartArea1";
-            series15.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series15.Legend = "Legend1";
-            series15.Name = "通道5";
-            series16.ChartArea = "ChartArea1";
-            series16.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series16.Legend = "Legend1";
-            series16.Name = "通道6";
-            series17.ChartArea = "ChartArea1";
-            series17.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series17.Legend = "Legend1";
-            series17.Name = "通道7";
-            series18.ChartArea = "ChartArea1";
-            series18.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series18.Legend = "Legend1";
-            series18.Name = "通道8";
-            series19.ChartArea = "ChartArea1";
-            series19.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series19.Legend = "Legend1";
-            series19.Name = "通道9";
+            this.chart_real1.AntiAliasing = System.Windows.Forms.DataVisualization.Charting.AntiAliasingStyles.Text;
+            chartArea20.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea20.Name = "ChartArea1";
+            this.chart_real1.ChartAreas.Add(chartArea20);
+            this.chart_real1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chart_real1.Location = new System.Drawing.Point(0, 0);
+            this.chart_real1.Name = "chart_real1";
             series20.ChartArea = "ChartArea1";
             series20.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series20.Legend = "Legend1";
-            series20.Name = "通道10";
-            this.chart_real.Series.Add(series11);
-            this.chart_real.Series.Add(series12);
-            this.chart_real.Series.Add(series13);
-            this.chart_real.Series.Add(series14);
-            this.chart_real.Series.Add(series15);
-            this.chart_real.Series.Add(series16);
-            this.chart_real.Series.Add(series17);
-            this.chart_real.Series.Add(series18);
-            this.chart_real.Series.Add(series19);
-            this.chart_real.Series.Add(series20);
-            this.chart_real.Size = new System.Drawing.Size(840, 972);
-            this.chart_real.TabIndex = 8;
-            this.chart_real.Text = "chart1";
-            // 
-            // chart_lmag
-            // 
-            this.chart_lmag.AntiAliasing = System.Windows.Forms.DataVisualization.Charting.AntiAliasingStyles.Text;
-            chartArea1.Name = "ChartArea1";
-            this.chart_lmag.ChartAreas.Add(chartArea1);
-            this.chart_lmag.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend1.Name = "Legend1";
-            this.chart_lmag.Legends.Add(legend1);
-            this.chart_lmag.Location = new System.Drawing.Point(0, 0);
-            this.chart_lmag.Name = "chart_lmag";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series1.Legend = "Legend1";
-            series1.Name = "通道1";
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series2.Legend = "Legend1";
-            series2.Name = "通道2";
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series3.Legend = "Legend1";
-            series3.Name = "通道3";
-            series4.ChartArea = "ChartArea1";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series4.Legend = "Legend1";
-            series4.Name = "通道4";
-            series5.ChartArea = "ChartArea1";
-            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series5.Legend = "Legend1";
-            series5.Name = "通道5";
-            series6.ChartArea = "ChartArea1";
-            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series6.Legend = "Legend1";
-            series6.Name = "通道6";
-            series7.ChartArea = "ChartArea1";
-            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series7.Legend = "Legend1";
-            series7.Name = "通道7";
-            series8.ChartArea = "ChartArea1";
-            series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series8.Legend = "Legend1";
-            series8.Name = "通道8";
-            series9.ChartArea = "ChartArea1";
-            series9.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series9.Legend = "Legend1";
-            series9.Name = "通道9";
-            series10.ChartArea = "ChartArea1";
-            series10.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series10.Legend = "Legend1";
-            series10.Name = "通道10";
-            this.chart_lmag.Series.Add(series1);
-            this.chart_lmag.Series.Add(series2);
-            this.chart_lmag.Series.Add(series3);
-            this.chart_lmag.Series.Add(series4);
-            this.chart_lmag.Series.Add(series5);
-            this.chart_lmag.Series.Add(series6);
-            this.chart_lmag.Series.Add(series7);
-            this.chart_lmag.Series.Add(series8);
-            this.chart_lmag.Series.Add(series9);
-            this.chart_lmag.Series.Add(series10);
-            this.chart_lmag.Size = new System.Drawing.Size(840, 972);
-            this.chart_lmag.TabIndex = 8;
-            this.chart_lmag.Text = "chart1";
+            series20.Name = "Series1";
+            this.chart_real1.Series.Add(series20);
+            this.chart_real1.Size = new System.Drawing.Size(834, 90);
+            this.chart_real1.TabIndex = 8;
+            this.chart_real1.Text = "chart1";
             // 
             // label11
             // 
-            this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label11.Location = new System.Drawing.Point(420, 10);
+            this.label11.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label11.Location = new System.Drawing.Point(12, 15);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(72, 16);
-            this.label11.TabIndex = 9;
-            this.label11.Text = "实部波形";
+            this.label11.Size = new System.Drawing.Size(21, 54);
+            this.label11.TabIndex = 59;
+            this.label11.Text = "通道1";
+            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // chart_real2
+            // 
+            this.chart_real2.AntiAliasing = System.Windows.Forms.DataVisualization.Charting.AntiAliasingStyles.Text;
+            chartArea19.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea19.Name = "ChartArea1";
+            this.chart_real2.ChartAreas.Add(chartArea19);
+            this.chart_real2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chart_real2.Location = new System.Drawing.Point(0, 0);
+            this.chart_real2.Name = "chart_real2";
+            series19.ChartArea = "ChartArea1";
+            series19.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series19.Name = "Series1";
+            this.chart_real2.Series.Add(series19);
+            this.chart_real2.Size = new System.Drawing.Size(834, 90);
+            this.chart_real2.TabIndex = 9;
+            this.chart_real2.Text = "chart1";
+            // 
+            // chart_real3
+            // 
+            this.chart_real3.AntiAliasing = System.Windows.Forms.DataVisualization.Charting.AntiAliasingStyles.Text;
+            chartArea18.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea18.Name = "ChartArea1";
+            this.chart_real3.ChartAreas.Add(chartArea18);
+            this.chart_real3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chart_real3.Location = new System.Drawing.Point(0, 0);
+            this.chart_real3.Name = "chart_real3";
+            series18.ChartArea = "ChartArea1";
+            series18.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series18.Name = "Series1";
+            this.chart_real3.Series.Add(series18);
+            this.chart_real3.Size = new System.Drawing.Size(834, 90);
+            this.chart_real3.TabIndex = 9;
+            this.chart_real3.Text = "chart1";
+            // 
+            // chart_real4
+            // 
+            this.chart_real4.AntiAliasing = System.Windows.Forms.DataVisualization.Charting.AntiAliasingStyles.Text;
+            chartArea17.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea17.Name = "ChartArea1";
+            this.chart_real4.ChartAreas.Add(chartArea17);
+            this.chart_real4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chart_real4.Location = new System.Drawing.Point(0, 0);
+            this.chart_real4.Name = "chart_real4";
+            series17.ChartArea = "ChartArea1";
+            series17.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series17.Name = "Series1";
+            this.chart_real4.Series.Add(series17);
+            this.chart_real4.Size = new System.Drawing.Size(834, 90);
+            this.chart_real4.TabIndex = 9;
+            this.chart_real4.Text = "chart1";
+            // 
+            // chart_real5
+            // 
+            this.chart_real5.AntiAliasing = System.Windows.Forms.DataVisualization.Charting.AntiAliasingStyles.Text;
+            chartArea16.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea16.Name = "ChartArea1";
+            this.chart_real5.ChartAreas.Add(chartArea16);
+            this.chart_real5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chart_real5.Location = new System.Drawing.Point(0, 0);
+            this.chart_real5.Name = "chart_real5";
+            series16.ChartArea = "ChartArea1";
+            series16.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series16.Name = "Series1";
+            this.chart_real5.Series.Add(series16);
+            this.chart_real5.Size = new System.Drawing.Size(834, 90);
+            this.chart_real5.TabIndex = 9;
+            this.chart_real5.Text = "chart1";
+            // 
+            // chart_real6
+            // 
+            this.chart_real6.AntiAliasing = System.Windows.Forms.DataVisualization.Charting.AntiAliasingStyles.Text;
+            chartArea15.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea15.Name = "ChartArea1";
+            this.chart_real6.ChartAreas.Add(chartArea15);
+            this.chart_real6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chart_real6.Location = new System.Drawing.Point(0, 0);
+            this.chart_real6.Name = "chart_real6";
+            series15.ChartArea = "ChartArea1";
+            series15.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series15.Name = "Series1";
+            this.chart_real6.Series.Add(series15);
+            this.chart_real6.Size = new System.Drawing.Size(834, 90);
+            this.chart_real6.TabIndex = 9;
+            this.chart_real6.Text = "chart1";
+            // 
+            // chart_real7
+            // 
+            this.chart_real7.AntiAliasing = System.Windows.Forms.DataVisualization.Charting.AntiAliasingStyles.Text;
+            chartArea14.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea14.Name = "ChartArea1";
+            this.chart_real7.ChartAreas.Add(chartArea14);
+            this.chart_real7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chart_real7.Location = new System.Drawing.Point(0, 0);
+            this.chart_real7.Name = "chart_real7";
+            series14.ChartArea = "ChartArea1";
+            series14.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series14.Name = "Series1";
+            this.chart_real7.Series.Add(series14);
+            this.chart_real7.Size = new System.Drawing.Size(834, 90);
+            this.chart_real7.TabIndex = 9;
+            this.chart_real7.Text = "chart1";
+            // 
+            // chart_real8
+            // 
+            this.chart_real8.AntiAliasing = System.Windows.Forms.DataVisualization.Charting.AntiAliasingStyles.Text;
+            chartArea13.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea13.Name = "ChartArea1";
+            this.chart_real8.ChartAreas.Add(chartArea13);
+            this.chart_real8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chart_real8.Location = new System.Drawing.Point(0, 0);
+            this.chart_real8.Name = "chart_real8";
+            series13.ChartArea = "ChartArea1";
+            series13.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series13.Name = "Series1";
+            this.chart_real8.Series.Add(series13);
+            this.chart_real8.Size = new System.Drawing.Size(834, 90);
+            this.chart_real8.TabIndex = 9;
+            this.chart_real8.Text = "chart1";
+            // 
+            // chart_real9
+            // 
+            this.chart_real9.AntiAliasing = System.Windows.Forms.DataVisualization.Charting.AntiAliasingStyles.Text;
+            chartArea12.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea12.Name = "ChartArea1";
+            this.chart_real9.ChartAreas.Add(chartArea12);
+            this.chart_real9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chart_real9.Location = new System.Drawing.Point(0, 0);
+            this.chart_real9.Name = "chart_real9";
+            series12.ChartArea = "ChartArea1";
+            series12.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series12.Name = "Series1";
+            this.chart_real9.Series.Add(series12);
+            this.chart_real9.Size = new System.Drawing.Size(834, 90);
+            this.chart_real9.TabIndex = 9;
+            this.chart_real9.Text = "chart1";
+            // 
+            // chart_real10
+            // 
+            this.chart_real10.AntiAliasing = System.Windows.Forms.DataVisualization.Charting.AntiAliasingStyles.Text;
+            chartArea11.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea11.Name = "ChartArea1";
+            this.chart_real10.ChartAreas.Add(chartArea11);
+            this.chart_real10.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chart_real10.Location = new System.Drawing.Point(0, 0);
+            this.chart_real10.Name = "chart_real10";
+            series11.ChartArea = "ChartArea1";
+            series11.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series11.Name = "Series1";
+            this.chart_real10.Series.Add(series11);
+            this.chart_real10.Size = new System.Drawing.Size(834, 90);
+            this.chart_real10.TabIndex = 9;
+            this.chart_real10.Text = "chart1";
+            // 
+            // label13
+            // 
+            this.label13.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label13.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label13.Location = new System.Drawing.Point(12, 17);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(21, 54);
+            this.label13.TabIndex = 60;
+            this.label13.Text = "通道2";
+            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label14
+            // 
+            this.label14.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label14.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label14.Location = new System.Drawing.Point(12, 11);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(21, 54);
+            this.label14.TabIndex = 60;
+            this.label14.Text = "通道3";
+            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label15
+            // 
+            this.label15.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label15.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label15.Location = new System.Drawing.Point(12, 18);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(21, 54);
+            this.label15.TabIndex = 61;
+            this.label15.Text = "通道4";
+            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label16
+            // 
+            this.label16.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label16.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label16.Location = new System.Drawing.Point(12, 20);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(21, 54);
+            this.label16.TabIndex = 62;
+            this.label16.Text = "通道5";
+            this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label17
+            // 
+            this.label17.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label17.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label17.Location = new System.Drawing.Point(12, 19);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(21, 54);
+            this.label17.TabIndex = 63;
+            this.label17.Text = "通道6";
+            this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label18
+            // 
+            this.label18.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label18.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label18.Location = new System.Drawing.Point(12, 20);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(21, 54);
+            this.label18.TabIndex = 64;
+            this.label18.Text = "通道7";
+            this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label19
+            // 
+            this.label19.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label19.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label19.Location = new System.Drawing.Point(12, 12);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(21, 54);
+            this.label19.TabIndex = 65;
+            this.label19.Text = "通道8";
+            this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label20
+            // 
+            this.label20.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label20.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label20.Location = new System.Drawing.Point(12, 11);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(21, 54);
+            this.label20.TabIndex = 66;
+            this.label20.Text = "通道9";
+            this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label21
+            // 
+            this.label21.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label21.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label21.Location = new System.Drawing.Point(12, 3);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(21, 82);
+            this.label21.TabIndex = 67;
+            this.label21.Text = "通道10";
+            this.label21.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panel20
+            // 
+            this.panel20.Controls.Add(this.panel21);
+            this.panel20.Controls.Add(this.panel22);
+            this.panel20.Controls.Add(this.panel23);
+            this.panel20.Controls.Add(this.panel24);
+            this.panel20.Controls.Add(this.panel25);
+            this.panel20.Controls.Add(this.panel26);
+            this.panel20.Controls.Add(this.panel27);
+            this.panel20.Controls.Add(this.panel28);
+            this.panel20.Controls.Add(this.panel29);
+            this.panel20.Controls.Add(this.panel30);
+            this.panel20.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel20.Location = new System.Drawing.Point(0, 0);
+            this.panel20.Name = "panel20";
+            this.panel20.Size = new System.Drawing.Size(840, 972);
+            this.panel20.TabIndex = 1;
+            // 
+            // panel21
+            // 
+            this.panel21.Controls.Add(this.label12);
+            this.panel21.Controls.Add(this.chart_lmag10);
+            this.panel21.Location = new System.Drawing.Point(3, 867);
+            this.panel21.Name = "panel21";
+            this.panel21.Size = new System.Drawing.Size(834, 90);
+            this.panel21.TabIndex = 8;
             // 
             // label12
             // 
-            this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label12.Location = new System.Drawing.Point(420, 10);
+            this.label12.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label12.Location = new System.Drawing.Point(12, 3);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(72, 16);
-            this.label12.TabIndex = 10;
-            this.label12.Text = "虚部波形";
+            this.label12.Size = new System.Drawing.Size(21, 82);
+            this.label12.TabIndex = 67;
+            this.label12.Text = "通道10";
+            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // chart_lmag10
+            // 
+            this.chart_lmag10.AntiAliasing = System.Windows.Forms.DataVisualization.Charting.AntiAliasingStyles.Text;
+            chartArea1.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea1.Name = "ChartArea1";
+            this.chart_lmag10.ChartAreas.Add(chartArea1);
+            this.chart_lmag10.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chart_lmag10.Location = new System.Drawing.Point(0, 0);
+            this.chart_lmag10.Name = "chart_lmag10";
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series1.Name = "Series1";
+            this.chart_lmag10.Series.Add(series1);
+            this.chart_lmag10.Size = new System.Drawing.Size(834, 90);
+            this.chart_lmag10.TabIndex = 9;
+            this.chart_lmag10.Text = "chart1";
+            // 
+            // panel22
+            // 
+            this.panel22.Controls.Add(this.label24);
+            this.panel22.Controls.Add(this.chart_lmag9);
+            this.panel22.Location = new System.Drawing.Point(3, 771);
+            this.panel22.Name = "panel22";
+            this.panel22.Size = new System.Drawing.Size(834, 90);
+            this.panel22.TabIndex = 7;
+            // 
+            // label24
+            // 
+            this.label24.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label24.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label24.Location = new System.Drawing.Point(12, 11);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(21, 54);
+            this.label24.TabIndex = 66;
+            this.label24.Text = "通道9";
+            this.label24.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // chart_lmag9
+            // 
+            this.chart_lmag9.AntiAliasing = System.Windows.Forms.DataVisualization.Charting.AntiAliasingStyles.Text;
+            chartArea2.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea2.Name = "ChartArea1";
+            this.chart_lmag9.ChartAreas.Add(chartArea2);
+            this.chart_lmag9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chart_lmag9.Location = new System.Drawing.Point(0, 0);
+            this.chart_lmag9.Name = "chart_lmag9";
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series2.Name = "Series1";
+            this.chart_lmag9.Series.Add(series2);
+            this.chart_lmag9.Size = new System.Drawing.Size(834, 90);
+            this.chart_lmag9.TabIndex = 9;
+            this.chart_lmag9.Text = "chart1";
+            // 
+            // panel23
+            // 
+            this.panel23.Controls.Add(this.label25);
+            this.panel23.Controls.Add(this.chart_lmag8);
+            this.panel23.Location = new System.Drawing.Point(3, 675);
+            this.panel23.Name = "panel23";
+            this.panel23.Size = new System.Drawing.Size(834, 90);
+            this.panel23.TabIndex = 6;
+            // 
+            // label25
+            // 
+            this.label25.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label25.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label25.Location = new System.Drawing.Point(12, 12);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(21, 54);
+            this.label25.TabIndex = 65;
+            this.label25.Text = "通道8";
+            this.label25.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // chart_lmag8
+            // 
+            this.chart_lmag8.AntiAliasing = System.Windows.Forms.DataVisualization.Charting.AntiAliasingStyles.Text;
+            chartArea3.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea3.Name = "ChartArea1";
+            this.chart_lmag8.ChartAreas.Add(chartArea3);
+            this.chart_lmag8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chart_lmag8.Location = new System.Drawing.Point(0, 0);
+            this.chart_lmag8.Name = "chart_lmag8";
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series3.Name = "Series1";
+            this.chart_lmag8.Series.Add(series3);
+            this.chart_lmag8.Size = new System.Drawing.Size(834, 90);
+            this.chart_lmag8.TabIndex = 9;
+            this.chart_lmag8.Text = "chart1";
+            // 
+            // panel24
+            // 
+            this.panel24.Controls.Add(this.label26);
+            this.panel24.Controls.Add(this.chart_lmag7);
+            this.panel24.Location = new System.Drawing.Point(3, 579);
+            this.panel24.Name = "panel24";
+            this.panel24.Size = new System.Drawing.Size(834, 90);
+            this.panel24.TabIndex = 1;
+            // 
+            // label26
+            // 
+            this.label26.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label26.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label26.Location = new System.Drawing.Point(12, 20);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(21, 54);
+            this.label26.TabIndex = 64;
+            this.label26.Text = "通道7";
+            this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // chart_lmag7
+            // 
+            this.chart_lmag7.AntiAliasing = System.Windows.Forms.DataVisualization.Charting.AntiAliasingStyles.Text;
+            chartArea4.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea4.Name = "ChartArea1";
+            this.chart_lmag7.ChartAreas.Add(chartArea4);
+            this.chart_lmag7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chart_lmag7.Location = new System.Drawing.Point(0, 0);
+            this.chart_lmag7.Name = "chart_lmag7";
+            series4.ChartArea = "ChartArea1";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series4.Name = "Series1";
+            this.chart_lmag7.Series.Add(series4);
+            this.chart_lmag7.Size = new System.Drawing.Size(834, 90);
+            this.chart_lmag7.TabIndex = 9;
+            this.chart_lmag7.Text = "chart1";
+            // 
+            // panel25
+            // 
+            this.panel25.Controls.Add(this.label27);
+            this.panel25.Controls.Add(this.chart_lmag6);
+            this.panel25.Location = new System.Drawing.Point(3, 483);
+            this.panel25.Name = "panel25";
+            this.panel25.Size = new System.Drawing.Size(834, 90);
+            this.panel25.TabIndex = 5;
+            // 
+            // label27
+            // 
+            this.label27.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label27.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label27.Location = new System.Drawing.Point(12, 19);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(21, 54);
+            this.label27.TabIndex = 63;
+            this.label27.Text = "通道6";
+            this.label27.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // chart_lmag6
+            // 
+            this.chart_lmag6.AntiAliasing = System.Windows.Forms.DataVisualization.Charting.AntiAliasingStyles.Text;
+            chartArea5.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea5.Name = "ChartArea1";
+            this.chart_lmag6.ChartAreas.Add(chartArea5);
+            this.chart_lmag6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chart_lmag6.Location = new System.Drawing.Point(0, 0);
+            this.chart_lmag6.Name = "chart_lmag6";
+            series5.ChartArea = "ChartArea1";
+            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series5.Name = "Series1";
+            this.chart_lmag6.Series.Add(series5);
+            this.chart_lmag6.Size = new System.Drawing.Size(834, 90);
+            this.chart_lmag6.TabIndex = 9;
+            this.chart_lmag6.Text = "chart1";
+            // 
+            // panel26
+            // 
+            this.panel26.Controls.Add(this.label28);
+            this.panel26.Controls.Add(this.chart_lmag5);
+            this.panel26.Location = new System.Drawing.Point(3, 387);
+            this.panel26.Name = "panel26";
+            this.panel26.Size = new System.Drawing.Size(834, 90);
+            this.panel26.TabIndex = 4;
+            // 
+            // label28
+            // 
+            this.label28.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label28.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label28.Location = new System.Drawing.Point(12, 20);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(21, 54);
+            this.label28.TabIndex = 62;
+            this.label28.Text = "通道5";
+            this.label28.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // chart_lmag5
+            // 
+            this.chart_lmag5.AntiAliasing = System.Windows.Forms.DataVisualization.Charting.AntiAliasingStyles.Text;
+            chartArea6.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea6.Name = "ChartArea1";
+            this.chart_lmag5.ChartAreas.Add(chartArea6);
+            this.chart_lmag5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chart_lmag5.Location = new System.Drawing.Point(0, 0);
+            this.chart_lmag5.Name = "chart_lmag5";
+            series6.ChartArea = "ChartArea1";
+            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series6.Name = "Series1";
+            this.chart_lmag5.Series.Add(series6);
+            this.chart_lmag5.Size = new System.Drawing.Size(834, 90);
+            this.chart_lmag5.TabIndex = 9;
+            this.chart_lmag5.Text = "chart1";
+            // 
+            // panel27
+            // 
+            this.panel27.Controls.Add(this.label29);
+            this.panel27.Controls.Add(this.chart_lmag4);
+            this.panel27.Location = new System.Drawing.Point(3, 291);
+            this.panel27.Name = "panel27";
+            this.panel27.Size = new System.Drawing.Size(834, 90);
+            this.panel27.TabIndex = 3;
+            // 
+            // label29
+            // 
+            this.label29.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label29.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label29.Location = new System.Drawing.Point(12, 18);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(21, 54);
+            this.label29.TabIndex = 61;
+            this.label29.Text = "通道4";
+            this.label29.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // chart_lmag4
+            // 
+            this.chart_lmag4.AntiAliasing = System.Windows.Forms.DataVisualization.Charting.AntiAliasingStyles.Text;
+            chartArea7.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea7.Name = "ChartArea1";
+            this.chart_lmag4.ChartAreas.Add(chartArea7);
+            this.chart_lmag4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chart_lmag4.Location = new System.Drawing.Point(0, 0);
+            this.chart_lmag4.Name = "chart_lmag4";
+            series7.ChartArea = "ChartArea1";
+            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series7.Name = "Series1";
+            this.chart_lmag4.Series.Add(series7);
+            this.chart_lmag4.Size = new System.Drawing.Size(834, 90);
+            this.chart_lmag4.TabIndex = 9;
+            this.chart_lmag4.Text = "chart1";
+            // 
+            // panel28
+            // 
+            this.panel28.Controls.Add(this.label30);
+            this.panel28.Controls.Add(this.chart_lmag3);
+            this.panel28.Location = new System.Drawing.Point(3, 195);
+            this.panel28.Name = "panel28";
+            this.panel28.Size = new System.Drawing.Size(834, 90);
+            this.panel28.TabIndex = 2;
+            // 
+            // label30
+            // 
+            this.label30.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label30.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label30.Location = new System.Drawing.Point(12, 11);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(21, 54);
+            this.label30.TabIndex = 60;
+            this.label30.Text = "通道3";
+            this.label30.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // chart_lmag3
+            // 
+            this.chart_lmag3.AntiAliasing = System.Windows.Forms.DataVisualization.Charting.AntiAliasingStyles.Text;
+            chartArea8.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea8.Name = "ChartArea1";
+            this.chart_lmag3.ChartAreas.Add(chartArea8);
+            this.chart_lmag3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chart_lmag3.Location = new System.Drawing.Point(0, 0);
+            this.chart_lmag3.Name = "chart_lmag3";
+            series8.ChartArea = "ChartArea1";
+            series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series8.Name = "Series1";
+            this.chart_lmag3.Series.Add(series8);
+            this.chart_lmag3.Size = new System.Drawing.Size(834, 90);
+            this.chart_lmag3.TabIndex = 9;
+            this.chart_lmag3.Text = "chart1";
+            // 
+            // panel29
+            // 
+            this.panel29.Controls.Add(this.label31);
+            this.panel29.Controls.Add(this.chart_lmag2);
+            this.panel29.Location = new System.Drawing.Point(3, 99);
+            this.panel29.Name = "panel29";
+            this.panel29.Size = new System.Drawing.Size(834, 90);
+            this.panel29.TabIndex = 1;
+            // 
+            // label31
+            // 
+            this.label31.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label31.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label31.Location = new System.Drawing.Point(12, 17);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(21, 54);
+            this.label31.TabIndex = 60;
+            this.label31.Text = "通道2";
+            this.label31.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // chart_lmag2
+            // 
+            this.chart_lmag2.AntiAliasing = System.Windows.Forms.DataVisualization.Charting.AntiAliasingStyles.Text;
+            chartArea9.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea9.Name = "ChartArea1";
+            this.chart_lmag2.ChartAreas.Add(chartArea9);
+            this.chart_lmag2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chart_lmag2.Location = new System.Drawing.Point(0, 0);
+            this.chart_lmag2.Name = "chart_lmag2";
+            series9.ChartArea = "ChartArea1";
+            series9.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series9.Name = "Series1";
+            this.chart_lmag2.Series.Add(series9);
+            this.chart_lmag2.Size = new System.Drawing.Size(834, 90);
+            this.chart_lmag2.TabIndex = 9;
+            this.chart_lmag2.Text = "chart18";
+            // 
+            // panel30
+            // 
+            this.panel30.Controls.Add(this.label32);
+            this.panel30.Controls.Add(this.chart_lmag1);
+            this.panel30.Location = new System.Drawing.Point(3, 3);
+            this.panel30.Name = "panel30";
+            this.panel30.Size = new System.Drawing.Size(834, 90);
+            this.panel30.TabIndex = 0;
+            // 
+            // label32
+            // 
+            this.label32.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label32.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label32.Location = new System.Drawing.Point(12, 15);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(21, 54);
+            this.label32.TabIndex = 59;
+            this.label32.Text = "通道1";
+            this.label32.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // chart_lmag1
+            // 
+            this.chart_lmag1.AntiAliasing = System.Windows.Forms.DataVisualization.Charting.AntiAliasingStyles.Text;
+            chartArea10.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea10.Name = "ChartArea1";
+            this.chart_lmag1.ChartAreas.Add(chartArea10);
+            this.chart_lmag1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chart_lmag1.Location = new System.Drawing.Point(0, 0);
+            this.chart_lmag1.Name = "chart_lmag1";
+            series10.ChartArea = "ChartArea1";
+            series10.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series10.Name = "Series1";
+            this.chart_lmag1.Series.Add(series10);
+            this.chart_lmag1.Size = new System.Drawing.Size(834, 90);
+            this.chart_lmag1.TabIndex = 8;
+            this.chart_lmag1.Text = "chart1";
             // 
             // MainForm
             // 
@@ -922,12 +1675,50 @@ namespace SerialAssistant
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel6.ResumeLayout(false);
-            this.panel6.PerformLayout();
             this.panel5.ResumeLayout(false);
-            this.panel5.PerformLayout();
+            this.panel19.ResumeLayout(false);
+            this.panel18.ResumeLayout(false);
+            this.panel17.ResumeLayout(false);
+            this.panel16.ResumeLayout(false);
+            this.panel15.ResumeLayout(false);
+            this.panel14.ResumeLayout(false);
+            this.panel13.ResumeLayout(false);
+            this.panel12.ResumeLayout(false);
+            this.panel11.ResumeLayout(false);
+            this.panel7.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.chart_real)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chart_lmag)).EndInit();
+            this.panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart_real1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart_real2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart_real3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart_real4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart_real5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart_real6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart_real7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart_real8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart_real9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart_real10)).EndInit();
+            this.panel20.ResumeLayout(false);
+            this.panel21.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chart_lmag10)).EndInit();
+            this.panel22.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chart_lmag9)).EndInit();
+            this.panel23.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chart_lmag8)).EndInit();
+            this.panel24.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chart_lmag7)).EndInit();
+            this.panel25.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chart_lmag6)).EndInit();
+            this.panel26.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chart_lmag5)).EndInit();
+            this.panel27.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chart_lmag4)).EndInit();
+            this.panel28.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chart_lmag3)).EndInit();
+            this.panel29.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chart_lmag2)).EndInit();
+            this.panel30.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chart_lmag1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -984,10 +1775,69 @@ namespace SerialAssistant
         private System.Windows.Forms.Button btnStop;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Panel panel5;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chart_lmag;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chart_real;
-        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Panel panel19;
+        private System.Windows.Forms.Panel panel18;
+        private System.Windows.Forms.Panel panel17;
+        private System.Windows.Forms.Panel panel16;
+        private System.Windows.Forms.Panel panel15;
+        private System.Windows.Forms.Panel panel14;
+        private System.Windows.Forms.Panel panel13;
+        private System.Windows.Forms.Panel panel12;
+        private System.Windows.Forms.Panel panel11;
+        private System.Windows.Forms.Panel panel7;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Panel panel20;
+        private System.Windows.Forms.Panel panel21;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart_lmag10;
+        private System.Windows.Forms.Panel panel22;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart_lmag9;
+        private System.Windows.Forms.Panel panel23;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart_lmag8;
+        private System.Windows.Forms.Panel panel24;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart_lmag7;
+        private System.Windows.Forms.Panel panel25;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart_lmag6;
+        private System.Windows.Forms.Panel panel26;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart_lmag5;
+        private System.Windows.Forms.Panel panel27;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart_lmag4;
+        private System.Windows.Forms.Panel panel28;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart_lmag3;
+        private System.Windows.Forms.Panel panel29;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart_lmag2;
+        private System.Windows.Forms.Panel panel30;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart_lmag1;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart_real10;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart_real9;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart_real8;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart_real7;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart_real6;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart_real5;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart_real4;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart_real3;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart_real2;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart_real1;
     }
 }
 
