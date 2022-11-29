@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SerialAssistant.exe" size="63960">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SerialAssistant.exe" size="67032">
       <assemblyIdentity name="SerialAssistant" version="2.1.1.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>nDG1jKGheWwkmOKe//lU52mMarUhqTsXKyH/UqrP2o8=</dsig:DigestValue>
+        <dsig:DigestValue>DYUdBppL04DlgOE/7bod2wNNlK6nU5JJSLYKpe9qt9Q=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

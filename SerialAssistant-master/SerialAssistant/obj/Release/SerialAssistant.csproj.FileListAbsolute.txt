@@ -15,4 +15,3 @@ E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\
 E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\obj\Release\SerialAssistant.csproj.CopyComplete
 E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\obj\Release\SerialAssistant.exe
 E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\obj\Release\SerialAssistant.pdb
-E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\obj\Release\SerialAssistant.csproj.AssemblyReference.cache
