@@ -33,3 +33,4 @@ E:\code\c#\串口最终\SerialAssistant_ultimately\SerialAssistant-master\Serial
 E:\code\c#\串口最终\SerialAssistant_ultimately\SerialAssistant-master\SerialAssistant\obj\Debug\SerialAssistant.exe
 E:\code\c#\串口最终\SerialAssistant_ultimately\SerialAssistant-master\SerialAssistant\obj\Debug\SerialAssistant.pdb
 E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\obj\Debug\SerialAssistant.Form1.resources
+E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\obj\Debug\SerialAssistant.csproj.AssemblyReference.cache
