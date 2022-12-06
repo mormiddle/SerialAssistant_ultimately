@@ -11,6 +11,9 @@ using System.Text.RegularExpressions;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms.DataVisualization.Charting;
+using System.Runtime.InteropServices;//控制台
+using MathWorks.MATLAB.NET.Arrays;//MWArray
+using emdfNative;
 
 namespace SerialAssistant
 {
@@ -28,6 +31,10 @@ namespace SerialAssistant
         private List<byte> SerialPortReceiveData = new List<byte>(); //用于存储串口的数据
         Thread th;
         private int pointIndex = 0;//x轴的点
+
+        //使用控制台
+        [DllImport("kernel32.dll")]
+        public static extern bool AllocConsole();
 
         private List<int> real1 = new List<int>();
         private List<int> real2 = new List<int>();
@@ -55,6 +62,7 @@ namespace SerialAssistant
         public MainForm()
         {
             InitializeComponent();
+            AllocConsole(); //关联一个控制台窗口用于显示信息
         }
 
         private bool search_port_is_exist(String item, String[] port_list)
@@ -716,12 +724,12 @@ namespace SerialAssistant
         #endregion
 
 
-        #region 上传按钮
+        #region 测试MATLAB动态库按钮
         private void button3_Click(object sender, EventArgs e)
         {
-            string file;
+            /*string file;
 
-            /* 弹出文件选择框供用户选择 */
+            *//* 弹出文件选择框供用户选择 *//*
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Multiselect = false;//该值确定是否可以选择多个文件
             dialog.Title = "请选择要加载的文件(文本格式)";
@@ -735,7 +743,7 @@ namespace SerialAssistant
                 return;
             }
 
-            /* 读取文件内容 */
+            *//* 读取文件内容 *//*
             try
             {
                 //清空发送缓冲区
@@ -757,7 +765,10 @@ namespace SerialAssistant
             catch (Exception ex)
             {
                 MessageBox.Show("加载文件发生异常！(" + ex.ToString() + ")");
-            }
+            }*/
+
+            ToMatlab(real1);
+
         }
         #endregion
 
@@ -1029,60 +1040,6 @@ namespace SerialAssistant
         }
 
 
-
-        private int maxListDev(List<int> list)
-        {
-            int max = list[0], min = list[0];
-            int maxIndex = 0, minIndex = 0;
-            int LastMaxIndex = 0;
-            int LastMinIndex = 0;
-            int maxDev = 0;
-            for (int i = 1; i < list.Count; i++)
-            {
-                if (list[i] > max )
-                { 
-                    max = list[i];
-                    LastMaxIndex = maxIndex;
-                    maxIndex = i;
-                    int tempSum = 0;
-                    int tempAvg = 0;
-                    int tempDev = 0;
-                    for (int j = LastMaxIndex + 1; j < maxIndex; j++)
-                    {
-                        tempSum += list[j];
-                        tempAvg = tempSum / (maxIndex - LastMaxIndex);
-                    }
-                    tempDev = list[maxIndex] - tempAvg;
-                    if (tempDev > maxDev)
-                    {
-                        maxDev = tempDev;
-                    }
-                }
-
-                if (list[i] < min)
-                {
-                    min = list[i];
-                    LastMinIndex = minIndex;
-                    minIndex = i;
-                    int tempSum = 0;
-                    int tempAvg = 0;
-                    int tempDev = 0;
-                    for (int j = LastMinIndex + 1; j < minIndex; j++)
-                    {
-                        tempSum += list[j];
-                        tempAvg = tempSum / (minIndex - LastMinIndex);
-                    }
-                    tempDev = tempAvg - list[minIndex];
-                    if (tempDev > maxDev)
-                    {
-                        maxDev = tempDev;
-                    }
-                }
-            }
-
-            return maxDev;
-        }
-
         private string GetDataStr(List<int> list)
         {
             StringBuilder sb = new StringBuilder();
@@ -1094,6 +1051,37 @@ namespace SerialAssistant
             //sb.Append("该通道的最大差值为：" + listDev.ToString() + '\n');
 
             return sb.ToString();
+        }
+
+        private void ToMatlab(List<int> list)
+        {
+            if (list.Count() != 0)
+            {
+                //声明数组并把list类型转化成都变了类型
+                int[] temp = list.ToArray();
+                //声明二维数组，并把数组类型转化成二维数组
+                int[,] temp2 = new int[temp.Length, 1];
+
+                for (int i = 0; i < temp.Length; i++)
+                {
+                    temp2[i, 0] = temp[i];
+                }
+
+                //声明MWArray，并把二维数组转换成MWArray类型
+                MWArray temp3 = new MWNumericArray(temp2);
+
+                Class1 testemdf = new Class1();
+                object test;
+                object test2;
+                test = testemdf.emdf(temp3,2);
+                test2 = testemdf.emdf(temp3,3);
+
+
+
+                System.Console.WriteLine(test);
+            }
+           
+
         }
 
     }

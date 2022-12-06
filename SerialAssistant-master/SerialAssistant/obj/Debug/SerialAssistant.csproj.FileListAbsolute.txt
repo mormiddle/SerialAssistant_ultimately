@@ -32,8 +32,7 @@ E:\code\c#\串口最终\SerialAssistant_ultimately\SerialAssistant-master\Serial
 E:\code\c#\串口最终\SerialAssistant_ultimately\SerialAssistant-master\SerialAssistant\obj\Debug\SerialAssistant.exe
 E:\code\c#\串口最终\SerialAssistant_ultimately\SerialAssistant-master\SerialAssistant\obj\Debug\SerialAssistant.pdb
 E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\obj\Debug\SerialAssistant.Form1.resources
-<<<<<<< HEAD
-E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\obj\Debug\SerialAssistant.csproj.AssemblyReference.cache
-=======
 E:\code\c#\串口最终\SerialAssistant_ultimately\SerialAssistant-master\SerialAssistant\obj\Debug\SerialAssistant.Form1.resources
->>>>>>> 9a6b50dbde1ca94d32c9c53a5772107973b75858
+E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\bin\Debug\emdf.dll
+E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\bin\Debug\emdfNative.dll
+E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\bin\Debug\MWArray.dll
