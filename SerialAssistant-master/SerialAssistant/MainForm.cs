@@ -11,9 +11,8 @@ using System.Text.RegularExpressions;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms.DataVisualization.Charting;
-using System.Runtime.InteropServices;//控制台
 using MathWorks.MATLAB.NET.Arrays;//MWArray
-using emdfNative;
+using emdf;
 
 namespace SerialAssistant
 {
@@ -32,9 +31,6 @@ namespace SerialAssistant
         Thread th;
         private int pointIndex = 0;//x轴的点
 
-        //使用控制台
-        [DllImport("kernel32.dll")]
-        public static extern bool AllocConsole();
 
         private List<int> real1 = new List<int>();
         private List<int> real2 = new List<int>();
@@ -62,7 +58,6 @@ namespace SerialAssistant
         public MainForm()
         {
             InitializeComponent();
-            AllocConsole(); //关联一个控制台窗口用于显示信息
         }
 
         private bool search_port_is_exist(String item, String[] port_list)
@@ -461,6 +456,10 @@ namespace SerialAssistant
         #region 下载按钮
         private void button4_Click(object sender, EventArgs e)
         {
+            if (th != null && th.IsAlive)
+            {
+                th.Abort();
+            }
             DateTime time = new DateTime();
             String fileName;
 
@@ -713,6 +712,7 @@ namespace SerialAssistant
 
                 //提示用户
                 MessageBox.Show("日志已保存!(" + fileNamereal1 + ")");
+                ToMatlab(real1);
             }
             catch (Exception ex)
             {
@@ -1070,15 +1070,27 @@ namespace SerialAssistant
                 //声明MWArray，并把二维数组转换成MWArray类型
                 MWArray temp3 = new MWNumericArray(temp2);
 
-                Class1 testemdf = new Class1();
-                object test;
-                object test2;
-                test = testemdf.emdf(temp3,2);
-                test2 = testemdf.emdf(temp3,3);
+                Class1 DoEmd = new Class1();
+                object IMF2;
+                object IMF3;
+                object IMF4;
 
+                IMF2 = DoEmd.emdf(temp3,2);
+                IMF3 = DoEmd.emdf(temp3,3);
+                IMF4 = DoEmd.emdf(temp3,4);
 
+                double[] tmepIMF2 = (double[])((MWNumericArray)IMF2).ToVector(MWArrayComponent.Real);
+                double[] tmepIMF3 = (double[])((MWNumericArray)IMF3).ToVector(MWArrayComponent.Real);
+                double[] tmepIMF4 = (double[])((MWNumericArray)IMF4).ToVector(MWArrayComponent.Real);
+                double[] ToIMF = new double[temp.Length];
 
-                System.Console.WriteLine(test);
+                for (int i = 0; i < temp.Length; i++)
+                {
+                    ToIMF[i] = tmepIMF3[i];
+                }
+
+                double max = ToIMF.Max();
+                MessageBox.Show(max.ToString());
             }
            
 

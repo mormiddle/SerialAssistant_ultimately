@@ -18,4 +18,3 @@ E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\
 E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\obj\x64\Debug\SerialAssistant.exe
 E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\obj\x64\Debug\SerialAssistant.pdb
 E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\bin\x64\Debug\emdfNative.dll
-E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\obj\x64\Debug\SerialAssistant.csproj.AssemblyReference.cache
