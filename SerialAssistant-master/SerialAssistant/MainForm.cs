@@ -30,6 +30,7 @@ namespace SerialAssistant
         private List<byte> SerialPortReceiveData = new List<byte>(); //用于存储串口的数据
         Thread th;
         private int pointIndex = 0;//x轴的点
+        DateTime timeStart = new DateTime();//采集开始时间
 
 
         private List<int> real1 = new List<int>();
@@ -448,6 +449,51 @@ namespace SerialAssistant
             send_count = 0;             //发送计数
             label8.Text = "接收：" + receive_count.ToString() + " Bytes";
             label7.Text = "发送：" + receive_count.ToString() + " Bytes";
+
+
+            real1.Clear();
+            real2.Clear();
+            real3.Clear();
+            real4.Clear();
+            real5.Clear();
+            real6.Clear();
+            real7.Clear();
+            real8.Clear();
+            real9.Clear();
+            real10.Clear();
+
+            lmag1.Clear();
+            lmag2.Clear();
+            lmag3.Clear();
+            lmag4.Clear();
+            lmag5.Clear();
+            lmag6.Clear();
+            lmag7.Clear();
+            lmag8.Clear();
+            lmag9.Clear();
+            lmag10.Clear();
+
+            this.chart_real1.Series[0].Points.Clear();
+            this.chart_lmag1.Series[0].Points.Clear();
+            this.chart_real2.Series[0].Points.Clear();
+            this.chart_lmag2.Series[0].Points.Clear();
+            this.chart_real3.Series[0].Points.Clear();
+            this.chart_lmag3.Series[0].Points.Clear();
+            this.chart_real4.Series[0].Points.Clear();
+            this.chart_lmag4.Series[0].Points.Clear();
+            this.chart_real5.Series[0].Points.Clear();
+            this.chart_lmag5.Series[0].Points.Clear();
+            this.chart_real6.Series[0].Points.Clear();
+            this.chart_lmag6.Series[0].Points.Clear();
+            this.chart_real7.Series[0].Points.Clear();
+            this.chart_lmag7.Series[0].Points.Clear();
+            this.chart_real8.Series[0].Points.Clear();
+            this.chart_lmag8.Series[0].Points.Clear();
+            this.chart_real9.Series[0].Points.Clear();
+            this.chart_lmag9.Series[0].Points.Clear();
+            this.chart_real10.Series[0].Points.Clear();
+            this.chart_lmag10.Series[0].Points.Clear();
+
         }
         #endregion
 
@@ -460,7 +506,10 @@ namespace SerialAssistant
             {
                 th.Abort();
             }
+            /* 获取当前时间，用于填充文件名 */
+            //eg.log_2021_05_08_10_13_31.txt          
             DateTime time = new DateTime();
+            time = System.DateTime.Now;
             String fileName;
 
             String fileNamereal1;
@@ -540,9 +589,7 @@ namespace SerialAssistant
                 return;
             }
 
-            /* 获取当前时间，用于填充文件名 */
-            //eg.log_2021_05_08_10_13_31.txt
-            time = System.DateTime.Now;
+            
 
             /* 弹出文件夹选择框供用户选择 */
             FolderBrowserDialog dialog = new FolderBrowserDialog();
@@ -555,8 +602,9 @@ namespace SerialAssistant
             {
                 return;
             }
+            TimeSpan span1 = time - timeStart;
 
-            //fileName = foldPath + "\\" + "log" + "_" + time.ToString("yyyy_MM_dd_HH_mm_ss") + ".txt";
+            fileName = foldPath + "\\" + "log" + "_" + "时长" + span1.ToString(@"mm\.ss") + "_" + "日期" + "_" +time.ToString("yyyy_MM_dd_HH_mm_ss") + ".txt";
             fileNamereal1 = foldPath + "\\" + "log" + "_real1_" + ".txt";
             fileNamereal2 = foldPath + "\\" + "log" + "_real2_" + ".txt";
             fileNamereal3 = foldPath + "\\" + "log" + "_real3_" + ".txt";
@@ -585,6 +633,7 @@ namespace SerialAssistant
             {
                 /* 保存串口接收区的内容 */
                 //创建 FileStream 类的实例
+                FileStream fileStream = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
                 FileStream fileStreamreal1 = new FileStream(fileNamereal1, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
                 FileStream fileStreamreal2 = new FileStream(fileNamereal2, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
                 FileStream fileStreamreal3 = new FileStream(fileNamereal3, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
@@ -608,7 +657,7 @@ namespace SerialAssistant
                 FileStream fileStreamlmag10 = new FileStream(fileNamelmag10, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
 
                 //将字符串转换为字节数组
-                //byte[] bytes = Encoding.UTF8.GetBytes(recv_data);
+                byte[] bytes = Encoding.UTF8.GetBytes(recv_data);
                 byte[] bytes_real1 = Encoding.UTF8.GetBytes(real1_str);
                 byte[] bytes_real2 = Encoding.UTF8.GetBytes(real2_str);
                 byte[] bytes_real3 = Encoding.UTF8.GetBytes(real3_str);
@@ -633,6 +682,7 @@ namespace SerialAssistant
 
 
                 //向文件中写入字节数组
+                fileStream.Write(bytes, 0, bytes.Length);
                 fileStreamreal1.Write(bytes_real1, 0, bytes_real1.Length);
                 fileStreamlmag1.Write(bytes_lmag1, 0, bytes_lmag1.Length);
 
@@ -664,6 +714,7 @@ namespace SerialAssistant
                 fileStreamlmag10.Write(bytes_lmag10, 0, bytes_lmag10.Length);
 
                 //刷新缓冲区
+                fileStream.Flush();
                 fileStreamreal1.Flush();
                 fileStreamreal2.Flush();
                 fileStreamreal3.Flush();
@@ -687,7 +738,7 @@ namespace SerialAssistant
                 fileStreamlmag10.Flush();
 
                 //关闭流
-                //fileStream.Close();
+                fileStream.Close();
                 fileStreamreal1.Close();
                 fileStreamreal2.Close();
                 fileStreamreal3.Close();
@@ -712,7 +763,7 @@ namespace SerialAssistant
 
                 //提示用户
                 MessageBox.Show("日志已保存!(" + fileNamereal1 + ")");
-                ToMatlab(real1);
+                //ToMatlab(real1);
             }
             catch (Exception ex)
             {
@@ -926,6 +977,7 @@ namespace SerialAssistant
                 th.IsBackground = true;
                 th.Start();
             }
+            timeStart = System.DateTime.Now;
         }
 
         private void btnStop_Click(object sender, EventArgs e)
@@ -1013,7 +1065,7 @@ namespace SerialAssistant
                             real10.Add(SerialPortReceiveData[36] * 256 + SerialPortReceiveData[37]);
 
                             lmag1.Add(SerialPortReceiveData[2] * 256 + SerialPortReceiveData[3]);
-                            lmag2.Add(SerialPortReceiveData[6] * 256 + SerialPortReceiveData[4]);
+                            lmag2.Add(SerialPortReceiveData[6] * 256 + SerialPortReceiveData[7]);
                             lmag3.Add(SerialPortReceiveData[10] * 256 + SerialPortReceiveData[11]);
                             lmag4.Add(SerialPortReceiveData[14] * 256 + SerialPortReceiveData[15]);
                             lmag5.Add(SerialPortReceiveData[18] * 256 + SerialPortReceiveData[19]);
@@ -1093,7 +1145,6 @@ namespace SerialAssistant
                 MessageBox.Show(max.ToString());
             }
            
-
         }
 
     }
