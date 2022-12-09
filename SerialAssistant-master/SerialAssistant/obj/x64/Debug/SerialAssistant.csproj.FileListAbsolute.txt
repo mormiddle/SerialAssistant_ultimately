@@ -3,8 +3,6 @@ E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\
 E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\bin\x64\Debug\SerialAssistant.application
 E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\bin\x64\Debug\SerialAssistant.exe
 E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\bin\x64\Debug\SerialAssistant.pdb
-E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\bin\x64\Debug\emdf.dll
-E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\bin\x64\Debug\MWArray.dll
 E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\bin\x64\Debug\STTech.CodePlus.dll
 E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\bin\x64\Debug\STTech.CodePlus.xml
 E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\obj\x64\Debug\SerialAssistant.Form1.resources
@@ -17,5 +15,4 @@ E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\
 E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\obj\x64\Debug\SerialAssistant.csproj.CopyComplete
 E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\obj\x64\Debug\SerialAssistant.exe
 E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\obj\x64\Debug\SerialAssistant.pdb
-E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\bin\x64\Debug\emdfNative.dll
 E:\code\C#\串口(涡流项目)\串口助手最终版本\SerialAssistant-master\SerialAssistant\obj\x64\Debug\SerialAssistant.csproj.AssemblyReference.cache

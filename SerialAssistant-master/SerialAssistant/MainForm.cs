@@ -11,8 +11,6 @@ using System.Text.RegularExpressions;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms.DataVisualization.Charting;
-using MathWorks.MATLAB.NET.Arrays;//MWArray
-using emdf;
 
 namespace SerialAssistant
 {
@@ -121,7 +119,8 @@ namespace SerialAssistant
                     if (comboBox1.Text.Equals(""))
                     {
                         //软件刚启动时，列表项的文本值为空
-                        comboBox1.Text = comboBox1.Items[0].ToString();
+                        //comboBox1.Text = comboBox1.Items[0].ToString();
+                        comboBox1.Text = "COM8";
                     }
                 }
                 else
@@ -539,28 +538,6 @@ namespace SerialAssistant
             /* 获取当前接收区内容 */
             String recv_data = textBox1.Text;
 
-            /*String real1_str = "通道1实部：" + GetDataStr(real1);
-            String real2_str = "通道2实部：" + GetDataStr(real2);
-            String real3_str = "通道3实部：" + GetDataStr(real3);
-            String real4_str = "通道4实部：" + GetDataStr(real4);
-            String real5_str = "通道5实部：" + GetDataStr(real5);
-            String real6_str = "通道6实部：" + GetDataStr(real6);
-            String real7_str = "通道7实部：" + GetDataStr(real7);
-            String real8_str = "通道8实部：" + GetDataStr(real8);
-            String real9_str = "通道9实部：" + GetDataStr(real9);
-            String real10_str = "通道10实部：" + GetDataStr(real10);
-            
-            String lmag1_str =  "通道1虚部：" + GetDataStr(lmag1);
-            String lmag2_str =  "通道2虚部：" + GetDataStr(lmag2);
-            String lmag3_str =  "通道3虚部：" + GetDataStr(lmag3);
-            String lmag4_str =  "通道4虚部：" + GetDataStr(lmag4);
-            String lmag5_str =  "通道5虚部：" + GetDataStr(lmag5);
-            String lmag6_str =  "通道6虚部：" + GetDataStr(lmag6);
-            String lmag7_str =  "通道7虚部：" + GetDataStr(lmag7);
-            String lmag8_str =  "通道8虚部：" + GetDataStr(lmag8);
-            String lmag9_str =  "通道9虚部：" + GetDataStr(lmag9);
-            String lmag10_str = "通道10虚部：" + GetDataStr(lmag10);*/
-
             String real1_str = GetDataStr(real1);
             String real2_str = GetDataStr(real2);
             String real3_str = GetDataStr(real3);
@@ -775,50 +752,33 @@ namespace SerialAssistant
         #endregion
 
 
-        #region 测试MATLAB动态库按钮
+        #region 上传按钮
         private void button3_Click(object sender, EventArgs e)
         {
-            /*string file;
-
-            *//* 弹出文件选择框供用户选择 *//*
-            OpenFileDialog dialog = new OpenFileDialog();
-            dialog.Multiselect = false;//该值确定是否可以选择多个文件
-            dialog.Title = "请选择要加载的文件(文本格式)";
-            dialog.Filter = "文本文件(*.txt)|*.txt|JSON文件(*.json)|*.json";
-            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (th != null && th.IsAlive)
             {
-                file = dialog.FileName;
-            }
-            else
-            {
-                return;
+                th.Abort();
             }
 
-            *//* 读取文件内容 *//*
-            try
-            {
-                //清空发送缓冲区
-                //textBox2.Text = "";
+            double real1max = GetMax(real1);
+            double real2max = GetMax(real2);
+            double real3max = GetMax(real3);
+            double real4max = GetMax(real4);
+            double real5max = GetMax(real5);
+            double real6max = GetMax(real6);
+            double real7max = GetMax(real7);
+            double real8max = GetMax(real8);
+            double real9max = GetMax(real9);
+            double real10max = GetMax(real10);
 
-                // 使用 StreamReader 来读取文件
-                using (StreamReader sr = new StreamReader(file))
-                {
-                    string line;
+            MessageBox.Show("通道1:" + real1max.ToString() + "\n" + "通道2:" + real2max.ToString() + "\n" +
+                            "通道3:" + real3max.ToString() + "\n" + "通道4:" + real4max.ToString() + "\n" +
+                            "通道5:" + real5max.ToString() + "\n" + "通道6:" + real6max.ToString() + "\n" +
+                            "通道7:" + real7max.ToString() + "\n" + "通道8:" + real8max.ToString() + "\n" +
+                            "通道9:" + real9max.ToString() + "\n" + "通道10:" + real10max.ToString() + "\n" );
 
-                    // 从文件读取并显示行，直到文件的末尾 
-                    while ((line = sr.ReadLine()) != null)
-                    {
-                        line = line + "\r\n";
-                        //textBox2.AppendText(line);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("加载文件发生异常！(" + ex.ToString() + ")");
-            }*/
+            
 
-            ToMatlab(real1);
 
         }
         #endregion
@@ -1105,47 +1065,69 @@ namespace SerialAssistant
             return sb.ToString();
         }
 
-        private void ToMatlab(List<int> list)
+        private double GetMax(List<int> list)
         {
-            if (list.Count() != 0)
+            double Max = 0;
+            int count = list.Count();
+            int w = 64;
+            const int c1 = 3;
+            int[] arr = new int[1 + c1 * 2];
+            double[] data = new double[count];
+
+            for (int j = 0; j < c1; j++)
             {
-                //声明数组并把list类型转化成都变了类型
-                int[] temp = list.ToArray();
-                //声明二维数组，并把数组类型转化成二维数组
-                int[,] temp2 = new int[temp.Length, 1];
-
-                for (int i = 0; i < temp.Length; i++)
+                // 中值滤波
+                int c2 = 1 + j * 2;
+                for (int k = 0; k < count; k++)
                 {
-                    temp2[i, 0] = temp[i];
+                    int n = list[k];
+                    if (j > 0 && k >= j && k < count - j)
+                    {
+                        for (int l = 0; l < c2; l++)
+                        {
+                            arr[l] = list[k - j + l];
+                        }
+                        Array.Sort(arr);
+                        n = arr[j];
+                    }
+                    data[k] = n;
+
                 }
 
-                //声明MWArray，并把二维数组转换成MWArray类型
-                MWArray temp3 = new MWNumericArray(temp2);
-
-                Class1 DoEmd = new Class1();
-                object IMF2;
-                object IMF3;
-                object IMF4;
-
-                IMF2 = DoEmd.emdf(temp3,2);
-                IMF3 = DoEmd.emdf(temp3,3);
-                IMF4 = DoEmd.emdf(temp3,4);
-
-                double[] tmepIMF2 = (double[])((MWNumericArray)IMF2).ToVector(MWArrayComponent.Real);
-                double[] tmepIMF3 = (double[])((MWNumericArray)IMF3).ToVector(MWArrayComponent.Real);
-                double[] tmepIMF4 = (double[])((MWNumericArray)IMF4).ToVector(MWArrayComponent.Real);
-                double[] ToIMF = new double[temp.Length];
-
-                for (int i = 0; i < temp.Length; i++)
-                {
-                    ToIMF[i] = tmepIMF3[i];
-                }
-
-                double max = ToIMF.Max();
-                MessageBox.Show(max.ToString());
             }
-           
+
+            // 滑动窗口内最大偏差(比较基准：直线方程，首尾点连线，之前已经做了中值滤波，无需再计算均值点)
+            for (int k = w; k < count; k++)
+            {
+                double vMax = 0;
+                {
+                    Point pt1 = new Point(0, data[k - w]);
+                    Point pt2 = new Point(w - 1, data[k - 1]);
+                    // 计算斜率
+                    double slope = (pt2.Y - pt1.Y) / (pt2.X - pt1.X);
+                    // 计算y轴截距
+                    double yIntercept = (pt1.Y - slope * pt1.X);
+                    for (int l = 1; l < w - 1; l++)
+                    {
+                        Point pt = new Point(l, data[k - w + l]);
+                        double dist = Math.Abs((slope * pt.X + yIntercept) - pt.Y) / Math.Sqrt(slope * slope + 1);
+                        if (vMax < dist)
+                        {
+                            vMax = dist;
+                        }
+                    }
+
+                }
+                if (Max < vMax)
+                {
+                    Max = vMax;
+                }
+            }
+
+            return Max;
         }
+
+       
 
     }
 }
