@@ -119,8 +119,8 @@ namespace SerialAssistant
                     if (comboBox1.Text.Equals(""))
                     {
                         //软件刚启动时，列表项的文本值为空
-                        //comboBox1.Text = comboBox1.Items[0].ToString();
-                        comboBox1.Text = "COM8";
+                        comboBox1.Text = comboBox1.Items[0].ToString();
+                       
                     }
                 }
                 else
@@ -861,45 +861,14 @@ namespace SerialAssistant
             }
         }
 
+        /// <summary>
+        /// 计算偏移值
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button7_Click(object sender, EventArgs e)
         {
-            /*string targetUrl = "http://www.mculover666.cn";
-
-            try
-            {
-                //尝试用edge打开
-                System.Diagnostics.Process.Start("msedge.exe", targetUrl);
-                return;
-            }
-            catch (Exception)
-            {
-                //edge它不香吗
-            }
-
-            try
-            {
-                //好吧，那用chrome
-                System.Diagnostics.Process.Start("chrome.exe", targetUrl);
-                return;
-            }
-            catch
-            {
-                //chrome不好用吗
-            }
-            try
-            {
-                //IE也不是不可以
-                System.Diagnostics.Process.Start("iexplore.exe", targetUrl);
-                return;
-            }
-
-            catch
-            {
-                //没救了，砸了吧！
-            }
-
-            *//* 没办法了，提示一下 *//*
-            MessageBox.Show("本软件开源免费，作者:Mculover666!");*/
+           
         }
 
         private void checkBox3_CheckedChanged(object sender, EventArgs e)
@@ -962,54 +931,54 @@ namespace SerialAssistant
 
                         while (SerialPortReceiveData.Count > 40)
                         {
-                            this.chart_real1.Series[0].Points.AddXY(pointIndex, SerialPortReceiveData[0] * 256 + SerialPortReceiveData[1] );
-                            this.chart_lmag1.Series[0].Points.AddXY(pointIndex, SerialPortReceiveData[2] * 256 + SerialPortReceiveData[3] );
+                            this.chart_real1.Series[0].Points.AddY(pointIndex, SerialPortReceiveData[0] * 256 + SerialPortReceiveData[1] );
+                            this.chart_lmag1.Series[0].Points.AddY(pointIndex, SerialPortReceiveData[2] * 256 + SerialPortReceiveData[3] );
                             this.chart_real1.ChartAreas[0].AxisX.ScaleView.Scroll(System.Windows.Forms.DataVisualization.Charting.ScrollType.Last);
                             this.chart_lmag1.ChartAreas[0].AxisX.ScaleView.Scroll(System.Windows.Forms.DataVisualization.Charting.ScrollType.Last);
 
 
-                            this.chart_real2.Series[0].Points.AddXY(pointIndex, SerialPortReceiveData[4] * 256 + SerialPortReceiveData[5] );
-                            this.chart_lmag2.Series[0].Points.AddXY(pointIndex, SerialPortReceiveData[6] * 256 + SerialPortReceiveData[7] );
+                            this.chart_real2.Series[0].Points.AddY(pointIndex, SerialPortReceiveData[4] * 256 + SerialPortReceiveData[5] );
+                            this.chart_lmag2.Series[0].Points.AddY(pointIndex, SerialPortReceiveData[6] * 256 + SerialPortReceiveData[7] );
                             this.chart_real2.ChartAreas[0].AxisX.ScaleView.Scroll(System.Windows.Forms.DataVisualization.Charting.ScrollType.Last);
                             this.chart_lmag2.ChartAreas[0].AxisX.ScaleView.Scroll(System.Windows.Forms.DataVisualization.Charting.ScrollType.Last);
 
-                            this.chart_real3.Series[0].Points.AddXY(pointIndex, SerialPortReceiveData[8] * 256 + SerialPortReceiveData[9]);
-                            this.chart_lmag3.Series[0].Points.AddXY(pointIndex, SerialPortReceiveData[10] * 256 + SerialPortReceiveData[11]);
+                            this.chart_real3.Series[0].Points.AddY(pointIndex, SerialPortReceiveData[8] * 256 + SerialPortReceiveData[9]);
+                            this.chart_lmag3.Series[0].Points.AddY(pointIndex, SerialPortReceiveData[10] * 256 + SerialPortReceiveData[11]);
                             this.chart_real3.ChartAreas[0].AxisX.ScaleView.Scroll(System.Windows.Forms.DataVisualization.Charting.ScrollType.Last);
                             this.chart_lmag3.ChartAreas[0].AxisX.ScaleView.Scroll(System.Windows.Forms.DataVisualization.Charting.ScrollType.Last);
 
-                            this.chart_real4.Series[0].Points.AddXY(pointIndex, SerialPortReceiveData[12] * 256 + SerialPortReceiveData[13]);
-                            this.chart_lmag4.Series[0].Points.AddXY(pointIndex, SerialPortReceiveData[14] * 256 + SerialPortReceiveData[15]);
+                            this.chart_real4.Series[0].Points.AddY(pointIndex, SerialPortReceiveData[12] * 256 + SerialPortReceiveData[13]);
+                            this.chart_lmag4.Series[0].Points.AddY(pointIndex, SerialPortReceiveData[14] * 256 + SerialPortReceiveData[15]);
                             this.chart_real4.ChartAreas[0].AxisX.ScaleView.Scroll(System.Windows.Forms.DataVisualization.Charting.ScrollType.Last);
                             this.chart_lmag4.ChartAreas[0].AxisX.ScaleView.Scroll(System.Windows.Forms.DataVisualization.Charting.ScrollType.Last);
 
-                            this.chart_real5.Series[0].Points.AddXY(pointIndex, SerialPortReceiveData[16] * 256 + SerialPortReceiveData[17]);
-                            this.chart_lmag5.Series[0].Points.AddXY(pointIndex, SerialPortReceiveData[18] * 256 + SerialPortReceiveData[19]);
+                            this.chart_real5.Series[0].Points.AddY(pointIndex, SerialPortReceiveData[16] * 256 + SerialPortReceiveData[17]);
+                            this.chart_lmag5.Series[0].Points.AddY(pointIndex, SerialPortReceiveData[18] * 256 + SerialPortReceiveData[19]);
                             this.chart_real5.ChartAreas[0].AxisX.ScaleView.Scroll(System.Windows.Forms.DataVisualization.Charting.ScrollType.Last);
                             this.chart_lmag5.ChartAreas[0].AxisX.ScaleView.Scroll(System.Windows.Forms.DataVisualization.Charting.ScrollType.Last);
 
-                            this.chart_real6.Series[0].Points.AddXY(pointIndex, SerialPortReceiveData[20] * 256 + SerialPortReceiveData[21]);
-                            this.chart_lmag6.Series[0].Points.AddXY(pointIndex, SerialPortReceiveData[22] * 256 + SerialPortReceiveData[23]);
+                            this.chart_real6.Series[0].Points.AddY(pointIndex, SerialPortReceiveData[20] * 256 + SerialPortReceiveData[21]);
+                            this.chart_lmag6.Series[0].Points.AddY(pointIndex, SerialPortReceiveData[22] * 256 + SerialPortReceiveData[23]);
                             this.chart_real6.ChartAreas[0].AxisX.ScaleView.Scroll(System.Windows.Forms.DataVisualization.Charting.ScrollType.Last);
                             this.chart_lmag6.ChartAreas[0].AxisX.ScaleView.Scroll(System.Windows.Forms.DataVisualization.Charting.ScrollType.Last);
 
-                            this.chart_real7.Series[0].Points.AddXY(pointIndex, SerialPortReceiveData[24] * 256 + SerialPortReceiveData[25]);
-                            this.chart_lmag7.Series[0].Points.AddXY(pointIndex, SerialPortReceiveData[26] * 256 + SerialPortReceiveData[27]);
+                            this.chart_real7.Series[0].Points.AddY(pointIndex, SerialPortReceiveData[24] * 256 + SerialPortReceiveData[25]);
+                            this.chart_lmag7.Series[0].Points.AddY(pointIndex, SerialPortReceiveData[26] * 256 + SerialPortReceiveData[27]);
                             this.chart_real7.ChartAreas[0].AxisX.ScaleView.Scroll(System.Windows.Forms.DataVisualization.Charting.ScrollType.Last);
                             this.chart_lmag7.ChartAreas[0].AxisX.ScaleView.Scroll(System.Windows.Forms.DataVisualization.Charting.ScrollType.Last);
 
-                            this.chart_real8.Series[0].Points.AddXY(pointIndex, SerialPortReceiveData[28] * 256 + SerialPortReceiveData[29]);
-                            this.chart_lmag8.Series[0].Points.AddXY(pointIndex, SerialPortReceiveData[30] * 256 + SerialPortReceiveData[31]);
+                            this.chart_real8.Series[0].Points.AddY(pointIndex, SerialPortReceiveData[28] * 256 + SerialPortReceiveData[29]);
+                            this.chart_lmag8.Series[0].Points.AddY(pointIndex, SerialPortReceiveData[30] * 256 + SerialPortReceiveData[31]);
                             this.chart_real8.ChartAreas[0].AxisX.ScaleView.Scroll(System.Windows.Forms.DataVisualization.Charting.ScrollType.Last);
                             this.chart_lmag8.ChartAreas[0].AxisX.ScaleView.Scroll(System.Windows.Forms.DataVisualization.Charting.ScrollType.Last);
 
-                            this.chart_real9.Series[0].Points.AddXY(pointIndex, SerialPortReceiveData[32] * 256 + SerialPortReceiveData[33]);
-                            this.chart_lmag9.Series[0].Points.AddXY(pointIndex, SerialPortReceiveData[34] * 256 + SerialPortReceiveData[35]);
+                            this.chart_real9.Series[0].Points.AddY(pointIndex, SerialPortReceiveData[32] * 256 + SerialPortReceiveData[33]);
+                            this.chart_lmag9.Series[0].Points.AddY(pointIndex, SerialPortReceiveData[34] * 256 + SerialPortReceiveData[35]);
                             this.chart_real9.ChartAreas[0].AxisX.ScaleView.Scroll(System.Windows.Forms.DataVisualization.Charting.ScrollType.Last);
                             this.chart_lmag9.ChartAreas[0].AxisX.ScaleView.Scroll(System.Windows.Forms.DataVisualization.Charting.ScrollType.Last);
 
-                            this.chart_real10.Series[0].Points.AddXY(pointIndex, SerialPortReceiveData[36] * 256 + SerialPortReceiveData[37]);
-                            this.chart_lmag10.Series[0].Points.AddXY(pointIndex, SerialPortReceiveData[38] * 256 + SerialPortReceiveData[39]);
+                            this.chart_real10.Series[0].Points.AddY(pointIndex, SerialPortReceiveData[36] * 256 + SerialPortReceiveData[37]);
+                            this.chart_lmag10.Series[0].Points.AddY(pointIndex, SerialPortReceiveData[38] * 256 + SerialPortReceiveData[39]);
                             this.chart_real10.ChartAreas[0].AxisX.ScaleView.Scroll(System.Windows.Forms.DataVisualization.Charting.ScrollType.Last);
                             this.chart_lmag10.ChartAreas[0].AxisX.ScaleView.Scroll(System.Windows.Forms.DataVisualization.Charting.ScrollType.Last);
 
@@ -1067,6 +1036,7 @@ namespace SerialAssistant
 
         private double GetMax(List<int> list)
         {
+            list = list.Where(x => x != 0).ToList();
             double Max = 0;
             int count = list.Count();
             int w = 64;
@@ -1118,12 +1088,12 @@ namespace SerialAssistant
                     }
 
                 }
-                if (Max < vMax)
+                if ((Max < vMax) & (vMax < 100) )
                 {
                     Max = vMax;
                 }
             }
-
+         
             return Max;
         }
 

@@ -21,7 +21,6 @@ E:\code\c#\串口最终\SerialAssistant_ultimately\SerialAssistant-master\Serial
 E:\code\c#\串口最终\SerialAssistant_ultimately\SerialAssistant-master\SerialAssistant\bin\Debug\SerialAssistant.pdb
 E:\code\c#\串口最终\SerialAssistant_ultimately\SerialAssistant-master\SerialAssistant\bin\Debug\STTech.CodePlus.dll
 E:\code\c#\串口最终\SerialAssistant_ultimately\SerialAssistant-master\SerialAssistant\bin\Debug\STTech.CodePlus.xml
-E:\code\c#\串口最终\SerialAssistant_ultimately\SerialAssistant-master\SerialAssistant\obj\Debug\SerialAssistant.csproj.AssemblyReference.cache
 E:\code\c#\串口最终\SerialAssistant_ultimately\SerialAssistant-master\SerialAssistant\obj\Debug\SerialAssistant.MainForm.resources
 E:\code\c#\串口最终\SerialAssistant_ultimately\SerialAssistant-master\SerialAssistant\obj\Debug\SerialAssistant.Properties.Resources.resources
 E:\code\c#\串口最终\SerialAssistant_ultimately\SerialAssistant-master\SerialAssistant\obj\Debug\SerialAssistant.csproj.GenerateResource.cache

@@ -7,14 +7,14 @@
     <framework targetVersion="4.5" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="SerialAssistant.exe.manifest" size="6517">
+    <dependentAssembly dependencyType="install" codebase="SerialAssistant.exe.manifest" size="4585">
       <assemblyIdentity name="SerialAssistant.exe" version="1.0.0.1" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>Wl5Vsg6109FOk9UC2FgAYu7/OTZmLtmL2I6q83ff2YQ=</dsig:DigestValue>
+        <dsig:DigestValue>7ad3C9tZcYz07NLT+hvjTButnf4ddJtjSdS9w5o8NW8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
