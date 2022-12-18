@@ -21,37 +21,36 @@ namespace SerialAssistant
         private StringBuilder sb = new StringBuilder();    //为了避免在接收处理函数中反复调用，依然声明为一个全局变量
         private DateTime current_time = new DateTime();    //为了避免在接收处理函数中反复调用，依然声明为一个全局变量
         private bool is_need_time = true;
-        private List<byte> buffer = new List<byte>(4096); //设置缓存处理CRC32串口的校验
-        private int ReceiveDataNum = 40;   //数据位  40 个字节
-        private int ReceiveCheckIndex = 42; //检验位一个字节，帧头一字节，len一字节，数据位加校验位41个字节，所以校验位是第43位，即数组index=42
+        private List<byte> buffer = new List<byte>(); //设置缓存处理CRC32串口的校验
         public static bool intimewindowIsOpen = false; //判断波形窗口是否创建
-        private List<byte> SerialPortReceiveData = new List<byte>(); //用于存储串口的数据
+        List<byte> CheckedData = new List<byte>();//申请一个大容量的数组
+        //private List<byte> SerialPortReceiveData = new List<byte>(); //用于存储串口的数据
         Thread th;
-        private int pointIndex = 0;//x轴的点
         DateTime timeStart = new DateTime();//采集开始时间
+        int pointIndex;
+        int[] Serialport1XyAutoSet = new int[20] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        private Queue<int> Freq1RealDataQueue = new Queue<int>(100);//以下两行为波形显示做准备
+        private Queue<int> Freq1ImagDataQueue = new Queue<int>(100);//以下两行为波形显示做准备
+        private Queue<int> Freq2RealDataQueue = new Queue<int>(100);//以下两行为波形显示做准备
+        private Queue<int> Freq2ImagDataQueue = new Queue<int>(100);//以下两行为波形显示做准备
+        private Queue<int> Freq3RealDataQueue = new Queue<int>(100);//以下两行为波形显示做准备
+        private Queue<int> Freq3ImagDataQueue = new Queue<int>(100);//以下两行为波形显示做准备
+        private Queue<int> Freq4RealDataQueue = new Queue<int>(100);//以下两行为波形显示做准备
+        private Queue<int> Freq4ImagDataQueue = new Queue<int>(100);//以下两行为波形显示做准备
+        private Queue<int> Freq5RealDataQueue = new Queue<int>(100);//以下两行为波形显示做准备
+        private Queue<int> Freq5ImagDataQueue = new Queue<int>(100);//以下两行为波形显示做准备
+        private Queue<int> Freq6RealDataQueue = new Queue<int>(100);//以下两行为波形显示做准备
+        private Queue<int> Freq6ImagDataQueue = new Queue<int>(100);//以下两行为波形显示做准备
+        private Queue<int> Freq7RealDataQueue = new Queue<int>(100);//以下两行为波形显示做准备
+        private Queue<int> Freq7ImagDataQueue = new Queue<int>(100);//以下两行为波形显示做准备
+        private Queue<int> Freq8RealDataQueue = new Queue<int>(100);//以下两行为波形显示做准备
+        private Queue<int> Freq8ImagDataQueue = new Queue<int>(100);//以下两行为波形显示做准备
+        private Queue<int> Freq9RealDataQueue = new Queue<int>(100);//以下两行为波形显示做准备
+        private Queue<int> Freq9ImagDataQueue = new Queue<int>(100);//以下两行为波形显示做准备
+        private Queue<int> Freq10RealDataQueue = new Queue<int>(100);//以下两行为波形显示做准备
+        private Queue<int> Freq10ImagDataQueue = new Queue<int>(100);//以下两行为波形显示做准备
+        int start = 0;
 
-
-        private List<int> real1 = new List<int>();
-        private List<int> real2 = new List<int>();
-        private List<int> real3 = new List<int>();
-        private List<int> real4 = new List<int>();
-        private List<int> real5 = new List<int>();
-        private List<int> real6 = new List<int>();
-        private List<int> real7 = new List<int>();
-        private List<int> real8 = new List<int>();
-        private List<int> real9 = new List<int>();
-        private List<int> real10 = new List<int>();
-                     
-        private List<int> lmag1 = new List<int>();
-        private List<int> lmag2 = new List<int>();
-        private List<int> lmag3 = new List<int>();
-        private List<int> lmag4 = new List<int>();
-        private List<int> lmag5 = new List<int>();
-        private List<int> lmag6 = new List<int>();
-        private List<int> lmag7 = new List<int>();
-        private List<int> lmag8 = new List<int>();
-        private List<int> lmag9 = new List<int>();
-        private List<int> lmag10 = new List<int>();
 
 
         public MainForm()
@@ -171,7 +170,16 @@ namespace SerialAssistant
             timer1.Interval = 1000;
             timer1.Start();
 
+            //初始化波形显示队列
+            for (int cache1 = 0; cache1 < 100; cache1++)
+            {
+                UpdateSerialport1DataQueueValue(0, 0, 0, 0);
+                UpdateSerialport2DataQueueValue(0, 0, 0, 0);
+                UpdateSerialport3DataQueueValue(0, 0, 0, 0);
+                UpdateSerialport4DataQueueValue(0, 0, 0, 0);
+                UpdateSerialport5DataQueueValue(0, 0, 0, 0);
 
+            }
 
         }
 
@@ -311,44 +319,52 @@ namespace SerialAssistant
             #region 数据校验
             buffer.AddRange(received_buf); //缓存数据
 
-            int index = 1;
-            while (buffer.Count > 0x2C) //最短协议长度
+            // resize arr
+            int count = buffer.Count;
+
+            while ( start + 44 <= count )
             {
-                if (buffer[0] == 0xAA) //协议头
+                // head, tail
+                if (buffer[start] != 0xAA || buffer[start +1] != 0x2c || buffer[start+43] != 0x80)
                 {
-                    if (buffer[index] != 0x80) //查询协议尾
-                    {
-                        index++;
-
-                        if (index > buffer.Count) //没有接收到0x80协议尾
-                        {
-                            break; //退出继续接收 
-                        }
-                    }
-                    else //接收到协议尾  得到完整一帧数据
-                    {
-                        byte[] ReceiveBytes = new byte[ReceiveDataNum];//数据位
-                        buffer.CopyTo(2, ReceiveBytes, 0, ReceiveDataNum);                                              
-
-                        var randomCrc = CRC8(ReceiveBytes);//上位机计算的校验位
-                        if (randomCrc == buffer[ReceiveCheckIndex]) //和传入的校验位进行校验
-                        {
-                            foreach (byte item in ReceiveBytes)
-                            {
-                                
-                                SerialPortReceiveData.Add(item);
-                            }
-                            ShowSerialPortReceive(ReceiveBytes);
-                        }
-                        
-                        buffer.RemoveRange(0, index);
-                    }
+                    start+=2;
+                    continue;
                 }
-                else
+
+                // CRC8: from  start + 2  to start + 41, check by start + 42
+                if ( CRC8(buffer, start+2, 40) != buffer[start +42] )
                 {
-                    buffer.RemoveAt(0);
+                    start += 2;
+                    continue;
                 }
+
+                // append data
+                {
+                    // copy 40 bytes from start
+                    for (int i = start + 2; i < start + 42; i++)
+                    {
+                        CheckedData.Add(buffer[i]);
+                    }
+
+                    for (int i = 0; i < 20; i++)
+                    {
+                        Serialport1XyAutoSet[i] = buffer[i*2 + start +2]*256 + buffer[i*2+1 + start +2];
+                    }
+                    UpdateSerialport1DataQueueValue(Serialport1XyAutoSet[0], Serialport1XyAutoSet[1], Serialport1XyAutoSet[2], Serialport1XyAutoSet[3]);
+                    UpdateSerialport2DataQueueValue(Serialport1XyAutoSet[4], Serialport1XyAutoSet[5], Serialport1XyAutoSet[6], Serialport1XyAutoSet[7]);
+                    UpdateSerialport3DataQueueValue(Serialport1XyAutoSet[8], Serialport1XyAutoSet[9], Serialport1XyAutoSet[10], Serialport1XyAutoSet[11]);
+                    UpdateSerialport4DataQueueValue(Serialport1XyAutoSet[12], Serialport1XyAutoSet[13], Serialport1XyAutoSet[14], Serialport1XyAutoSet[15]);
+                    UpdateSerialport5DataQueueValue(Serialport1XyAutoSet[16], Serialport1XyAutoSet[17], Serialport1XyAutoSet[18], Serialport1XyAutoSet[19]);
+
+                    //show bytes
+                    ShowSerialPortReceive(buffer, start + 2);
+                }
+
+                start += 44;
             }
+
+
+
 
             #endregion
 
@@ -358,22 +374,18 @@ namespace SerialAssistant
 
 
         #region 显示串口接收的数据
-        private void ShowSerialPortReceive(byte[] showbuffer)
+        private void ShowSerialPortReceive(List<byte> showbuffer, int start)
         {
             sb.Clear();     //防止出错,首先清空字符串构造器 //不使用这个，就会重复显示输入的数据
-            if (radioButton2.Checked)
+
+            //HEX模式显示
+            for (int i = start; i < start + 40; i++)
             {
-                //选中HEX模式显示
-                foreach (byte b in showbuffer)
-                {
-                    sb.Append(b.ToString("X2") + ' ');    //将byte型数据转化为2位16进制文本显示，并用空格隔开                                    
-                }
+                sb.Append(buffer[i].ToString("X2") + ' ');//将byte型数据转化为2位16进制文本显示，并用空格隔开
+
+
             }
-            else
-            {
-                //选中ASCII模式显示
-                sb.Append(Encoding.ASCII.GetString(showbuffer));  //将整个数组解码为ASCII数组
-            }
+
             try
             {
                 //因为要访问UI资源，所以需要使用invoke方式同步ui
@@ -411,10 +423,13 @@ namespace SerialAssistant
 
 
         #region CRC8校验函数
-        public static byte CRC8(byte[] buffer)
+        public static byte CRC8(List<byte> buffer, int start, int length)
         {
-            byte crc = 0;
-            for (int j = 0; j < buffer.Length; j++)
+            if (buffer == null || buffer.Count == 0) return 0;
+            if (start < 0) return 0;
+            byte crc = 0;// Initial value
+
+            for (int j = start; j < start + length; j++)
             {
                 crc ^= buffer[j];
                 for (int i = 0; i < 8; i++)
@@ -430,7 +445,7 @@ namespace SerialAssistant
                     }
                 }
             }
-            return crc;
+            return  crc ;
         }
 
 
@@ -449,28 +464,6 @@ namespace SerialAssistant
             label8.Text = "接收：" + receive_count.ToString() + " Bytes";
             label7.Text = "发送：" + receive_count.ToString() + " Bytes";
 
-
-            real1.Clear();
-            real2.Clear();
-            real3.Clear();
-            real4.Clear();
-            real5.Clear();
-            real6.Clear();
-            real7.Clear();
-            real8.Clear();
-            real9.Clear();
-            real10.Clear();
-
-            lmag1.Clear();
-            lmag2.Clear();
-            lmag3.Clear();
-            lmag4.Clear();
-            lmag5.Clear();
-            lmag6.Clear();
-            lmag7.Clear();
-            lmag8.Clear();
-            lmag9.Clear();
-            lmag10.Clear();
 
             this.chart_real1.Series[0].Points.Clear();
             this.chart_lmag1.Series[0].Points.Clear();
@@ -510,55 +503,19 @@ namespace SerialAssistant
             DateTime time = new DateTime();
             time = System.DateTime.Now;
             String fileName;
+            String[] fileNames = new String[20];
 
-            String fileNamereal1;
-            String fileNamereal2;
-            String fileNamereal3;
-            String fileNamereal4;
-            String fileNamereal5;
-            String fileNamereal6;
-            String fileNamereal7;
-            String fileNamereal8;
-            String fileNamereal9;
-            String fileNamereal10;
-
-            String fileNamelmag1;
-            String fileNamelmag2;
-            String fileNamelmag3;
-            String fileNamelmag4;
-            String fileNamelmag5;
-            String fileNamelmag6;
-            String fileNamelmag7;
-            String fileNamelmag8;
-            String fileNamelmag9;
-            String fileNamelmag10;
 
             string foldPath;
 
             /* 获取当前接收区内容 */
             String recv_data = textBox1.Text;
+            String[] DataStr = new String[20];
+            for (int i = 0; i < 20; i++)
+            {
+                DataStr[i] = GetDataStr(CheckedData, i);
+            }
 
-            String real1_str = GetDataStr(real1);
-            String real2_str = GetDataStr(real2);
-            String real3_str = GetDataStr(real3);
-            String real4_str = GetDataStr(real4);
-            String real5_str = GetDataStr(real5);
-            String real6_str = GetDataStr(real6);
-            String real7_str = GetDataStr(real7);
-            String real8_str = GetDataStr(real8);
-            String real9_str = GetDataStr(real9);
-            String real10_str =GetDataStr(real10);
-
-            String lmag1_str = GetDataStr(lmag1);
-            String lmag2_str = GetDataStr(lmag2);
-            String lmag3_str = GetDataStr(lmag3);
-            String lmag4_str = GetDataStr(lmag4);
-            String lmag5_str = GetDataStr(lmag5);
-            String lmag6_str = GetDataStr(lmag6);
-            String lmag7_str = GetDataStr(lmag7);
-            String lmag8_str = GetDataStr(lmag8);
-            String lmag9_str = GetDataStr(lmag9);
-            String lmag10_str = GetDataStr(lmag10);
 
             if (recv_data.Equals(""))
             {
@@ -582,27 +539,10 @@ namespace SerialAssistant
             TimeSpan span1 = time - timeStart;
 
             fileName = foldPath + "\\" + "log" + "_" + "时长" + span1.ToString(@"mm\.ss") + "_" + "日期" + "_" +time.ToString("yyyy_MM_dd_HH_mm_ss") + ".txt";
-            fileNamereal1 = foldPath + "\\" + "log" + "_real1_" + ".txt";
-            fileNamereal2 = foldPath + "\\" + "log" + "_real2_" + ".txt";
-            fileNamereal3 = foldPath + "\\" + "log" + "_real3_" + ".txt";
-            fileNamereal4 = foldPath + "\\" + "log" + "_real4_" + ".txt";
-            fileNamereal5 = foldPath + "\\" + "log" + "_real5_" + ".txt";
-            fileNamereal6 = foldPath + "\\" + "log" + "_real6_" + ".txt";
-            fileNamereal7 = foldPath + "\\" + "log" + "_real7_" + ".txt";
-            fileNamereal8 = foldPath + "\\" + "log" + "_real8_" + ".txt";
-            fileNamereal9 = foldPath + "\\" + "log" + "_real9_" + ".txt";
-            fileNamereal10 = foldPath + "\\" + "log" + "_real10_" + ".txt";
-
-            fileNamelmag1 = foldPath + "\\" + "log" + "_lmag1_" + ".txt";
-            fileNamelmag2 = foldPath + "\\" + "log" + "_lmag2_" + ".txt";
-            fileNamelmag3 = foldPath + "\\" + "log" + "_lmag3_" + ".txt";
-            fileNamelmag4 = foldPath + "\\" + "log" + "_lmag4_" + ".txt";
-            fileNamelmag5 = foldPath + "\\" + "log" + "_lmag5_" + ".txt";
-            fileNamelmag6 = foldPath + "\\" + "log" + "_lmag6_" + ".txt";
-            fileNamelmag7 = foldPath + "\\" + "log" + "_lmag7_" + ".txt";
-            fileNamelmag8 = foldPath + "\\" + "log" + "_lmag8_" + ".txt";
-            fileNamelmag9 = foldPath + "\\" + "log" + "_lmag9_" + ".txt";
-            fileNamelmag10 = foldPath + "\\" + "log" + "_lmag10_" + ".txt";
+            for (int i = 0; i < 20; i++)
+            {
+                fileNames[i] = foldPath + "\\" + "log" + "_channel_" + i.ToString() + "_"+ ".txt";
+            }
 
 
 
@@ -611,135 +551,47 @@ namespace SerialAssistant
                 /* 保存串口接收区的内容 */
                 //创建 FileStream 类的实例
                 FileStream fileStream = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
-                FileStream fileStreamreal1 = new FileStream(fileNamereal1, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
-                FileStream fileStreamreal2 = new FileStream(fileNamereal2, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
-                FileStream fileStreamreal3 = new FileStream(fileNamereal3, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
-                FileStream fileStreamreal4 = new FileStream(fileNamereal4, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
-                FileStream fileStreamreal5 = new FileStream(fileNamereal5, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
-                FileStream fileStreamreal6 = new FileStream(fileNamereal6, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
-                FileStream fileStreamreal7 = new FileStream(fileNamereal7, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
-                FileStream fileStreamreal8 = new FileStream(fileNamereal8, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
-                FileStream fileStreamreal9 = new FileStream(fileNamereal9, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
-                FileStream fileStreamreal10 = new FileStream(fileNamereal10, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
-
-                FileStream fileStreamlmag1 = new FileStream(fileNamelmag1, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
-                FileStream fileStreamlmag2 = new FileStream(fileNamelmag2, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
-                FileStream fileStreamlmag3 = new FileStream(fileNamelmag3, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
-                FileStream fileStreamlmag4 = new FileStream(fileNamelmag4, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
-                FileStream fileStreamlmag5 = new FileStream(fileNamelmag5, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
-                FileStream fileStreamlmag6 = new FileStream(fileNamelmag6, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
-                FileStream fileStreamlmag7 = new FileStream(fileNamelmag7, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
-                FileStream fileStreamlmag8 = new FileStream(fileNamelmag8, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
-                FileStream fileStreamlmag9 = new FileStream(fileNamelmag9, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
-                FileStream fileStreamlmag10 = new FileStream(fileNamelmag10, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
+                FileStream[] fileStreams = new FileStream[20];
+                for (int i = 0; i < 20; i++)
+                {
+                    fileStreams[i] = new FileStream(fileNames[i], FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
+                }
+              
 
                 //将字符串转换为字节数组
                 byte[] bytes = Encoding.UTF8.GetBytes(recv_data);
-                byte[] bytes_real1 = Encoding.UTF8.GetBytes(real1_str);
-                byte[] bytes_real2 = Encoding.UTF8.GetBytes(real2_str);
-                byte[] bytes_real3 = Encoding.UTF8.GetBytes(real3_str);
-                byte[] bytes_real4 = Encoding.UTF8.GetBytes(real4_str);
-                byte[] bytes_real5 = Encoding.UTF8.GetBytes(real5_str);
-                byte[] bytes_real6 = Encoding.UTF8.GetBytes(real6_str);
-                byte[] bytes_real7 = Encoding.UTF8.GetBytes(real7_str);
-                byte[] bytes_real8 = Encoding.UTF8.GetBytes(real8_str);
-                byte[] bytes_real9 = Encoding.UTF8.GetBytes(real9_str);
-                byte[] bytes_real10 = Encoding.UTF8.GetBytes(real10_str);
+                byte[][] bytes_channels = new byte[20][];
+                for (int i = 0; i < 20; i++)
+                {
+                    bytes_channels[i] = Encoding.UTF8.GetBytes(DataStr[i]);
+                }
 
-                byte[] bytes_lmag1 = Encoding.UTF8.GetBytes(lmag1_str);
-                byte[] bytes_lmag2 = Encoding.UTF8.GetBytes(lmag2_str);
-                byte[] bytes_lmag3 = Encoding.UTF8.GetBytes(lmag3_str);
-                byte[] bytes_lmag4 = Encoding.UTF8.GetBytes(lmag4_str);
-                byte[] bytes_lmag5 = Encoding.UTF8.GetBytes(lmag5_str);
-                byte[] bytes_lmag6 = Encoding.UTF8.GetBytes(lmag6_str);
-                byte[] bytes_lmag7 = Encoding.UTF8.GetBytes(lmag7_str);
-                byte[] bytes_lmag8 = Encoding.UTF8.GetBytes(lmag8_str);
-                byte[] bytes_lmag9 = Encoding.UTF8.GetBytes(lmag9_str);
-                byte[] bytes_lmag10 = Encoding.UTF8.GetBytes(lmag10_str);
 
 
                 //向文件中写入字节数组
                 fileStream.Write(bytes, 0, bytes.Length);
-                fileStreamreal1.Write(bytes_real1, 0, bytes_real1.Length);
-                fileStreamlmag1.Write(bytes_lmag1, 0, bytes_lmag1.Length);
-
-                fileStreamreal2.Write(bytes_real2, 0, bytes_real2.Length);
-                fileStreamlmag2.Write(bytes_lmag2, 0, bytes_lmag2.Length);
-
-                fileStreamreal3.Write(bytes_real3, 0, bytes_real3.Length);
-                fileStreamlmag3.Write(bytes_lmag3, 0, bytes_lmag3.Length);
-
-                fileStreamreal4.Write(bytes_real4, 0, bytes_real4.Length);
-                fileStreamlmag4.Write(bytes_lmag4, 0, bytes_lmag4.Length);
-
-                fileStreamreal5.Write(bytes_real5, 0, bytes_real5.Length);
-                fileStreamlmag5.Write(bytes_lmag5, 0, bytes_lmag5.Length);
-
-                fileStreamreal6.Write(bytes_real6, 0, bytes_real6.Length);
-                fileStreamlmag6.Write(bytes_lmag6, 0, bytes_lmag6.Length);
-
-                fileStreamreal7.Write(bytes_real7, 0, bytes_real7.Length);
-                fileStreamlmag7.Write(bytes_lmag7, 0, bytes_lmag7.Length);
-
-                fileStreamreal8.Write(bytes_real8, 0, bytes_real8.Length);
-                fileStreamlmag8.Write(bytes_lmag8, 0, bytes_lmag8.Length);
-
-                fileStreamreal9.Write(bytes_real9, 0, bytes_real9.Length);
-                fileStreamlmag9.Write(bytes_lmag9, 0, bytes_lmag9.Length);
-
-                fileStreamreal10.Write(bytes_real10, 0, bytes_real10.Length);
-                fileStreamlmag10.Write(bytes_lmag10, 0, bytes_lmag10.Length);
+                for (int i = 0; i < 20; i++)
+                {
+                    fileStreams[i].Write(bytes_channels[i], 0, bytes_channels[i].Length);
+                }
 
                 //刷新缓冲区
                 fileStream.Flush();
-                fileStreamreal1.Flush();
-                fileStreamreal2.Flush();
-                fileStreamreal3.Flush();
-                fileStreamreal4.Flush();
-                fileStreamreal5.Flush();
-                fileStreamreal6.Flush();
-                fileStreamreal7.Flush();
-                fileStreamreal8.Flush();
-                fileStreamreal9.Flush();
-                fileStreamreal10.Flush();
-
-                fileStreamlmag1.Flush();
-                fileStreamlmag2.Flush();
-                fileStreamlmag3.Flush();
-                fileStreamlmag4.Flush();
-                fileStreamlmag5.Flush();
-                fileStreamlmag6.Flush();
-                fileStreamlmag7.Flush();
-                fileStreamlmag8.Flush();
-                fileStreamlmag9.Flush();
-                fileStreamlmag10.Flush();
+                for (int i = 0; i < 20; i++)
+                {
+                    fileStreams[i].Flush();
+                }
 
                 //关闭流
                 fileStream.Close();
-                fileStreamreal1.Close();
-                fileStreamreal2.Close();
-                fileStreamreal3.Close();
-                fileStreamreal4.Close();
-                fileStreamreal5.Close();
-                fileStreamreal6.Close();
-                fileStreamreal7.Close();
-                fileStreamreal8.Close();
-                fileStreamreal9.Close();
-                fileStreamreal10.Close();
+                for (int i = 0; i < 20; i++)
+                {
+                    fileStreams[i].Close();
+                }
 
-                fileStreamlmag1.Close();
-                fileStreamlmag2.Close();
-                fileStreamlmag3.Close();
-                fileStreamlmag4.Close();
-                fileStreamlmag5.Close();
-                fileStreamlmag6.Close();
-                fileStreamlmag7.Close();
-                fileStreamlmag8.Close();
-                fileStreamlmag9.Close();
-                fileStreamlmag10.Close();
 
                 //提示用户
-                MessageBox.Show("日志已保存!(" + fileNamereal1 + ")");
+                MessageBox.Show("日志已保存!(" + fileName + ")");
                 //ToMatlab(real1);
             }
             catch (Exception ex)
@@ -760,24 +612,25 @@ namespace SerialAssistant
                 th.Abort();
             }
 
-            double real1max = GetMax(real1);
-            double real2max = GetMax(real2);
-            double real3max = GetMax(real3);
-            double real4max = GetMax(real4);
-            double real5max = GetMax(real5);
-            double real6max = GetMax(real6);
-            double real7max = GetMax(real7);
-            double real8max = GetMax(real8);
-            double real9max = GetMax(real9);
-            double real10max = GetMax(real10);
+
+            double real1max = GetMax(CheckedData, 0);
+            double real2max = GetMax(CheckedData, 2);
+            double real3max = GetMax(CheckedData, 4);
+            double real4max = GetMax(CheckedData, 6);
+            double real5max = GetMax(CheckedData, 8);
+            double real6max = GetMax(CheckedData, 10);
+            double real7max = GetMax(CheckedData, 12);
+            double real8max = GetMax(CheckedData, 14);
+            double real9max = GetMax(CheckedData, 16);
+            double real10max = GetMax(CheckedData, 18);
 
             MessageBox.Show("通道1:" + real1max.ToString() + "\n" + "通道2:" + real2max.ToString() + "\n" +
                             "通道3:" + real3max.ToString() + "\n" + "通道4:" + real4max.ToString() + "\n" +
                             "通道5:" + real5max.ToString() + "\n" + "通道6:" + real6max.ToString() + "\n" +
                             "通道7:" + real7max.ToString() + "\n" + "通道8:" + real8max.ToString() + "\n" +
-                            "通道9:" + real9max.ToString() + "\n" + "通道10:" + real10max.ToString() + "\n" );
+                            "通道9:" + real9max.ToString() + "\n" + "通道10:" + real10max.ToString() + "\n");
 
-            
+
 
 
         }
@@ -802,46 +655,58 @@ namespace SerialAssistant
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            /*this.linkLabel1.Links[this.linkLabel1.Links.IndexOf(e.Link)].Visited = true;
-            string targetUrl = "https://github.com/Mculover666/SerialAssistant";
 
-
-            try
-            {
-                //尝试用edge打开
-                System.Diagnostics.Process.Start("msedge.exe", targetUrl);
-                return;
-            }
-            catch (Exception)
-            {
-                //edge它不香吗
-            }
-
-            try
-            {
-                //好吧，那用chrome
-                System.Diagnostics.Process.Start("chrome.exe", targetUrl);
-                return;
-            }
-            catch
-            {
-                //chrome不好用吗
-            }
-            try
-            {
-                //IE也不是不可以
-                System.Diagnostics.Process.Start("iexplore.exe", targetUrl);
-            }
-
-            catch
-            {
-                //没救了，砸了吧！
-            }*/
         }
 
         private void timer2_Tick(object sender, EventArgs e)
         {
-           // button5_Click(button5, new EventArgs());    //调用发送按钮回调函数
+            // button5_Click(button5, new EventArgs());    //调用发送按钮回调函数
+            chart_real1.Series[0].Points.Clear();
+            chart_real2.Series[0].Points.Clear();
+            chart_real3.Series[0].Points.Clear();
+            chart_real4.Series[0].Points.Clear();
+            chart_real5.Series[0].Points.Clear();
+            chart_real6.Series[0].Points.Clear();
+            chart_real7.Series[0].Points.Clear();
+            chart_real8.Series[0].Points.Clear();
+            chart_real9.Series[0].Points.Clear();
+            chart_real10.Series[0].Points.Clear();
+
+            chart_lmag1.Series[0].Points.Clear();
+            chart_lmag2.Series[0].Points.Clear();
+            chart_lmag3.Series[0].Points.Clear();
+            chart_lmag4.Series[0].Points.Clear();
+            chart_lmag5.Series[0].Points.Clear();
+            chart_lmag6.Series[0].Points.Clear();
+            chart_lmag7.Series[0].Points.Clear();
+            chart_lmag8.Series[0].Points.Clear();
+            chart_lmag9.Series[0].Points.Clear();
+            chart_lmag10.Series[0].Points.Clear();          
+
+
+            for (int i = 0; i < 100; i++)
+            {
+                this.chart_real1.Series[0].Points.AddXY((i + 1), Freq1RealDataQueue.ElementAt(i));
+                this.chart_lmag1.Series[0].Points.AddXY((i + 1), Freq1ImagDataQueue.ElementAt(i));
+                this.chart_real2.Series[0].Points.AddXY((i + 1), Freq2RealDataQueue.ElementAt(i));
+                this.chart_lmag2.Series[0].Points.AddXY((i + 1), Freq2ImagDataQueue.ElementAt(i));
+                this.chart_real3.Series[0].Points.AddXY((i + 1), Freq3RealDataQueue.ElementAt(i));
+                this.chart_lmag3.Series[0].Points.AddXY((i + 1), Freq3ImagDataQueue.ElementAt(i));
+                this.chart_real4.Series[0].Points.AddXY((i + 1), Freq4RealDataQueue.ElementAt(i));
+                this.chart_lmag4.Series[0].Points.AddXY((i + 1), Freq4ImagDataQueue.ElementAt(i));
+                this.chart_real5.Series[0].Points.AddXY((i + 1), Freq5RealDataQueue.ElementAt(i));
+                this.chart_lmag5.Series[0].Points.AddXY((i + 1), Freq5ImagDataQueue.ElementAt(i));
+                this.chart_real6.Series[0].Points.AddXY((i + 1), Freq6RealDataQueue.ElementAt(i));
+                this.chart_lmag6.Series[0].Points.AddXY((i + 1), Freq6ImagDataQueue.ElementAt(i));
+                this.chart_real7.Series[0].Points.AddXY((i + 1), Freq7RealDataQueue.ElementAt(i));
+                this.chart_lmag7.Series[0].Points.AddXY((i + 1), Freq7ImagDataQueue.ElementAt(i));
+                this.chart_real8.Series[0].Points.AddXY((i + 1), Freq8RealDataQueue.ElementAt(i));
+                this.chart_lmag8.Series[0].Points.AddXY((i + 1), Freq8ImagDataQueue.ElementAt(i));
+                this.chart_real9.Series[0].Points.AddXY((i + 1), Freq9RealDataQueue.ElementAt(i));
+                this.chart_lmag9.Series[0].Points.AddXY((i + 1), Freq9ImagDataQueue.ElementAt(i));
+                this.chart_real10.Series[0].Points.AddXY((i + 1), Freq10RealDataQueue.ElementAt(i));
+                this.chart_lmag10.Series[0].Points.AddXY((i + 1), Freq10ImagDataQueue.ElementAt(i));
+            }//
         }
 
         private void checkBox4_CheckedChanged(object sender, EventArgs e)
@@ -907,6 +772,8 @@ namespace SerialAssistant
                 th.Start();
             }
             timeStart = System.DateTime.Now;
+            timer2.Enabled = true;
+            timer3.Enabled = true;
         }
 
         private void btnStop_Click(object sender, EventArgs e)
@@ -915,13 +782,15 @@ namespace SerialAssistant
             {
                 th.Abort();
             }
+            timer2.Enabled = false;
+            timer3.Enabled = false;
         }
 
 
         public void Run()
         {
 
-            while (SerialPortReceiveData.Count > 0)
+            /*while (SerialPortReceiveData.Count > 0)
             {
                 Thread.Sleep(100);
                 try
@@ -931,56 +800,56 @@ namespace SerialAssistant
 
                         while (SerialPortReceiveData.Count > 40)
                         {
-                            this.chart_real1.Series[0].Points.AddY(pointIndex, SerialPortReceiveData[0] * 256 + SerialPortReceiveData[1] );
-                            this.chart_lmag1.Series[0].Points.AddY(pointIndex, SerialPortReceiveData[2] * 256 + SerialPortReceiveData[3] );
+*//*                            this.chart_real1.Series[0].Points.AddXY(pointIndex, SerialPortReceiveData[0] * 256 + SerialPortReceiveData[1] );
+                            this.chart_lmag1.Series[0].Points.AddXY(pointIndex, SerialPortReceiveData[2] * 256 + SerialPortReceiveData[3] );
                             this.chart_real1.ChartAreas[0].AxisX.ScaleView.Scroll(System.Windows.Forms.DataVisualization.Charting.ScrollType.Last);
-                            this.chart_lmag1.ChartAreas[0].AxisX.ScaleView.Scroll(System.Windows.Forms.DataVisualization.Charting.ScrollType.Last);
+                            this.chart_lmag1.ChartAreas[0].Ax   isX.ScaleView.Scroll(System.Windows.Forms.DataVisualization.Charting.ScrollType.Last);
 
 
-                            this.chart_real2.Series[0].Points.AddY(pointIndex, SerialPortReceiveData[4] * 256 + SerialPortReceiveData[5] );
-                            this.chart_lmag2.Series[0].Points.AddY(pointIndex, SerialPortReceiveData[6] * 256 + SerialPortReceiveData[7] );
+                            this.chart_real2.Series[0].Points.AddXY(pointIndex, SerialPortReceiveData[4] * 256 + SerialPortReceiveData[5] );
+                            this.chart_lmag2.Series[0].Points.AddXY(pointIndex, SerialPortReceiveData[6] * 256 + SerialPortReceiveData[7] );
                             this.chart_real2.ChartAreas[0].AxisX.ScaleView.Scroll(System.Windows.Forms.DataVisualization.Charting.ScrollType.Last);
                             this.chart_lmag2.ChartAreas[0].AxisX.ScaleView.Scroll(System.Windows.Forms.DataVisualization.Charting.ScrollType.Last);
 
-                            this.chart_real3.Series[0].Points.AddY(pointIndex, SerialPortReceiveData[8] * 256 + SerialPortReceiveData[9]);
-                            this.chart_lmag3.Series[0].Points.AddY(pointIndex, SerialPortReceiveData[10] * 256 + SerialPortReceiveData[11]);
+                            this.chart_real3.Series[0].Points.AddXY(pointIndex, SerialPortReceiveData[8] * 256 + SerialPortReceiveData[9]);
+                            this.chart_lmag3.Series[0].Points.AddXY(pointIndex, SerialPortReceiveData[10] * 256 + SerialPortReceiveData[11]);
                             this.chart_real3.ChartAreas[0].AxisX.ScaleView.Scroll(System.Windows.Forms.DataVisualization.Charting.ScrollType.Last);
                             this.chart_lmag3.ChartAreas[0].AxisX.ScaleView.Scroll(System.Windows.Forms.DataVisualization.Charting.ScrollType.Last);
 
-                            this.chart_real4.Series[0].Points.AddY(pointIndex, SerialPortReceiveData[12] * 256 + SerialPortReceiveData[13]);
-                            this.chart_lmag4.Series[0].Points.AddY(pointIndex, SerialPortReceiveData[14] * 256 + SerialPortReceiveData[15]);
+                            this.chart_real4.Series[0].Points.AddXY(pointIndex, SerialPortReceiveData[12] * 256 + SerialPortReceiveData[13]);
+                            this.chart_lmag4.Series[0].Points.AddXY(pointIndex, SerialPortReceiveData[14] * 256 + SerialPortReceiveData[15]);
                             this.chart_real4.ChartAreas[0].AxisX.ScaleView.Scroll(System.Windows.Forms.DataVisualization.Charting.ScrollType.Last);
                             this.chart_lmag4.ChartAreas[0].AxisX.ScaleView.Scroll(System.Windows.Forms.DataVisualization.Charting.ScrollType.Last);
 
-                            this.chart_real5.Series[0].Points.AddY(pointIndex, SerialPortReceiveData[16] * 256 + SerialPortReceiveData[17]);
-                            this.chart_lmag5.Series[0].Points.AddY(pointIndex, SerialPortReceiveData[18] * 256 + SerialPortReceiveData[19]);
+                            this.chart_real5.Series[0].Points.AddXY(pointIndex, SerialPortReceiveData[16] * 256 + SerialPortReceiveData[17]);
+                            this.chart_lmag5.Series[0].Points.AddXY(pointIndex, SerialPortReceiveData[18] * 256 + SerialPortReceiveData[19]);
                             this.chart_real5.ChartAreas[0].AxisX.ScaleView.Scroll(System.Windows.Forms.DataVisualization.Charting.ScrollType.Last);
                             this.chart_lmag5.ChartAreas[0].AxisX.ScaleView.Scroll(System.Windows.Forms.DataVisualization.Charting.ScrollType.Last);
 
-                            this.chart_real6.Series[0].Points.AddY(pointIndex, SerialPortReceiveData[20] * 256 + SerialPortReceiveData[21]);
-                            this.chart_lmag6.Series[0].Points.AddY(pointIndex, SerialPortReceiveData[22] * 256 + SerialPortReceiveData[23]);
+                            this.chart_real6.Series[0].Points.AddXY(pointIndex, SerialPortReceiveData[20] * 256 + SerialPortReceiveData[21]);
+                            this.chart_lmag6.Series[0].Points.AddXY(pointIndex, SerialPortReceiveData[22] * 256 + SerialPortReceiveData[23]);
                             this.chart_real6.ChartAreas[0].AxisX.ScaleView.Scroll(System.Windows.Forms.DataVisualization.Charting.ScrollType.Last);
                             this.chart_lmag6.ChartAreas[0].AxisX.ScaleView.Scroll(System.Windows.Forms.DataVisualization.Charting.ScrollType.Last);
 
-                            this.chart_real7.Series[0].Points.AddY(pointIndex, SerialPortReceiveData[24] * 256 + SerialPortReceiveData[25]);
-                            this.chart_lmag7.Series[0].Points.AddY(pointIndex, SerialPortReceiveData[26] * 256 + SerialPortReceiveData[27]);
+                            this.chart_real7.Series[0].Points.AddXY(pointIndex, SerialPortReceiveData[24] * 256 + SerialPortReceiveData[25]);
+                            this.chart_lmag7.Series[0].Points.AddXY(pointIndex, SerialPortReceiveData[26] * 256 + SerialPortReceiveData[27]);
                             this.chart_real7.ChartAreas[0].AxisX.ScaleView.Scroll(System.Windows.Forms.DataVisualization.Charting.ScrollType.Last);
                             this.chart_lmag7.ChartAreas[0].AxisX.ScaleView.Scroll(System.Windows.Forms.DataVisualization.Charting.ScrollType.Last);
 
-                            this.chart_real8.Series[0].Points.AddY(pointIndex, SerialPortReceiveData[28] * 256 + SerialPortReceiveData[29]);
-                            this.chart_lmag8.Series[0].Points.AddY(pointIndex, SerialPortReceiveData[30] * 256 + SerialPortReceiveData[31]);
+                            this.chart_real8.Series[0].Points.AddXY(pointIndex, SerialPortReceiveData[28] * 256 + SerialPortReceiveData[29]);
+                            this.chart_lmag8.Series[0].Points.AddXY(pointIndex, SerialPortReceiveData[30] * 256 + SerialPortReceiveData[31]);
                             this.chart_real8.ChartAreas[0].AxisX.ScaleView.Scroll(System.Windows.Forms.DataVisualization.Charting.ScrollType.Last);
                             this.chart_lmag8.ChartAreas[0].AxisX.ScaleView.Scroll(System.Windows.Forms.DataVisualization.Charting.ScrollType.Last);
 
-                            this.chart_real9.Series[0].Points.AddY(pointIndex, SerialPortReceiveData[32] * 256 + SerialPortReceiveData[33]);
-                            this.chart_lmag9.Series[0].Points.AddY(pointIndex, SerialPortReceiveData[34] * 256 + SerialPortReceiveData[35]);
+                            this.chart_real9.Series[0].Points.AddXY(pointIndex, SerialPortReceiveData[32] * 256 + SerialPortReceiveData[33]);
+                            this.chart_lmag9.Series[0].Points.AddXY(pointIndex, SerialPortReceiveData[34] * 256 + SerialPortReceiveData[35]);
                             this.chart_real9.ChartAreas[0].AxisX.ScaleView.Scroll(System.Windows.Forms.DataVisualization.Charting.ScrollType.Last);
                             this.chart_lmag9.ChartAreas[0].AxisX.ScaleView.Scroll(System.Windows.Forms.DataVisualization.Charting.ScrollType.Last);
 
-                            this.chart_real10.Series[0].Points.AddY(pointIndex, SerialPortReceiveData[36] * 256 + SerialPortReceiveData[37]);
-                            this.chart_lmag10.Series[0].Points.AddY(pointIndex, SerialPortReceiveData[38] * 256 + SerialPortReceiveData[39]);
+                            this.chart_real10.Series[0].Points.AddXY(pointIndex, SerialPortReceiveData[36] * 256 + SerialPortReceiveData[37]);
+                            this.chart_lmag10.Series[0].Points.AddXY(pointIndex, SerialPortReceiveData[38] * 256 + SerialPortReceiveData[39]);
                             this.chart_real10.ChartAreas[0].AxisX.ScaleView.Scroll(System.Windows.Forms.DataVisualization.Charting.ScrollType.Last);
-                            this.chart_lmag10.ChartAreas[0].AxisX.ScaleView.Scroll(System.Windows.Forms.DataVisualization.Charting.ScrollType.Last);
+                            this.chart_lmag10.ChartAreas[0].AxisX.ScaleView.Scroll(System.Windows.Forms.DataVisualization.Charting.ScrollType.Last);*//*
 
                             real1.Add(SerialPortReceiveData[0] * 256 + SerialPortReceiveData[1]);
                             real2.Add(SerialPortReceiveData[4] * 256 + SerialPortReceiveData[5]);
@@ -1017,25 +886,29 @@ namespace SerialAssistant
                 {
                     string s = ex.Message;
                 }
-            }
+            }*/
         }
 
 
-        private string GetDataStr(List<int> list)
+        private string GetDataStr(List<byte> list, int num)
         {
             StringBuilder sb = new StringBuilder();
-            foreach (var item in list)
+            for (int i = 0; i < (list.Count() / 40); i++)
             {
-                sb.Append(item.ToString() + ' ');
+                sb.Append((list[num*2 + i * 40] * 256 + list[num*2 + 1 + i * 40]).ToString() + ' ');
             }
-            //int listDev = maxListDev(list);
-            //sb.Append("该通道的最大差值为：" + listDev.ToString() + '\n');
+
 
             return sb.ToString();
         }
 
-        private double GetMax(List<int> list)
+        private double GetMax(List<byte> Data, int num)
         {
+            List<int> list = new List<int>();
+            for (int i = 0; i < (Data.Count() / 40); i++)
+            {
+                list.Add(Data[num*2 + i * 40] * 256 + Data[num*2 + 1 + i * 40]);
+            }
             list = list.Where(x => x != 0).ToList();
             double Max = 0;
             int count = list.Count();
@@ -1097,8 +970,309 @@ namespace SerialAssistant
             return Max;
         }
 
-       
+        public void UpdateSerialport1DataQueueValue(int data1, int data2, int data3, int data4)
+        {
+            if (Freq1RealDataQueue.Count > 100)
+            {
+                //先出列
+                for (int i = 0; i < 1; i++)
+                {
+                    Freq1RealDataQueue.Dequeue();//出队
+                }
+            }
+            for (int i = 0; i < 1; i++)
+            {
+                Freq1RealDataQueue.Enqueue(data1);//进队
+            }/////////
+            if (Freq1ImagDataQueue.Count > 100)
+            {
+                //先出列
+                for (int i = 0; i < 1; i++)
+                {
+                    Freq1ImagDataQueue.Dequeue();//出队
+                }
+            }
+            for (int i = 0; i < 1; i++)
+            {
+                Freq1ImagDataQueue.Enqueue(data2);//进队
+            }////////
+            if (Freq2RealDataQueue.Count > 100)
+            {
+                //先出列
+                for (int i = 0; i < 1; i++)
+                {
+                    Freq2RealDataQueue.Dequeue();//出队
+                }
+            }
+            for (int i = 0; i < 1; i++)
+            {
+                Freq2RealDataQueue.Enqueue(data3);//进队
+            }////////
+            if (Freq2ImagDataQueue.Count > 100)
+            {
+                //先出列
+                for (int i = 0; i < 1; i++)
+                {
+                    Freq2ImagDataQueue.Dequeue();//出队
+                }
+            }
+            for (int i = 0; i < 1; i++)
+            {
+                Freq2ImagDataQueue.Enqueue(data4);//进队
+            }
+        }
 
+        public void UpdateSerialport2DataQueueValue(int data1, int data2, int data3, int data4)
+        {
+            if (Freq3RealDataQueue.Count > 100)
+            {
+                //先出列
+                for (int i = 0; i < 1; i++)
+                {
+                    Freq3RealDataQueue.Dequeue();//出队
+                }
+            }
+            for (int i = 0; i < 1; i++)
+            {
+                Freq3RealDataQueue.Enqueue(data1);//进队
+            }/////////
+            if (Freq3ImagDataQueue.Count > 100)
+            {
+                //先出列
+                for (int i = 0; i < 1; i++)
+                {
+                    Freq3ImagDataQueue.Dequeue();//出队
+                }
+            }
+            for (int i = 0; i < 1; i++)
+            {
+                Freq3ImagDataQueue.Enqueue(data2);//进队
+            }////////
+            if (Freq4RealDataQueue.Count > 100)
+            {
+                //先出列
+                for (int i = 0; i < 1; i++)
+                {
+                    Freq4RealDataQueue.Dequeue();//出队
+                }
+            }
+            for (int i = 0; i < 1; i++)
+            {
+                Freq4RealDataQueue.Enqueue(data3);//进队
+            }////////
+            if (Freq4ImagDataQueue.Count > 100)
+            {
+                //先出列
+                for (int i = 0; i < 1; i++)
+                {
+                    Freq4ImagDataQueue.Dequeue();//出队
+                }
+            }
+            for (int i = 0; i < 1; i++)
+            {
+                Freq4ImagDataQueue.Enqueue(data4);//进队
+            }
+        }
+
+        public void UpdateSerialport3DataQueueValue(int data1, int data2, int data3, int data4)
+        {
+            if (Freq5RealDataQueue.Count > 100)
+            {
+                //先出列
+                for (int i = 0; i < 1; i++)
+                {
+                    Freq5RealDataQueue.Dequeue();//出队
+                }
+            }
+            for (int i = 0; i < 1; i++)
+            {
+                Freq5RealDataQueue.Enqueue(data1);//进队
+            }/////////
+            if (Freq5ImagDataQueue.Count > 100)
+            {
+                //先出列
+                for (int i = 0; i < 1; i++)
+                {
+                    Freq5ImagDataQueue.Dequeue();//出队
+                }
+            }
+            for (int i = 0; i < 1; i++)
+            {
+                Freq5ImagDataQueue.Enqueue(data2);//进队
+            }////////
+            if (Freq6RealDataQueue.Count > 100)
+            {
+                //先出列
+                for (int i = 0; i < 1; i++)
+                {
+                    Freq6RealDataQueue.Dequeue();//出队
+                }
+            }
+            for (int i = 0; i < 1; i++)
+            {
+                Freq6RealDataQueue.Enqueue(data3);//进队
+            }////////
+            if (Freq6ImagDataQueue.Count > 100)
+            {
+                //先出列
+                for (int i = 0; i < 1; i++)
+                {
+                    Freq6ImagDataQueue.Dequeue();//出队
+                }
+            }
+            for (int i = 0; i < 1; i++)
+            {
+                Freq6ImagDataQueue.Enqueue(data4);//进队
+            }
+        }
+
+        public void UpdateSerialport4DataQueueValue(int data1, int data2, int data3, int data4)
+        {
+            if (Freq7RealDataQueue.Count > 100)
+            {
+                //先出列
+                for (int i = 0; i < 1; i++)
+                {
+                    Freq7RealDataQueue.Dequeue();//出队
+                }
+            }
+            for (int i = 0; i < 1; i++)
+            {
+                Freq7RealDataQueue.Enqueue(data1);//进队
+            }/////////
+            if (Freq7ImagDataQueue.Count > 100)
+            {
+                //先出列
+                for (int i = 0; i < 1; i++)
+                {
+                    Freq7ImagDataQueue.Dequeue();//出队
+                }
+            }
+            for (int i = 0; i < 1; i++)
+            {
+                Freq7ImagDataQueue.Enqueue(data2);//进队
+            }////////
+            if (Freq8RealDataQueue.Count > 100)
+            {
+                //先出列
+                for (int i = 0; i < 1; i++)
+                {
+                    Freq8RealDataQueue.Dequeue();//出队
+                }
+            }
+            for (int i = 0; i < 1; i++)
+            {
+                Freq8RealDataQueue.Enqueue(data3);//进队
+            }////////
+            if (Freq8ImagDataQueue.Count > 100)
+            {
+                //先出列
+                for (int i = 0; i < 1; i++)
+                {
+                    Freq8ImagDataQueue.Dequeue();//出队
+                }
+            }
+            for (int i = 0; i < 1; i++)
+            {
+                Freq8ImagDataQueue.Enqueue(data4);//进队
+            }
+        }
+
+        public void UpdateSerialport5DataQueueValue(int data1, int data2, int data3, int data4)
+        {
+            if (Freq9RealDataQueue.Count > 100)
+            {
+                //先出列
+                for (int i = 0; i < 1; i++)
+                {
+                    Freq9RealDataQueue.Dequeue();//出队
+                }
+            }
+            for (int i = 0; i < 1; i++)
+            {
+                Freq9RealDataQueue.Enqueue(data1);//进队
+            }/////////
+            if (Freq9ImagDataQueue.Count > 100)
+            {
+                //先出列
+                for (int i = 0; i < 1; i++)
+                {
+                    Freq9ImagDataQueue.Dequeue();//出队
+                }
+            }
+            for (int i = 0; i < 1; i++)
+            {
+                Freq9ImagDataQueue.Enqueue(data2);//进队
+            }////////
+            if (Freq10RealDataQueue.Count > 100)
+            {
+                //先出列
+                for (int i = 0; i < 1; i++)
+                {
+                    Freq10RealDataQueue.Dequeue();//出队
+                }
+            }
+            for (int i = 0; i < 1; i++)
+            {
+                Freq10RealDataQueue.Enqueue(data3);//进队
+            }////////
+            if (Freq10ImagDataQueue.Count > 100)
+            {
+                //先出列
+                for (int i = 0; i < 1; i++)
+                {
+                    Freq10ImagDataQueue.Dequeue();//出队
+                }
+            }
+            for (int i = 0; i < 1; i++)
+            {
+                Freq10ImagDataQueue.Enqueue(data4);//进队
+            }
+        }
+
+        private void timer4_Tick(object sender, EventArgs e)
+        {
+            chart_real1.ChartAreas[0].AxisY.Minimum = Serialport1XyAutoSet[0] - 100;
+            chart_real1.ChartAreas[0].AxisY.Maximum = Serialport1XyAutoSet[0] + 100;
+            chart_lmag1.ChartAreas[0].AxisY.Minimum = Serialport1XyAutoSet[1] - 100;
+            chart_lmag1.ChartAreas[0].AxisY.Maximum = Serialport1XyAutoSet[1] + 100;
+            chart_real2.ChartAreas[0].AxisY.Minimum = Serialport1XyAutoSet[2] - 100;
+            chart_real2.ChartAreas[0].AxisY.Maximum = Serialport1XyAutoSet[2] + 100;
+            chart_lmag2.ChartAreas[0].AxisY.Minimum = Serialport1XyAutoSet[3] - 100;
+            chart_lmag2.ChartAreas[0].AxisY.Maximum = Serialport1XyAutoSet[3] + 100;
+            chart_real3.ChartAreas[0].AxisY.Minimum = Serialport1XyAutoSet[4] - 100;
+            chart_real3.ChartAreas[0].AxisY.Maximum = Serialport1XyAutoSet[4] + 100;
+            chart_lmag3.ChartAreas[0].AxisY.Minimum = Serialport1XyAutoSet[5] - 100;
+            chart_lmag3.ChartAreas[0].AxisY.Maximum = Serialport1XyAutoSet[5] + 100;
+            chart_real4.ChartAreas[0].AxisY.Minimum = Serialport1XyAutoSet[6] - 100;
+            chart_real4.ChartAreas[0].AxisY.Maximum = Serialport1XyAutoSet[6] + 100;
+            chart_lmag4.ChartAreas[0].AxisY.Minimum = Serialport1XyAutoSet[7] - 100;
+            chart_lmag4.ChartAreas[0].AxisY.Maximum = Serialport1XyAutoSet[7] + 100;
+            chart_real5.ChartAreas[0].AxisY.Minimum = Serialport1XyAutoSet[8] - 100;
+            chart_real5.ChartAreas[0].AxisY.Maximum = Serialport1XyAutoSet[8] + 100;
+            chart_lmag5.ChartAreas[0].AxisY.Minimum = Serialport1XyAutoSet[9] - 100;
+            chart_lmag5.ChartAreas[0].AxisY.Maximum = Serialport1XyAutoSet[9] + 100;
+            chart_real6.ChartAreas[0].AxisY.Minimum = Serialport1XyAutoSet[10] - 100;
+            chart_real6.ChartAreas[0].AxisY.Maximum = Serialport1XyAutoSet[10] + 100;
+            chart_lmag6.ChartAreas[0].AxisY.Minimum = Serialport1XyAutoSet[11] - 100;
+            chart_lmag6.ChartAreas[0].AxisY.Maximum = Serialport1XyAutoSet[11] + 100;
+            chart_real7.ChartAreas[0].AxisY.Minimum = Serialport1XyAutoSet[12] - 100;
+            chart_real7.ChartAreas[0].AxisY.Maximum = Serialport1XyAutoSet[12] + 100;
+            chart_lmag7.ChartAreas[0].AxisY.Minimum = Serialport1XyAutoSet[13] - 100;
+            chart_lmag7.ChartAreas[0].AxisY.Maximum = Serialport1XyAutoSet[13] + 100;
+            chart_real8.ChartAreas[0].AxisY.Minimum = Serialport1XyAutoSet[14] - 100;
+            chart_real8.ChartAreas[0].AxisY.Maximum = Serialport1XyAutoSet[14] + 100;
+            chart_lmag8.ChartAreas[0].AxisY.Minimum = Serialport1XyAutoSet[15] - 100;
+            chart_lmag8.ChartAreas[0].AxisY.Maximum = Serialport1XyAutoSet[15] + 100;
+            chart_real9.ChartAreas[0].AxisY.Minimum = Serialport1XyAutoSet[16] - 100;
+            chart_real9.ChartAreas[0].AxisY.Maximum = Serialport1XyAutoSet[16] + 100;
+            chart_lmag9.ChartAreas[0].AxisY.Minimum = Serialport1XyAutoSet[17] - 100;
+            chart_lmag9.ChartAreas[0].AxisY.Maximum = Serialport1XyAutoSet[17] + 100;
+            chart_real10.ChartAreas[0].AxisY.Minimum = Serialport1XyAutoSet[18] - 100;
+            chart_real10.ChartAreas[0].AxisY.Maximum = Serialport1XyAutoSet[18] + 100;
+            chart_lmag10.ChartAreas[0].AxisY.Minimum = Serialport1XyAutoSet[19] - 100;
+            chart_lmag10.ChartAreas[0].AxisY.Maximum = Serialport1XyAutoSet[19] + 100;
+        }
     }
 }
 
