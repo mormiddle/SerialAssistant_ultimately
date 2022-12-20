@@ -17,7 +17,6 @@ namespace SerialAssistant
     public partial class MainForm : Form
     {
         private long receive_count = 0; //接收字节计数
-        private long send_count = 0;    //发送字节计数
         private StringBuilder sb = new StringBuilder();    //为了避免在接收处理函数中反复调用，依然声明为一个全局变量
         private DateTime current_time = new DateTime();    //为了避免在接收处理函数中反复调用，依然声明为一个全局变量
         private bool is_need_time = true;
@@ -27,7 +26,7 @@ namespace SerialAssistant
         //private List<byte> SerialPortReceiveData = new List<byte>(); //用于存储串口的数据
         Thread th;
         DateTime timeStart = new DateTime();//采集开始时间
-        int pointIndex;
+        int pointIndex = 0;
         int[] Serialport1XyAutoSet = new int[20] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         private Queue<int> Freq1RealDataQueue = new Queue<int>(100);//以下两行为波形显示做准备
         private Queue<int> Freq1ImagDataQueue = new Queue<int>(100);//以下两行为波形显示做准备
@@ -49,7 +48,7 @@ namespace SerialAssistant
         private Queue<int> Freq9ImagDataQueue = new Queue<int>(100);//以下两行为波形显示做准备
         private Queue<int> Freq10RealDataQueue = new Queue<int>(100);//以下两行为波形显示做准备
         private Queue<int> Freq10ImagDataQueue = new Queue<int>(100);//以下两行为波形显示做准备
-        int start = 0;
+        int start = 0;//充当指针的作用
 
 
 
@@ -325,7 +324,7 @@ namespace SerialAssistant
             while ( start + 44 <= count )
             {
                 // head, tail
-                if (buffer[start] != 0xAA || buffer[start +1] != 0x2c || buffer[start+43] != 0x80)
+                if (buffer[start] != 0xAA || buffer[start +1] != 0x29 || buffer[start+43] != 0x80)
                 {
                     start+=2;
                     continue;
@@ -346,18 +345,9 @@ namespace SerialAssistant
                         CheckedData.Add(buffer[i]);
                     }
 
-                    for (int i = 0; i < 20; i++)
-                    {
-                        Serialport1XyAutoSet[i] = buffer[i*2 + start +2]*256 + buffer[i*2+1 + start +2];
-                    }
-                    UpdateSerialport1DataQueueValue(Serialport1XyAutoSet[0], Serialport1XyAutoSet[1], Serialport1XyAutoSet[2], Serialport1XyAutoSet[3]);
-                    UpdateSerialport2DataQueueValue(Serialport1XyAutoSet[4], Serialport1XyAutoSet[5], Serialport1XyAutoSet[6], Serialport1XyAutoSet[7]);
-                    UpdateSerialport3DataQueueValue(Serialport1XyAutoSet[8], Serialport1XyAutoSet[9], Serialport1XyAutoSet[10], Serialport1XyAutoSet[11]);
-                    UpdateSerialport4DataQueueValue(Serialport1XyAutoSet[12], Serialport1XyAutoSet[13], Serialport1XyAutoSet[14], Serialport1XyAutoSet[15]);
-                    UpdateSerialport5DataQueueValue(Serialport1XyAutoSet[16], Serialport1XyAutoSet[17], Serialport1XyAutoSet[18], Serialport1XyAutoSet[19]);
-
+                   
                     //show bytes
-                    ShowSerialPortReceive(buffer, start + 2);
+                    ShowSerialPortReceive(buffer, start);
                 }
 
                 start += 44;
@@ -379,7 +369,7 @@ namespace SerialAssistant
             sb.Clear();     //防止出错,首先清空字符串构造器 //不使用这个，就会重复显示输入的数据
 
             //HEX模式显示
-            for (int i = start; i < start + 40; i++)
+            for (int i = start; i < start + 44; i++)
             {
                 sb.Append(buffer[i].ToString("X2") + ' ');//将byte型数据转化为2位16进制文本显示，并用空格隔开
 
@@ -425,8 +415,6 @@ namespace SerialAssistant
         #region CRC8校验函数
         public static byte CRC8(List<byte> buffer, int start, int length)
         {
-            if (buffer == null || buffer.Count == 0) return 0;
-            if (start < 0) return 0;
             byte crc = 0;// Initial value
 
             for (int j = start; j < start + length; j++)
@@ -681,7 +669,18 @@ namespace SerialAssistant
             chart_lmag7.Series[0].Points.Clear();
             chart_lmag8.Series[0].Points.Clear();
             chart_lmag9.Series[0].Points.Clear();
-            chart_lmag10.Series[0].Points.Clear();          
+            chart_lmag10.Series[0].Points.Clear();
+
+            for (int i = 0; i < 20; i++)
+            {
+                Serialport1XyAutoSet[i] = CheckedData[i * 2 + pointIndex + 2] * 256 + CheckedData[i * 2 + 1 + pointIndex + 2];
+            }
+            UpdateSerialport1DataQueueValue(Serialport1XyAutoSet[0], Serialport1XyAutoSet[1], Serialport1XyAutoSet[2], Serialport1XyAutoSet[3]);
+            UpdateSerialport2DataQueueValue(Serialport1XyAutoSet[4], Serialport1XyAutoSet[5], Serialport1XyAutoSet[6], Serialport1XyAutoSet[7]);
+            UpdateSerialport3DataQueueValue(Serialport1XyAutoSet[8], Serialport1XyAutoSet[9], Serialport1XyAutoSet[10], Serialport1XyAutoSet[11]);
+            UpdateSerialport4DataQueueValue(Serialport1XyAutoSet[12], Serialport1XyAutoSet[13], Serialport1XyAutoSet[14], Serialport1XyAutoSet[15]);
+            UpdateSerialport5DataQueueValue(Serialport1XyAutoSet[16], Serialport1XyAutoSet[17], Serialport1XyAutoSet[18], Serialport1XyAutoSet[19]);
+
 
 
             for (int i = 0; i < 100; i++)
@@ -707,6 +706,7 @@ namespace SerialAssistant
                 this.chart_real10.Series[0].Points.AddXY((i + 1), Freq10RealDataQueue.ElementAt(i));
                 this.chart_lmag10.Series[0].Points.AddXY((i + 1), Freq10ImagDataQueue.ElementAt(i));
             }//
+            pointIndex += 40;
         }
 
         private void checkBox4_CheckedChanged(object sender, EventArgs e)
